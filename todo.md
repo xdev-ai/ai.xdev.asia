@@ -1,6 +1,5 @@
 # Website completion checklist
 
-- [ ] Review the four referenced AI-SDLC websites and record positioning, structure, and visual findings.
 - [x] Review the four referenced AI-SDLC websites and record positioning, structure, and visual findings.
 - [x] Define the finalized brand architecture: AI-SDLC product, xDev AI organization, and ai.xdev.asia domain.
 - [x] Confirm the exact GitHub organization handle and check whether it is available.
@@ -11,4 +10,9 @@
 - [x] Align product, organization, and domain surfaces to AI-SDLC, xDev AI, and ai.xdev.asia.
 - [x] Complete the responsive React implementation and verify internal navigation.
 - [x] Perform desktop and mobile visual verification and apply the resulting refinement pass.
-- [ ] Save a delivery checkpoint.
+- [x] Save a delivery checkpoint.
+- [x] Define the bilingual content model and navigation structure for Docs and Policy Registry.
+- [x] Create Docs and Policy Registry routes with shared platform navigation.
+- [x] Provide a clear English and Vietnamese language switch for the new content surfaces.
+- [x] Verify desktop and mobile layouts for all platform routes.
+- [ ] Save an updated checkpoint.

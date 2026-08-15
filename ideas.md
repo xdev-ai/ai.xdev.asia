@@ -71,3 +71,4 @@ Logo mark là **shield-and-trace**: ba đường trace cấu trúc thành một 
 2. **Trace Cyan** chỉ báo liên kết, active navigation, technical noun, key numeral hoặc verified state; display typography dùng navy là chính.
 3. Hero và technical imagery ưu tiên **validation path, rule ledger, dependency graph, versioned file và shield-trace schematic** thay cho hình minh họa AI/network chung chung.
 4. Section marker, metadata band và verification dot phải tạo cảm giác một technical record liên tục giữa các section, không phải các block marketing rời rạc.
+5. Mỗi route desktop là một sheet trong cùng dossier: document spine luôn hiển thị, shield-and-trace mark đi cùng AI-SDLC wordmark, và amber witness chỉ đánh dấu trạng thái đã kiểm chứng.

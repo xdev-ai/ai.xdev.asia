@@ -1,3 +1,4 @@
+/* Platform route map: the public AI-SDLC portal, Docs, and Policy Registry share one visual system. */
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -5,12 +6,16 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Docs from "./pages/Docs";
+import PolicyRegistry from "./pages/PolicyRegistry";
 
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/docs"} component={Docs} />
+      <Route path={"/policies"} component={PolicyRegistry} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

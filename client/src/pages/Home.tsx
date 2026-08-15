@@ -159,6 +159,10 @@ export default function Home() {
             </button>
           ))}
         </nav>
+        <div className="rail-route-links">
+          <a href="/docs"><span>02</span>Docs <ArrowUpRight size={13} /></a>
+          <a href="/policies"><span>03</span>Policy Registry <ArrowUpRight size={13} /></a>
+        </div>
         <div className="rail-bottom">
           <span className="verify-dot" />
           <span>PUBLIC HOME<br /><strong>AI.XDEV.ASIA</strong></span>
