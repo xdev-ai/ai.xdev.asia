@@ -52,6 +52,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://ai.xdev.asia/blog/what-is-ai-sdlc</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/ai-sdlc-la-gi</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/policy-as-code-ai-coding</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/evidence-trail-ai-generated-code</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/agentic-sdlc-risks</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ai.xdev.asia/docs</loc>
     <lastmod>2026-08-15</lastmod>
     <changefreq>weekly</changefreq>

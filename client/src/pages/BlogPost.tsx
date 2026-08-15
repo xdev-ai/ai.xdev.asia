@@ -69,9 +69,32 @@ export default function BlogPost() {
     [meta, post, locale],
   );
 
+  const jsonLdFaq = useMemo(() => {
+    if (!post.faq || post.faq.length === 0) return null;
+    const lang = locale === "vi" ? "vi" : "en";
+    return {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: post.faq.map((f) => ({
+        "@type": "Question",
+        name: f.q[lang as "en" | "vi"],
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: f.a[lang as "en" | "vi"],
+        },
+      })),
+    };
+  }, [post, locale]);
+
+  const faqs = post.faq ?? [];
+  const faqLang: "en" | "vi" = locale === "vi" ? "vi" : "en";
+
   return (
     <div className="min-h-screen bg-[#eef4f2] text-[#152540]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {jsonLdFaq ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
+      ) : null}
 
       {/* ============ TOPBAR ============ */}
       <header className="sticky top-0 z-40 border-b border-[rgba(111,203,220,.23)] bg-[#102440] text-[#eaf3f4]">
@@ -138,6 +161,22 @@ export default function BlogPost() {
             )}
           </section>
         ))}
+
+        {faqs.length > 0 && (
+          <section className="mb-10">
+            <h2 className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5a8090]">{t.blog.faqLabel}</h2>
+            <div className="mt-4 space-y-4">
+              {faqs.map((f) => (
+                <details key={f.q.en} className="group border border-[#b5c6c9] bg-white p-5 open:shadow-[6px_6px_0_rgba(29,84,114,.08)]">
+                  <summary className="cursor-pointer list-none text-[15px] font-semibold leading-snug text-[#142641]">
+                    {f.q[faqLang]}
+                  </summary>
+                  <p className="mt-3 text-[14px] leading-[1.75] text-[#33495a]">{f.a[faqLang]}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
 
         <hr className="my-10 border-[#c9d8d2]" />
 
