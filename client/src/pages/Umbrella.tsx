@@ -60,7 +60,7 @@ const principles = [
 const record = [
   ["xdev-ai", "GitHub organization", "Mọi record công khai tại github.com/xdev-ai"],
   ["ai.xdev.asia", "Umbrella domain", "Trang chủ của tổ chức và các sản phẩm"],
-  ["hello@xdev.asia", "Public contact", "Liên hệ công khai của tổ chức"],
+  ["duy@xdev.asia", "Public contact", "Liên hệ công khai của tổ chức"],
 ];
 
 export default function Umbrella() {
@@ -245,7 +245,7 @@ export default function Umbrella() {
             </div>
             <div className="grid gap-3">
               {record.map(([label, title, copy], i) => (
-                <a key={label} className="flex items-center gap-4 border border-[#b5c6c9] bg-white p-4 transition-colors hover:border-[#0a6e7f] md:p-5" href={i === 0 ? "https://github.com/xdev-ai" : i === 1 ? "https://ai.xdev.asia" : "mailto:hello@xdev.asia"} target="_blank" rel="noreferrer">
+                <a key={label} className="flex items-center gap-4 border border-[#b5c6c9] bg-white p-4 transition-colors hover:border-[#0a6e7f] md:p-5" href={i === 0 ? "https://github.com/xdev-ai" : i === 1 ? "https://ai.xdev.asia" : "mailto:duy@xdev.asia"} target="_blank" rel="noreferrer">
                   <span className="shrink-0 font-mono text-xs text-[#0a6e7f]">{label}</span>
                   <div className="flex-1">
                     <strong className="block text-[15px]">{title}</strong>

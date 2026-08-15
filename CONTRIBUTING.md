@@ -35,7 +35,7 @@ Trước khi bắt đầu viết code, hãy kiểm tra danh sách Issue để xe
 
 ## Liên hệ
 
-Nếu bạn có câu hỏi hoặc cần hỗ trợ thêm, hãy mở một Discussion trên GitHub hoặc gửi email tới [hello@xdev.asia](mailto:hello@xdev.asia).
+Nếu bạn có câu hỏi hoặc cần hỗ trợ thêm, hãy mở một Discussion trên GitHub hoặc gửi email tới [duy@xdev.asia](mailto:duy@xdev.asia).
 
 ---
 
