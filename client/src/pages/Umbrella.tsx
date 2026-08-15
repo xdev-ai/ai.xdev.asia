@@ -28,44 +28,50 @@ const products: ProductCard[] = [
     slug: "ai-sdlc",
     index: "01",
     name: "AI-SDLC",
-    tagline: "Governed AI-assisted software delivery",
+    taglineKey: "pDescAislC",
     status: "PUBLIC / v1.0",
     statusTone: "live",
-    copy: "Lớp governance cho AI-assisted delivery: versioned policy-as-data, validation engine Rust đóng, và evidence trace từ requirement đến test — chạy nhất quán ở local, GitLab CI và GitHub Actions.",
-    stack: "Rust · YAML policy · GitLab CI / GitHub Actions",
+    copy: {
+      en: "Governance layer for AI-assisted delivery: versioned policy-as-data, a closed Rust validation engine, and evidence trace from requirement to test — running identically on local, GitLab CI and GitHub Actions.",
+      vi: "Lớp governance cho AI-assisted delivery: versioned policy-as-data, validation engine Rust đóng, và evidence trace từ requirement đến test — chạy nhất quán ở local, GitLab CI và GitHub Actions.",
+    },
+    stackKey: "pStackAislC",
     href: "/ai-sdlc",
-    cta: "Mở AI-SDLC",
+    ctaKey: "ctaOpenProduct",
   },
   {
     slug: "trace-ledger",
     index: "02",
     name: "Trace Ledger",
-    tagline: "Deterministic change evidence, one ledger",
+    taglineKey: "pDescTrace",
     status: "CONCEPT / v0.1",
     statusTone: "incubating",
-    copy: "Sổ cái evidence hợp nhất: mỗi change của AI — code, spec, config — được ghi thành entry có hash, không thể sửa ngầm. Audit trở thành tra cứu ledger thay vì lục lại chat history.",
-    stack: "Concept stage — RFC open in discussion",
+    copy: {
+      en: "Unified evidence ledger: every AI change — code, spec, config — becomes a hashed entry that can't be edited quietly. Auditing turns into ledger lookups instead of digging through chat history.",
+      vi: "Sổ cái evidence hợp nhất: mỗi change của AI — code, spec, config — được ghi thành entry có hash, không thể sửa ngầm. Audit trở thành tra cứu ledger thay vì lục lại chat history.",
+    },
+    stackKey: "pStatusTrace",
     href: "/trace-ledger",
-    cta: "Xem concept",
+    ctaKey: "ctaViewConcept",
   },
 ];
 
 const principles = [
-  ["01", "Policy as data", "Luật là data có version — thay đổi được review, pin và phân phối, không nằm rải trong prompt."],
-  ["02", "Closed execution", "Engine nhận đúng tập check kinds đã khai báo; semantic mới là engine change tường minh, không silent no-op."],
-  ["03", "Evidence retained", "Validation và approval là output của quy trình — bằng chứng giữ sẵn, không dựng lại hồi tố."],
-  ["04", "Audit-ready by default", "Mỗi sản phẩm của xDev AI phải trả lời được: ai quyết, theo luật nào, version nào, proof ở đâu."],
+  { index: "01", title: { en: "Policy as data", vi: "Luật là data" }, copy: { en: "Policy is versioned data — changes are reviewed, pinned and distributed, never scattered across prompts.", vi: "Luật là data có version — thay đổi được review, pin và phân phối, không nằm rải trong prompt." } },
+  { index: "02", title: { en: "Closed execution", vi: "Thực thi khép kín" }, copy: { en: "The engine accepts exactly the declared set of check kinds; new semantics are explicit engine changes, never silent no-ops.", vi: "Engine nhận đúng tập check kinds đã khai báo; semantic mới là engine change tường minh, không silent no-op." } },
+  { index: "03", title: { en: "Evidence retained", vi: "Evidence được giữ lại" }, copy: { en: "Validation and approval are outputs of the process — proof is kept ready, never reconstructed retroactively.", vi: "Validation và approval là output của quy trình — bằng chứng giữ sẵn, không dựng lại hồi tố." } },
+  { index: "04", title: { en: "Audit-ready by default", vi: "Audit-ready mặc định" }, copy: { en: "Every xDev AI product must answer: who decided, under which rule, which version, where is the proof.", vi: "Mỗi sản phẩm của xDev AI phải trả lời được: ai quyết, theo luật nào, version nào, proof ở đâu." } },
 ];
 
 const record = [
-  ["xdev-ai", "GitHub organization", "Mọi record công khai tại github.com/xdev-ai"],
-  ["ai.xdev.asia", "Umbrella domain", "Trang chủ của tổ chức và các sản phẩm"],
-  ["duy@xdev.asia", "Public contact", "Liên hệ công khai của tổ chức"],
+  { label: "xdev-ai", title: { en: "GitHub organization", vi: "Tổ chức GitHub" }, copy: { en: "Every public record lives at github.com/xdev-ai", vi: "Mọi record công khai tại github.com/xdev-ai" } },
+  { label: "ai.xdev.asia", title: { en: "Umbrella domain", vi: "Umbrella domain" }, copy: { en: "Home of the organization and its products", vi: "Trang chủ của tổ chức và các sản phẩm" } },
+  { label: "duy@xdev.asia", title: { en: "Public contact", vi: "Liên hệ công khai" }, copy: { en: "Public contact of the organization", vi: "Liên hệ công khai của tổ chức" } },
 ];
 
 export default function Umbrella() {
   const [open, setOpen] = useState(false);
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   return (
     <div className="min-h-screen bg-[#0f243f] text-[#eaf3f4]">
@@ -98,7 +104,7 @@ export default function Umbrella() {
             <button
               type="button"
               className="grid size-10 place-items-center rounded border border-cyan-400/30 bg-[#143553] text-cyan-100 active:scale-95"
-              aria-label={open ? "Đóng menu" : "Mở menu"}
+              aria-label={open ? t.common.menuClose : t.common.menuOpen}
               aria-expanded={open}
               onClick={() => setOpen(!open)}
             >
@@ -193,13 +199,13 @@ export default function Umbrella() {
                     </span>
                   </div>
                   <h3 className="text-xl font-semibold tracking-tight">{p.name}</h3>
-                  <p className="mt-1 text-sm italic text-[#4a6470]">{p.tagline}</p>
-                  <p className="mt-4 flex-1 text-[14px] leading-relaxed text-[#2e4854]">{p.copy}</p>
+                  <p className="mt-1 text-sm italic text-[#4a6470]">{t.umbrella[p.taglineKey]}</p>
+                  <p className="mt-4 flex-1 text-[14px] leading-relaxed text-[#2e4854]">{lang === "vi" ? p.copy.vi : p.copy.en}</p>
                   <div className="mt-6 flex items-center gap-2 border-t border-[#dde7e4] pt-4 text-[11px] text-[#4a6470]">
-                    <FileCode2 size={13} /><span>{p.stack}</span>
+                    <FileCode2 size={13} /><span>{t.umbrella[p.stackKey]}</span>
                   </div>
                   <a className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-[#0a6e7f] hover:underline" href={p.href}>
-                    {p.cta} {p.statusTone === "live" ? <ArrowUpRight size={15} /> : <ArrowRight size={15} />}
+                    {t.umbrella[p.ctaKey]} {p.statusTone === "live" ? <ArrowUpRight size={15} /> : <ArrowRight size={15} />}
                   </a>
                 </article>
               ))}
@@ -219,12 +225,12 @@ export default function Umbrella() {
               </h2>
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
-              {principles.map(([index, title, copy], i) => (
-                <article key={title} className="relative border-l-2 border-cyan-400/50 bg-[#143553] p-5 md:p-6">
-                  <span className="block text-[10px] uppercase tracking-[0.18em] text-cyan-300/60">PRINCIPLE / {index}</span>
-                  <h3 className="mt-2 text-lg font-semibold tracking-tight">{title}</h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-[#c7d6de]">{copy}</p>
-                  {i === 0 && <span className="absolute right-4 top-4 size-2 rounded-full bg-amber-400" aria-label="verified" />}
+              {principles.map((p, i) => (
+                <article key={p.index} className="relative border-l-2 border-cyan-400/50 bg-[#143553] p-5 md:p-6">
+                  <span className="block text-[10px] uppercase tracking-[0.18em] text-cyan-300/60">{t.umbrella.principleLabel} / {p.index}</span>
+                  <h3 className="mt-2 text-lg font-semibold tracking-tight">{lang === "vi" ? p.title.vi : p.title.en}</h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-[#c7d6de]">{lang === "vi" ? p.copy.vi : p.copy.en}</p>
+                  {i === 0 && <span className="absolute right-4 top-4 size-2 rounded-full bg-amber-400" aria-label={t.product.verifiedDot} />}
                 </article>
               ))}
             </div>
@@ -244,12 +250,12 @@ export default function Umbrella() {
               </h2>
             </div>
             <div className="grid gap-3">
-              {record.map(([label, title, copy], i) => (
-                <a key={label} className="flex items-center gap-4 border border-[#b5c6c9] bg-white p-4 transition-colors hover:border-[#0a6e7f] md:p-5" href={i === 0 ? "https://github.com/xdev-ai" : i === 1 ? "https://ai.xdev.asia" : "mailto:duy@xdev.asia"} target="_blank" rel="noreferrer">
-                  <span className="shrink-0 font-mono text-xs text-[#0a6e7f]">{label}</span>
+              {record.map((r, i) => (
+                <a key={r.label} className="flex items-center gap-4 border border-[#b5c6c9] bg-white p-4 transition-colors hover:border-[#0a6e7f] md:p-5" href={i === 0 ? "https://github.com/xdev-ai" : i === 1 ? "https://ai.xdev.asia" : "mailto:duy@xdev.asia"} target="_blank" rel="noreferrer">
+                  <span className="shrink-0 font-mono text-xs text-[#0a6e7f]">{r.label}</span>
                   <div className="flex-1">
-                    <strong className="block text-[15px]">{title}</strong>
-                    <em className="block text-[13px] not-italic text-[#4a6470]">{copy}</em>
+                    <strong className="block text-[15px]">{lang === "vi" ? r.title.vi : r.title.en}</strong>
+                    <em className="block text-[13px] not-italic text-[#4a6470]">{lang === "vi" ? r.copy.vi : r.copy.en}</em>
                   </div>
                   {i < 2 ? <ExternalLink size={15} className="shrink-0 text-[#0a6e7f]" /> : <ShieldCheck size={15} className="shrink-0 text-[#0a6e7f]" />}
                 </a>

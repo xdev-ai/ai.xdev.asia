@@ -349,7 +349,7 @@ export default function AiSdlc() {
                 <span className="font-mono text-[10px] text-[#6e8491]">{n}</span>
                 <code className="truncate text-[#102340]">{kind}</code>
                 <span className="hidden rounded px-2 py-0.5 text-[10px] text-[#0a6e7f] md:inline-block" style={{ border: "1px solid rgba(10,110,127,.3)", background: "rgba(10,110,127,.08)" }}>{cat}</span>
-                <span className="col-span-2 text-[#4a6470] md:col-span-1">{behavior}</span>
+                <span className="col-span-2 text-[#4a6470] md:col-span-1">{behavior || t.aiSdlc.checks.find((c) => c.id === kind)?.desc}</span>
               </div>
             ))}
           </div>
@@ -370,7 +370,7 @@ export default function AiSdlc() {
                 </div>
                 <h3 className="mt-3 text-xl tracking-tight">{pack.id}</h3>
                 <code className="mt-1 block text-[12px] text-[#8ea3bf]">{pack.file}</code>
-                <p className="mt-4 text-[13px] leading-relaxed text-[#c7d6de]">{pack.summary}</p>
+                <p className="mt-4 text-[13px] leading-relaxed text-[#c7d6de]">{t.aiSdlc.rulePacks[i]?.copy}</p>
                 <div className="mt-5 space-y-2.5 border-t border-[rgba(129,192,205,.24)] pt-4">
                   {pack.rules.map(([rule, severity, desc]) => (
                     <div key={rule as string} className="grid grid-cols-[84px_1fr] gap-2 text-[12px]">
@@ -390,8 +390,8 @@ export default function AiSdlc() {
 
         <section id="resolution" className="px-4 py-14 md:px-8 md:py-20">
           <div className="mb-10">
-            <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]"><span className="font-mono text-xs">06</span><span>EVIDENCE RESOLUTION</span></div>
-            <h2 className="text-balance text-[clamp(1.8rem,5.5vw,3rem)] font-semibold leading-[1.12] tracking-tight text-[#142641]">Override ở gần.<br /><i className="text-[#1d5f7c]">Governance ở xa.</i></h2>
+            <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]"><span className="font-mono text-xs">06</span><span>{t.aiSdlc.s06bLabel}</span></div>
+            <h2 className="text-balance text-[clamp(1.8rem,5.5vw,3rem)] font-semibold leading-[1.12] tracking-tight text-[#142641]">{t.aiSdlc.s06bTitle1}<br /><i className="text-[#1d5f7c]">{t.aiSdlc.s06bTitle2}</i></h2>
           </div>
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="overflow-hidden rounded border border-[#8ca5b2] bg-[#f7f5ed] shadow-[8px_8px_0_rgba(29,84,114,.11)]">
@@ -445,7 +445,7 @@ export default function AiSdlc() {
               </a>
               <button className="flex items-center gap-3 border border-[#b5c6c9] bg-white p-4 text-left hover:border-[#0a6e7f]" onClick={() => copyText("https://ai.xdev.asia/ai-sdlc", "product")}>
                 <span className="font-mono text-[10px] text-[#6f8ba6]">02</span>
-                <div className="flex-1"><strong className="block text-[14px] text-[#142641]">{copied === "product" ? "URL copied" : "ai.xdev.asia/ai-sdlc"}</strong><em className="block text-[12px] not-italic text-[#4a6470]">Product path on the umbrella</em></div>
+                <div className="flex-1"><strong className="block text-[14px] text-[#142641]">{copied === "product" ? t.product.copiedUrl : "ai.xdev.asia/ai-sdlc"}</strong><em className="block text-[12px] not-italic text-[#4a6470]">Product path on the umbrella</em></div>
                 <Copy size={16} className="text-[#0a6e7f]" />
               </button>
               <button className="flex items-center gap-3 border border-[#b5c6c9] bg-white p-4 text-left hover:border-[#0a6e7f]" onClick={() => goTo("tree")}>
