@@ -15,4 +15,9 @@
 - [x] Create Docs and Policy Registry routes with shared platform navigation.
 - [x] Provide a clear English and Vietnamese language switch for the new content surfaces.
 - [x] Verify desktop and mobile layouts for all platform routes.
-- [ ] Save an updated checkpoint.
+- [x] Save an updated checkpoint.
+- [ ] Create the xdev-ai/ai.xdev.asia repository with the intended visibility and metadata.
+- [ ] Push the AI-SDLC platform portal source to the repository main branch.
+- [ ] Verify the organization repository URL, default branch, and uploaded portal files.
+- [ ] Transfer tdduydev/ai-sdlc to xdev-ai/ai-sdlc while preserving its GitHub history and redirects.
+- [ ] Verify the transferred core repository and update its local remote URL.
