@@ -189,19 +189,19 @@ export default function AiSdlc() {
           </div>
           <Pipeline3D />
           <div className="lifecycle-grid">
-            {["lc1", "lc2", "lc3", "lc4", "lc5"].map((key, index) => { const lc = t.aiSdlc[key as keyof typeof t.aiSdlc] as string[]; return { number: String(index + 1).padStart(2, "0"), name: lc[0], copy: lc[1] }; }).map(({ number, name, copy }) => (
-              <article key={name} className={index === 2 ? "is-gate" : ""}>
+            {["lc1", "lc2", "lc3", "lc4", "lc5"].map((key, index) => { const lc = t.aiSdlc[key as keyof typeof t.aiSdlc] as string[]; return { number: String(index + 1).padStart(2, "0"), name: lc[0], copy: lc[1], gate: index === 2, last: index === 4 }; }).map(({ number, name, copy, gate, last }) => (
+              <article key={name} className={gate ? "is-gate" : ""}>
                 <span>{number}</span>
                 <strong>{name}</strong>
                 <p>{copy}</p>
-                {index < lifecycle.length - 1 && <ChevronRight className="lifecycle-arrow" size={17} aria-hidden="true" />}
+                {!last && <ChevronRight className="lifecycle-arrow" size={17} aria-hidden="true" />}
               </article>
             ))}
           </div>
           <div className="platform-surfaces">
-            {["sf0", "sf1", "sf2", "sf3"].map((key, index) => { const sf = t.aiSdlc[key as keyof typeof t.aiSdlc] as string[]; return { number: String(index).padStart(2, "0"), label: sf[0], title: sf[1], copy: sf[2] }; }).map(({ number, label, title, copy }) => (
+            {["sf0", "sf1", "sf2", "sf3"].map((key, index) => { const sf = t.aiSdlc[key as keyof typeof t.aiSdlc] as string[]; return { number: String(index).padStart(2, "0"), label: sf[0], title: sf[1], copy: sf[2], idx: index }; }).map(({ number, label, title, copy, idx }) => (
               <article key={label}>
-                <span className="surface-index">0{index + 1}</span>
+                <span className="surface-index">0{idx + 1}</span>
                 <div><span className="mono-label">{label}</span><h3>{title}</h3><p>{copy}</p></div>
               </article>
             ))}
