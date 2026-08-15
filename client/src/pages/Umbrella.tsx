@@ -1,5 +1,6 @@
 /* xDev AI umbrella landing: navy authority, ivory review surface, cyan trace signals, amber verification witness. */
-import { ArrowUpRight, ArrowRight, ExternalLink, GitBranch, FileCode2, ShieldCheck, Activity } from "lucide-react";
+import { ArrowUpRight, ArrowRight, ExternalLink, GitBranch, FileCode2, ShieldCheck, Activity, Menu, X } from "lucide-react";
+import { useState } from "react";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 
 /* NOTE (product-fit test):
@@ -60,6 +61,8 @@ const record = [
 ];
 
 export default function Umbrella() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="umbrella">
       <header className="umbrella-topbar">
@@ -74,7 +77,28 @@ export default function Umbrella() {
             GitHub <ExternalLink size={12} />
           </a>
         </nav>
+        <button className="mobile-menu" onClick={() => setOpen(!open)} aria-label="Mở menu">
+          {open ? <X size={20} /> : <Menu size={21} />}
+        </button>
       </header>
+
+      <aside className={`ps-rail ${open ? "is-open" : ""}`} style={{ paddingTop: '80px' }}>
+        <div className="ps-topline"><span /> <span>AI.XDEV.ASIA / NAV</span></div>
+        <nav className="section-nav">
+          <a href="/" className="flex items-center gap-3 p-3 text-slate-300 hover:text-white" onClick={() => setOpen(false)}>
+            <span>00</span><span>Home</span>
+          </a>
+          <a href="/ai-sdlc" className="flex items-center gap-3 p-3 text-slate-300 hover:text-white" onClick={() => setOpen(false)}>
+            <span>01</span><span>AI-SDLC</span>
+          </a>
+          <a href="/trace-ledger" className="flex items-center gap-3 p-3 text-slate-300 hover:text-white" onClick={() => setOpen(false)}>
+            <span>02</span><span>Trace Ledger</span>
+          </a>
+          <a href="https://github.com/xdev-ai" target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3 text-slate-300 hover:text-white">
+            <span>03</span><span>GitHub</span>
+          </a>
+        </nav>
+      </aside>
 
       <section className="umbrella-hero">
         <div className="umbrella-hero-grid" aria-hidden="true" />
