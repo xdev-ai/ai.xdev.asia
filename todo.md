@@ -22,5 +22,5 @@
 - [x] Transfer tdduydev/ai-sdlc to xdev-ai/ai-sdlc while preserving its GitHub history and redirects.
 - [x] Verify the transferred core repository and update its local remote URL.
 - [x] Change xdev-ai/ai.xdev.asia repository visibility to public.
-- [ ] Add a GitHub Actions workflow to build and deploy the portal to GitHub Pages on main pushes.
-- [ ] Push the Pages workflow and verify the first deployment and generated Pages URL.
+- [x] Add a GitHub Actions workflow to build and deploy the portal to GitHub Pages on main pushes.
+- [x] Push the Pages workflow and verify the first deployment and generated Pages URL.
