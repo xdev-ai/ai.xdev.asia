@@ -5,6 +5,8 @@
 import { ArrowUpRight, ArrowRight, GitBranch, FileJson2, Fingerprint, Hash, Menu, ScrollText, X } from "lucide-react";
 import { useState } from "react";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
+import { LanguageSwitch } from "@/components/LanguageSwitch";
+import { useLang } from "@/i18n/LanguageContext";
 
 const navItems = [
   ["01", "Concept", "concept"],
@@ -31,6 +33,7 @@ const model = [
 ];
 
 export default function TraceLedger() {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("concept");
 
@@ -61,23 +64,23 @@ export default function TraceLedger() {
         </a>
         <div className="rail-file"><span>PATH</span><code>/TRACE-LEDGER</code><span>STATUS</span><strong>CONCEPT / v0.1</strong></div>
         <div className="rail-summary">
-          <span className="mono-label">CONCEPT SCOPE</span>
-          <p>Sổ cái evidence hợp nhất cho mọi change của AI: entry có hash, append-only, audit-read.</p>
+          <span className="mono-label">{t.traceLedger.railScopeLabel}</span>
+          <p>{t.traceLedger.railScope}</p>
         </div>
         <nav className="section-nav">
-          {navItems.map(([number, label, id]) => (
+          {navItems.map(([number, , id], index) => { const keys = ["navConcept", "navModel", "navEntry", "navWhy", "navStatus"] as const; return { number, label: t.traceLedger[keys[index]], id }; }).map(({ number, label, id }) => (
             <button key={id} className={activeSection === id ? "is-active" : ""} onClick={() => goTo(id)}>
               <span>{number}</span><span>{label}</span><ArrowRight size={14} />
             </button>
           ))}
         </nav>
         <div className="ps-sibling-links">
-          <a href="/"><span>00</span>xDev AI <ArrowUpRight size={13} /></a>
-          <a href="/ai-sdlc"><span>01</span>AI-SDLC <ArrowUpRight size={13} /></a>
+          <a href="/"><span>00</span>{t.product.siblingHome} <ArrowUpRight size={13} /></a>
+          <a href="/ai-sdlc"><span>01</span>{t.nav.aiSdlc} <ArrowUpRight size={13} /></a>
         </div>
         <div className="rail-bottom">
           <span className="verify-dot" />
-          <span>CONCEPT DRAFT<br /><strong>AI.XDEV.ASIA / TRACE-LEDGER</strong></span>
+          <span>{t.traceLedger.railDraft}<br /><strong>AI.XDEV.ASIA / TRACE-LEDGER</strong></span>
         </div>
       </aside>
 
@@ -89,33 +92,30 @@ export default function TraceLedger() {
         <section className="ps-hero tl-hero" id="concept">
           <div className="ps-hero-grid" aria-hidden="true" />
           <div className="ps-hero-content">
-            <div className="eyebrow"><span className="pulse-line" /> PRODUCT CONCEPT / 02 — TRACE LEDGER</div>
+            <div className="eyebrow"><span className="pulse-line" /> {t.traceLedger.heroEyebrow}</div>
             <h1>
-              Mọi change của AI,<br /><i>một sổ cái không thể sửa ngầm.</i>
+              {t.traceLedger.heroTitle1}<br /><i>{t.traceLedger.heroTitle2}</i>
             </h1>
-            <p className="ps-copy">
-              Trace Ledger là sản phẩm concept thứ hai của xDev AI: một append-only ledger
-              ghi lại từng hành động của AI — spec, code, config, review — thành entry có
-              hash và liên kết. Audit trở thành tra cứu ledger thay vì lục lại chat history.
-            </p>
+            <p className="ps-copy">{t.traceLedger.heroCopy}</p>
             <div className="hero-actions">
               <button className="ink-button" onClick={() => goTo("model")}>
-                Xem mô hình ledger <ArrowRight size={16} />
+                {t.traceLedger.ctaViewModel} <ArrowRight size={16} />
               </button>
               <a className="text-button" href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">
-                RFC sẽ mở tại GitHub <ArrowUpRight size={16} />
+                {t.traceLedger.ctaRfcGithub} <ArrowUpRight size={16} />
               </a>
             </div>
-            <div className="tl-badge">CONCEPT STAGE — NO REPOSITORY YET — DESIGNED TO FIT THE UMBRELLA</div>
+            <div className="tl-badge">{t.traceLedger.heroBadge}</div>
           </div>
           <ShieldTraceMark className="hero-witness" decorative />
+          <div className="lang-switch"><LanguageSwitch /></div>
         </section>
 
         <section id="model" className="tl-model">
           <div className="section-marker"><span>01</span><span>THE LEDGER MODEL</span></div>
           <div className="tl-model-grid">
-            <h2>Năm bước. <i>Không bước nào sửa được.</i></h2>
-            <p>Giống AI-SDLC giữ luật bên ngoài decision path, Trace Ledger giữ evidence bên ngoài memory: mỗi hành động tạo entry, entry tạo hash, hash tạo chuỗi — và chuỗi là bằng chứng.</p>
+            <h2>{t.traceLedger.modelTitle} <i>{t.traceLedger.modelSubtitle}</i></h2>
+            <p>{t.traceLedger.modelCopy}</p>
             <div className="tl-steps">
               {model.map(([step, desc], i) => (
                 <div key={step} className="tl-step">

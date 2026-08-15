@@ -2,6 +2,8 @@
 import { ArrowUpRight, ArrowRight, ExternalLink, GitBranch, FileCode2, ShieldCheck, Activity, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
+import { LanguageSwitch } from "@/components/LanguageSwitch";
+import { useLang } from "@/i18n/LanguageContext";
 
 /* NOTE (product-fit test):
    The umbrella page must stay neutral toward any single product so future products
@@ -62,20 +64,22 @@ const record = [
 
 export default function Umbrella() {
   const [open, setOpen] = useState(false);
+  const { t } = useLang();
 
   return (
     <div className="umbrella">
       <header className="umbrella-topbar">
         <a className="umbrella-brand" href="/">
           <ShieldTraceMark className="umbrella-mark" decorative />
-          <span><strong>xDev AI</strong><em>OPEN ENGINEERING ORGANIZATION</em></span>
+          <span><strong>xDev AI</strong><em>{t.umbrella.brandSub}</em></span>
         </a>
         <nav className="umbrella-nav">
-          <a href="/ai-sdlc">AI-SDLC</a>
-          <a href="/trace-ledger">Trace Ledger</a>
+          <a href="/ai-sdlc">{t.nav.aiSdlc}</a>
+          <a href="/trace-ledger">{t.nav.traceLedger}</a>
           <a href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">
-            GitHub <ExternalLink size={12} />
+            {t.nav.github} <ExternalLink size={12} />
           </a>
+          <LanguageSwitch />
         </nav>
         <button className="mobile-menu" onClick={() => setOpen(!open)} aria-label="Mở menu">
           {open ? <X size={20} /> : <Menu size={21} />}
@@ -85,17 +89,17 @@ export default function Umbrella() {
       <aside className={`ps-rail ${open ? "is-open" : ""}`} style={{ paddingTop: '80px' }}>
         <div className="ps-topline"><span /> <span>AI.XDEV.ASIA / NAV</span></div>
         <nav className="section-nav">
-          <a href="/" className="flex items-center gap-3 p-3 text-slate-300 hover:text-white" onClick={() => setOpen(false)}>
-            <span>00</span><span>Home</span>
+          <a href="/" onClick={() => setOpen(false)}>
+            <span>00</span><span>{t.nav.home}</span>
           </a>
-          <a href="/ai-sdlc" className="flex items-center gap-3 p-3 text-slate-300 hover:text-white" onClick={() => setOpen(false)}>
-            <span>01</span><span>AI-SDLC</span>
+          <a href="/ai-sdlc" onClick={() => setOpen(false)}>
+            <span>01</span><span>{t.nav.aiSdlc}</span>
           </a>
-          <a href="/trace-ledger" className="flex items-center gap-3 p-3 text-slate-300 hover:text-white" onClick={() => setOpen(false)}>
-            <span>02</span><span>Trace Ledger</span>
+          <a href="/trace-ledger" onClick={() => setOpen(false)}>
+            <span>02</span><span>{t.nav.traceLedger}</span>
           </a>
-          <a href="https://github.com/xdev-ai" target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3 text-slate-300 hover:text-white">
-            <span>03</span><span>GitHub</span>
+          <a href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">
+            <span>03</span><span>{t.nav.github}</span>
           </a>
         </nav>
       </aside>
@@ -103,28 +107,24 @@ export default function Umbrella() {
       <section className="umbrella-hero">
         <div className="umbrella-hero-grid" aria-hidden="true" />
         <div className="umbrella-hero-content">
-          <div className="eyebrow"><span className="pulse-line" /> AI.XDEV.ASIA <span>—</span> UMBRELLA / 2026</div>
+          <div className="eyebrow"><span className="pulse-line" /> {t.umbrella.eyebrow}</div>
           <h1>
-            AI xây công việc.<br />
-            <i>xDev AI</i> giữ bằng chứng.
+            {t.umbrella.heroTitle1}<br />
+            <i>xDev AI</i> {t.umbrella.heroTitle2}
           </h1>
-          <p className="umbrella-copy">
-            xDev AI là tổ chức engineering mở xây các hệ thống biến AI-assisted work thành
-            record có thể kiểm chứng: luật đóng băng thành policy-as-data, enforcement
-            deterministic, và evidence traceable từ decision đến release.
-          </p>
+          <p className="umbrella-copy">{t.umbrella.heroCopy}</p>
           <div className="umbrella-cta-row">
             <a className="ink-button" href="/ai-sdlc">
-              Khám phá AI-SDLC <ArrowUpRight size={16} />
+              {t.umbrella.ctaExplore} <ArrowUpRight size={16} />
             </a>
             <a className="text-button" href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">
-              Open record trên GitHub <ArrowUpRight size={16} />
+              {t.umbrella.ctaGithub} <ArrowUpRight size={16} />
             </a>
           </div>
           <div className="umbrella-stat-strip">
-            <div><span>PRODUCTS</span><strong data-verified="true">02</strong></div>
-            <div><span>ORG MODEL</span><strong>UMBRELLA / PATH ROUTING</strong></div>
-            <div><span>RECORD</span><strong>PUBLIC / xdev-ai</strong></div>
+            <div><span>{t.umbrella.statProducts}</span><strong data-verified="true">02</strong></div>
+            <div><span>{t.umbrella.statModel}</span><strong>{t.umbrella.statModelValue}</strong></div>
+            <div><span>{t.umbrella.statRecord}</span><strong>{t.umbrella.statRecordValue}</strong></div>
           </div>
         </div>
         <ShieldTraceMark className="umbrella-witness" decorative />
@@ -132,8 +132,8 @@ export default function Umbrella() {
 
       <section className="umbrella-products">
         <div className="umbrella-section-head">
-          <div className="section-marker"><span>01</span><span>PRODUCT CATALOG</span></div>
-          <h2>Một umbrella.<br /><i>Các sản phẩm có cùng luật chơi.</i></h2>
+          <div className="section-marker"><span>01</span><span>{t.umbrella.sectionCatalog}</span></div>
+          <h2>{t.umbrella.catalogTitle1}<br /><i>{t.umbrella.catalogTitle2}</i></h2>
         </div>
         <div className="umbrella-product-list">
           {products.map((p) => (
@@ -158,8 +158,8 @@ export default function Umbrella() {
 
       <section className="umbrella-principles">
         <div className="umbrella-section-head">
-          <div className="section-marker"><span>02</span><span>SHARED PRINCIPLES</span></div>
-          <h2>Luật chơi chung của mọi sản phẩm.</h2>
+          <div className="section-marker"><span>02</span><span>{t.umbrella.sectionPrinciples}</span></div>
+          <h2>{t.umbrella.principlesTitle}</h2>
         </div>
         <div className="umbrella-principle-grid">
           {principles.map(([index, title, copy], i) => (
@@ -175,8 +175,8 @@ export default function Umbrella() {
 
       <section className="umbrella-record">
         <div className="umbrella-section-head">
-          <div className="section-marker"><span>03</span><span>OPEN RECORD</span></div>
-          <h2>Tổ chức mở.<br /><i>Record kiểm được.</i></h2>
+          <div className="section-marker"><span>03</span><span>{t.umbrella.sectionRecord}</span></div>
+          <h2>{t.umbrella.recordTitle1}<br /><i>{t.umbrella.recordTitle2}</i></h2>
         </div>
         <div className="umbrella-record-list">
           {record.map(([label, title, copy], i) => (
@@ -191,7 +191,7 @@ export default function Umbrella() {
 
       <footer className="umbrella-footer">
         <span className="footer-brand"><ShieldTraceMark decorative size={18} /> xDev AI / UMBRELLA</span>
-        <span>OPEN ENGINEERING ORGANIZATION — 2026</span>
+        <span>{t.umbrella.footerOrg}</span>
         <span><code>AI.XDEV.ASIA</code> / PRODUCT ROUTING</span>
       </footer>
     </div>

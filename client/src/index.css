@@ -55,7 +55,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid #29d3e8; outline-offs
 .rail-bottom { display: flex; gap: 9px; align-items: flex-start; margin-top: auto; padding-top: 28px; font-size: 8px; line-height: 1.55; color: #8aa0b9; }
 .rail-bottom strong { color: #dbe5ee; font-weight: 500; }
 .verify-dot { display: inline-block; flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: #eab44c; box-shadow: 0 0 0 3px rgba(234,180,76,.15); margin-top: 2px; }
-main { margin-left: 0; overflow: hidden; }
+.doc-shell main { overflow-x: hidden; }
 .section-anchor { scroll-margin-top: 16px; }
 .mobile-menu { display: none; }
 
@@ -282,4 +282,70 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding: 19px
   .detail-rule { grid-template-columns: 15px minmax(87px, .8fr) 53px; padding: 10px 0; }
   .detail-rule p { grid-column: 2 / -1; }
   .registry-note { padding: 36px 24px; }
+}
+
+/* ===== xDev AI 3D pipeline + language switch ===== */
+.pipeline3d {
+  border-top: 1px solid #bdced0;
+  border-bottom: 1px solid #bdced0;
+  margin: 3rem 0 0;
+  position: relative;
+  width: 100% !important;
+  min-width: 0;
+  background: linear-gradient(180deg, rgba(232,238,234,.6), rgba(219,225,234,.3));
+  border-radius: 8px;
+  overflow: hidden;
+}
+.pipeline3d canvas { display: block; width: 100% !important; height: 100% !important; }
+.pipeline3d::before {
+  content: "3D / PROCESSING PIPELINE — DRAG TO ORBIT";
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: #5a8090;
+  z-index: 2;
+  pointer-events: none;
+}
+.pipeline3d-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: .2em;
+  color: #647b8d;
+}
+.ps-hero .lang-switch {
+  position: absolute;
+  z-index: 2;
+  top: clamp(22px, 3vw, 34px);
+  right: clamp(24px, 4vw, 46px);
+  color: #b9d0d8;
+  border-color: rgba(111,203,220,.4);
+  background: rgba(12,36,62,.55);
+  backdrop-filter: blur(4px);
+}
+.lang-switch {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: #5a8090;
+  background: transparent;
+  border: 1px solid #b8c5c8;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease;
+  white-space: nowrap;
+}
+.lang-switch:hover { color: #102340; border-color: #29d3e8; }
+.lang-switch .is-active { color: #1d92aa; font-weight: 600; }
+.lang-switch .lang-sep { margin: 0 4px; color: #9ab0bd; }
+@media (max-width: 860px) {
+  .pipeline3d { height: 280px !important; }
+  .lang-switch { display: block; width: 100%; margin-top: .5rem; text-align: center; }
 }

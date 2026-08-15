@@ -3,7 +3,10 @@
    umbrella-aware framing: xDev AI brand on top, product path /AI-SDLC, sibling links. */
 import { ArrowUpRight, BookOpen, Box, ChevronRight, Code2, Copy, ExternalLink, FolderTree, Layers3, Menu, Network, ShieldCheck, X } from "lucide-react";
 import { useState } from "react";
+import { useLang } from "@/i18n/LanguageContext";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
+import { LanguageSwitch } from "@/components/LanguageSwitch";
+import { Pipeline3D } from "@/components/Pipeline3D";
 
 const navItems = [
   ["01", "Platform", "platform"],
@@ -92,6 +95,8 @@ const platformSurfaces = [
 ];
 
 export default function AiSdlc() {
+  const { t } = useLang();
+  const navLabels = [t.aiSdlc.navPlatform, t.aiSdlc.navSpec, t.aiSdlc.navContract, t.aiSdlc.navRules, t.aiSdlc.navEvidence, t.aiSdlc.navRecord];
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState("platform");
@@ -125,23 +130,23 @@ export default function AiSdlc() {
         </a>
         <div className="rail-file"><span>PATH</span><code>/AI-SDLC</code><span>STATUS</span><strong>PUBLIC / v1.0</strong></div>
         <div className="rail-summary">
-          <span className="mono-label">PRODUCT SCOPE</span>
-          <p>Governed delivery: policy-as-data, deterministic validation và evidence trace cho AI-assisted software delivery.</p>
+          <span className="mono-label">{t.product.scopeLabel}</span>
+          <p>{t.aiSdlc.railScope}</p>
         </div>
         <nav className="section-nav">
-          {navItems.map(([number, label, id]) => (
-            <button key={id} className={activeSection === id ? "is-active" : ""} onClick={() => goTo(id)}>
-              <span>{number}</span><span>{label}</span><ChevronRight size={14} />
+                      {navItems.map(([number, , id], index) => (
+              <button key={id} className={activeSection === id ? "is-active" : ""} onClick={() => goTo(id)}>
+                <span>{number}</span><span>{navLabels[index]}</span><ChevronRight size={14} />
             </button>
           ))}
         </nav>
         <div className="ps-sibling-links">
-          <a href="/"><span>00</span>xDev AI <ArrowUpRight size={13} /></a>
-          <a href="/trace-ledger"><span>02</span>Trace Ledger <ArrowUpRight size={13} /></a>
+          <a href="/"><span>00</span>{t.product.siblingHome} <ArrowUpRight size={13} /></a>
+          <a href="/trace-ledger"><span>02</span>{t.nav.traceLedger} <ArrowUpRight size={13} /></a>
         </div>
         <div className="rail-bottom">
           <span className="verify-dot" />
-          <span>PUBLIC HOME<br /><strong>AI.XDEV.ASIA / AI-SDLC</strong></span>
+          <span>{t.product.verified}<br /><strong>AI.XDEV.ASIA / AI-SDLC</strong></span>
         </div>
       </aside>
 
@@ -153,18 +158,14 @@ export default function AiSdlc() {
         <section className="ps-hero" id="platform">
           <div className="ps-hero-grid" aria-hidden="true" />
           <div className="ps-hero-content">
-            <div className="eyebrow"><span className="pulse-line" /> PRODUCT SHEET / 01 — AI-SDLC</div>
+            <div className="eyebrow"><span className="pulse-line" /> {t.aiSdlc.heroEyebrow}</div>
             <h1>
-              Governed AI-assisted<br /><i>software delivery.</i>
+              {t.aiSdlc.heroTitle1}<br /><i>{t.aiSdlc.heroTitle2}</i>
             </h1>
-            <p className="ps-copy">
-              AI-SDLC là sản phẩm đầu tiên của xDev AI: governance layer cho AI-assisted
-              delivery với versioned policy, deterministic validation và evidence có thể
-              truy vết — chạy nhất quán trên GitLab CI và GitHub Actions.
-            </p>
+            <p className="ps-copy">{t.aiSdlc.heroCopy}</p>
             <div className="hero-actions">
               <a className="ink-button" href="https://github.com/xdev-ai/ai-sdlc" target="_blank" rel="noreferrer">
-                Mở repository <ArrowUpRight size={16} />
+                {t.product.openRepo} <ArrowUpRight size={16} />
               </a>
               <button className="text-button" onClick={() => goTo("tree")}>
                 Đi vào Spec Kit <ChevronRight size={16} />
@@ -172,21 +173,23 @@ export default function AiSdlc() {
             </div>
           </div>
           <div className="ps-hero-meta">
-            <div><span>PRIMARY MODEL</span><strong>RULE AS DATA</strong></div>
-            <div><span>ENGINE</span><strong>RUST / CLOSED SET</strong></div>
-            <div><span>VALIDATION</span><strong>DETERMINISTIC</strong></div>
+            <div><span>{t.aiSdlc.heroMeta1S}</span><strong>{t.aiSdlc.heroMeta1V}</strong></div>
+            <div><span>{t.aiSdlc.heroMeta2S}</span><strong>{t.aiSdlc.heroMeta2V}</strong></div>
+            <div><span>{t.aiSdlc.heroMeta3S}</span><strong>{t.aiSdlc.heroMeta3V}</strong></div>
           </div>
           <ShieldTraceMark className="hero-witness" decorative />
+          <div className="lang-switch"><LanguageSwitch /></div>
         </section>
 
         <section className="platform-section">
           <div className="platform-heading">
-            <div className="section-marker"><span>01</span><span>THE AI-SDLC PLATFORM</span></div>
-            <h2>Không phải một agent.<br /><i>Một hệ thống delivery có policy.</i></h2>
-            <p>AI-SDLC đặt AI ngoài decision path: AI có thể draft, nhưng policy, validation và release evidence vẫn cần artifact rõ ràng, được review và enforce nhất quán.</p>
+            <div className="section-marker"><span>01</span><span>{t.aiSdlc.s01Label}</span></div>
+            <h2>{t.aiSdlc.s01Title1}<br /><i>{t.aiSdlc.s01Title2}</i></h2>
+            <p>{t.aiSdlc.s01Copy}</p>
           </div>
+          <Pipeline3D />
           <div className="lifecycle-grid">
-            {lifecycle.map(([number, name, copy], index) => (
+            {["lc1", "lc2", "lc3", "lc4", "lc5"].map((key, index) => { const lc = t.aiSdlc[key as keyof typeof t.aiSdlc] as string[]; return { number: String(index + 1).padStart(2, "0"), name: lc[0], copy: lc[1] }; }).map(({ number, name, copy }) => (
               <article key={name} className={index === 2 ? "is-gate" : ""}>
                 <span>{number}</span>
                 <strong>{name}</strong>
@@ -196,7 +199,7 @@ export default function AiSdlc() {
             ))}
           </div>
           <div className="platform-surfaces">
-            {platformSurfaces.map(([label, title, copy], index) => (
+            {["sf0", "sf1", "sf2", "sf3"].map((key, index) => { const sf = t.aiSdlc[key as keyof typeof t.aiSdlc] as string[]; return { number: String(index).padStart(2, "0"), label: sf[0], title: sf[1], copy: sf[2] }; }).map(({ number, label, title, copy }) => (
               <article key={label}>
                 <span className="surface-index">0{index + 1}</span>
                 <div><span className="mono-label">{label}</span><h3>{title}</h3><p>{copy}</p></div>
