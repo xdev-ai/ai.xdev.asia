@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>xDev AI — Redirecting...</title>
+  <link rel="canonical" href="https://ai.xdev.asia/" />
+  <script>
+    (function () {
+      var path = window.location.pathname.replace(/\/+$/, "");
+      var target = "https://ai.xdev.asia/" + (path && path !== "/" ? path.slice(1) + "/" : "");
+      sessionStorage.setItem("xdev-ai:restore", path || "/");
+      var seg = (path || "").split("/").filter(Boolean)[0] || "";
+      if (["ai-sdlc", "trace-ledger", "docs", "policy-registry"].indexOf(seg) === -1) {
+        target = "https://ai.xdev.asia/";
+      }
+      if (target[target.length - 1] !== "/") target += "/";
+      window.location.replace(target);
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting to <a href="https://ai.xdev.asia/">ai.xdev.asia</a>...</p>
+</body>
+</html>

@@ -2,7 +2,8 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { useEffect } from "react";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./i18n/LanguageContext";
@@ -13,7 +14,21 @@ import PolicyDetail from "./pages/PolicyDetail";
 import TraceLedger from "./pages/TraceLedger";
 import Umbrella from "./pages/Umbrella";
 
+const SPA_RESTORE_KEY = "xdev-ai:restore";
+
+function useSpaRestore() {
+  const [, navigate] = useLocation();
+  useEffect(() => {
+    const restore = sessionStorage.getItem(SPA_RESTORE_KEY);
+    if (restore && restore !== "/") {
+      sessionStorage.removeItem(SPA_RESTORE_KEY);
+      navigate(restore, { replace: true });
+    }
+  }, [navigate]);
+}
+
 function Router() {
+  useSpaRestore();
   return (
     <Switch>
       <Route path={"/"} component={Umbrella} />
