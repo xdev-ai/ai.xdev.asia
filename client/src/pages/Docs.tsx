@@ -25,7 +25,7 @@ type DocsCopy = {
 
 const copy: Record<Locale, DocsCopy> = {
   en: {
-    eyebrow: "AI-SDLC DOCUMENTATION / 02",
+    eyebrow: "XDEV AI / AI-SDLC DOCUMENTATION / 02",
     title: <>Build the delivery record<br />before you <i style={{ color: "#dbe7e5" }}>ship the change.</i></>,
     lead: "A practical, bilingual map for governed AI-assisted delivery. Follow the lifecycle, inspect the controls, and keep a reviewable record from intent to release.",
     action: "Open Policy Registry",
@@ -46,7 +46,7 @@ const copy: Record<Locale, DocsCopy> = {
     record: "Open record", recordText: "The core repository is the implementation source of truth. Docs explains the operating model; Policy Registry exposes its current controls.", repo: "View AI-SDLC repository",
   },
   vi: {
-    eyebrow: "AI-SDLC DOCUMENTATION / 02",
+    eyebrow: "XDEV AI / AI-SDLC DOCUMENTATION / 02",
     title: <>Lập delivery record<br />trước khi <i style={{ color: "#dbe7e5" }}>ship thay đổi.</i></>,
     lead: "Bản đồ song ngữ, thực dụng cho AI-assisted delivery có governance. Đi theo lifecycle, kiểm tra control và giữ record có thể review từ intent đến release.",
     action: "Mở Kho chính sách",

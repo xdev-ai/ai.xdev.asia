@@ -140,12 +140,12 @@ export default function Home() {
   return (
     <div className="doc-shell">
       <aside className={`rail ${open ? "is-open" : ""}`} aria-label="Điều hướng tài liệu">
-        <div className="rail-topline"><span /> <span>PLATFORM BRIEF / 01</span></div>
+        <div className="rail-topline"><span /> <span>XDEV AI / AI-SDLC</span></div>
         <a className="brand-lockup" href="#overview" onClick={() => goTo("overview")}>
           <ShieldTraceMark className="rail-mark" />
-          <span><strong>AI-SDLC</strong><em>by xDev AI</em></span>
+          <span><strong>xDev AI</strong><em>AI-SDLC platform</em></span>
         </a>
-        <div className="rail-file" aria-label="File metadata"><span>FILE</span><code>AI-SDLC / 01</code><span>STATUS</span><strong>PUBLIC BRIEF</strong></div>
+        <div className="rail-file" aria-label="File metadata"><span>PATH</span><code>/AI-SDLC</code><span>STATUS</span><strong>PUBLIC BRIEF</strong></div>
         <div className="rail-summary">
           <span className="mono-label">DOCUMENT SCOPE</span>
           <p>Platform governance, <code>spec-kit/</code> và evidence trace cho AI-assisted delivery.</p>
@@ -163,7 +163,7 @@ export default function Home() {
         </div>
         <div className="rail-bottom">
           <span className="verify-dot" />
-          <span>PUBLIC HOME<br /><strong>AI.XDEV.ASIA</strong></span>
+          <span>PUBLIC HOME<br /><strong>AI.XDEV.ASIA / AI-SDLC</strong></span>
         </div>
       </aside>
 
@@ -176,9 +176,9 @@ export default function Home() {
           <div className="hero-image" aria-hidden="true" />
           <div className="hero-grid" aria-hidden="true" />
           <div className="hero-content">
-            <div className="eyebrow"><span className="pulse-line" /> AI-SDLC PLATFORM <span>—</span> XDEV AI / 2026</div>
+            <div className="eyebrow"><span className="pulse-line" /> XDEV AI — xdev-ai.github.io <span>—</span> xDev AI / 2026</div>
             <h1>AI có thể tăng tốc.<br /><i>Governance</i> giữ delivery có thể kiểm chứng.</h1>
-            <p className="hero-copy">AI-SDLC là governance layer cho AI-assisted software delivery: versioned policy, deterministic validation và evidence có thể truy vết — được duy trì mở bởi xDev AI.</p>
+            <p className="hero-copy">xDev AI là tổ chức engineering mở, xây dựng nền tảng cho AI-assisted software delivery. Sản phẩm đầu tiên — AI-SDLC — đưa governance layer vào quy trình: versioned policy, deterministic validation và evidence có thể truy vết.</p>
             <div className="hero-actions">
               <button className="ink-button" onClick={() => goTo("platform")}>Khám phá platform <ArrowUpRight size={16} /></button>
               <button className="text-button" onClick={() => goTo("tree")}>Đi vào Spec Kit <ChevronRight size={16} /></button>
@@ -195,7 +195,7 @@ export default function Home() {
             <div className="evidence-foot"><span>policy pinned</span><span>trace resolved</span></div>
           </div>
           <ShieldTraceMark className="hero-witness" decorative />
-          <div className="hero-index"><span>01</span><span>GOVERNED AI-ASSISTED DELIVERY</span></div>
+          <div className="hero-index"><span>01</span><span>GOVERNED AI-ASSISTED DELIVERY</span><span>AI-SDLC / AI.XDEV.ASIA</span></div>
         </section>
 
         <section id="platform" className="platform-section section-anchor">

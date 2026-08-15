@@ -2,7 +2,11 @@
 
 ## Verified organization
 
-The GitHub organization has been created at [github.com/xdev-ai](https://github.com/xdev-ai). Its profile has been updated through the signed-in GitHub settings interface. The integration token can read organization metadata but does not have permission to update organization settings.
+The GitHub organization has been created at [github.com/xdev-ai](https://github.com/xdev-ai). Its profile has been updated through the signed-in GitHub settings interface: the new shield-and-trace mark logo is set as the organization avatar, the public email is `hello@xdev.asia`, the description presents xDev AI as the open engineering organization maintaining AI-SDLC, and the profile URL points to `https://ai.xdev.asia`. The integration token can read organization metadata but does not have permission to update organization settings.
+
+## Brand architecture
+
+**xDev AI** is the umbrella brand hosted at `ai.xdev.asia`; **AI-SDLC** is its first product, served under the path `ai.xdev.asia/ai-sdlc`. Future products and showcases will be added as sibling paths under the same umbrella domain (for example, `ai.xdev.asia/<product>`), and the portal's own content is intentionally written so the umbrella can grow without rebranding.
 
 ## Intended identity
 
@@ -10,9 +14,10 @@ The GitHub organization has been created at [github.com/xdev-ai](https://github.
 |---|---|
 | GitHub organization handle | `xdev-ai` |
 | GitHub organization display name | `xDev AI` |
-| Product/platform | `AI-SDLC` |
-| Primary public domain | `ai.xdev.asia` |
+| Umbrella brand domain | `ai.xdev.asia` |
+| First product | `AI-SDLC` at path `ai.xdev.asia/ai-sdlc` |
 | Initial public repository | `xdev-ai/ai-sdlc` after an explicitly approved repository transfer |
+| Logo | Shield-and-trace mark (navy shield, cyan X trace, amber nodes) — see `client/public/brand/` |
 
 ## Domain prerequisites
 
