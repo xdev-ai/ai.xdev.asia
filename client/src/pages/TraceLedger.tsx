@@ -68,7 +68,7 @@ export default function TraceLedger() {
           <p>{t.traceLedger.railScope}</p>
         </div>
         <nav className="section-nav">
-          {navItems.map(([number, , id], index) => { const keys = ["navConcept", "navModel", "navEntry", "navWhy", "navStatus"] as const; return { number, label: t.traceLedger[keys[index]], id }; }).map(({ number, label, id }) => (
+          {navItems.map(([number, , id], index) => ({ number, label: t.traceLedger[["navConcept", "navModel", "navEntry", "navWhy", "navStatus"][index]], id })).map(({ number, label, id }) => (
             <button key={id} className={activeSection === id ? "is-active" : ""} onClick={() => goTo(id)}>
               <span>{number}</span><span>{label}</span><ArrowRight size={14} />
             </button>
