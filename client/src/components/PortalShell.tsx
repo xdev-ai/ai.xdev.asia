@@ -42,9 +42,9 @@ export function PortalShell({ route, children }: PortalShellProps) {
         <div className="spine-topline"><span /> <span>AI-SDLC / OPEN SYSTEM</span></div>
         <a className="spine-brand" href="/">
           <ShieldTraceMark className="spine-mark" />
-          <span><strong>AI-SDLC</strong><em>by xDev AI</em></span>
+          <span><strong>AI-SDLC</strong><em>by xDev AI</em><small>GOVERNED DELIVERY</small></span>
         </a>
-        <div className="spine-status"><span>RECORD</span><code>PUBLIC / v1.0</code><span>MODE</span><strong>{t ? "BILINGUAL" : "SONG NGỮ"}</strong></div>
+        <div className="spine-status"><span>RECORD</span><code>PUBLIC / v1.0</code><span>FILE</span><code>AI-SDLC / OPEN</code><span>MODE</span><strong>{t ? "BILINGUAL" : "SONG NGỮ"}</strong></div>
         <nav className="spine-nav" aria-label={t ? "Primary navigation" : "Điều hướng chính"}>
           {navigation.map((item) => (
             <a key={item.route} className={route === item.route ? "is-active" : ""} href={item.href} onClick={() => setOpen(false)}>

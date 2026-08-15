@@ -24,3 +24,8 @@
 - [x] Change xdev-ai/ai.xdev.asia repository visibility to public.
 - [x] Add a GitHub Actions workflow to build and deploy the portal to GitHub Pages on main pushes.
 - [x] Push the Pages workflow and verify the first deployment and generated Pages URL.
+- [x] Define the detailed bilingual Docs taxonomy across onboarding, delivery lifecycle, architecture, operations, and reference material.
+- [x] Define the Policy Registry record model with identifiers, scope, severity, owner, review cadence, evidence, and change status.
+- [x] Add scalable bilingual navigation and role-based reading paths to Docs.
+- [x] Add detailed policy cards and registry views for current and future policy packs.
+- [ ] Publish and verify the expanded Docs and Policy Registry structure.

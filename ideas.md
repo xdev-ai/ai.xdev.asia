@@ -72,3 +72,6 @@ Logo mark là **shield-and-trace**: ba đường trace cấu trúc thành một 
 3. Hero và technical imagery ưu tiên **validation path, rule ledger, dependency graph, versioned file và shield-trace schematic** thay cho hình minh họa AI/network chung chung.
 4. Section marker, metadata band và verification dot phải tạo cảm giác một technical record liên tục giữa các section, không phải các block marketing rời rạc.
 5. Mỗi route desktop là một sheet trong cùng dossier: document spine luôn hiển thị, shield-and-trace mark đi cùng AI-SDLC wordmark, và amber witness chỉ đánh dấu trạng thái đã kiểm chứng.
+6. Mọi desktop Docs scroll là một **governed dossier liên tục**: trace rail, dossier band và ledger strip thay thế khoảng trắng không mang ý nghĩa.
+7. Mỗi headline lớn phải được ghép với một **proof artifact** nhìn thấy được — versioned file, validation path, rule ledger, dependency graph hoặc control record.
+8. Shield-and-trace mark lặp lại như một governing seal ở rail, hero metadata, policy witness và evidence state; cyan chỉ dùng để nối các điểm này.

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./portable-pages.css";
+@import "./detailed-docs-registry.css";
 
 @custom-variant dark (&:is(.dark *));
 
