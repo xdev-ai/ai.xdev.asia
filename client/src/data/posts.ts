@@ -30,6 +30,89 @@ const BASE = "/blog/";
 
 export const posts: Post[] = [
   {
+    slug: "where-xdev-ai-sits-in-the-full-cycle",
+    dateISO: "2026-08-15",
+    tags: ["xDev AI", "AI-SDLC", "Delivery cycle"],
+    draft: false,
+    cover: `${BASE}cover-full-cycle.jpg`,
+    coverAlt: {
+      en: "Illustration: the full delivery cycle from idea to monitoring, with the spec-to-evidence segment highlighted as the territory of xDev AI.",
+      vi: "Minh họa: full chu trình delivery từ idea đến monitoring, với đoạn spec-to-evidence được highlight làm lãnh địa của xDev AI.",
+    },
+    en: {
+      title: "Where xDev AI sits in the full delivery cycle: spec, gate and evidence between idea and release",
+      summary:
+        "A full delivery cycle runs from idea to monitoring across eight stages. xDev AI does not replace the humans, tooling or infrastructure around it — it owns the junction between AI work and governance: spec-driven development, a policy gate, and a verifiable evidence trail.",
+      readingMinutes: 10,
+      sections: [
+        {
+          heading: "The full cycle, honestly mapped",
+          body: "Draw the complete lifecycle of a typical software delivery: ideation, planning, specification, development, validation, testing, release and operation. Every stage has owners — product people shape intent, designers and planners structure it, engineers build it, SREs and ops keep it alive. Most organizations already cover these stages with people and tools. The real question is not \u201Cwhat is missing?\u201D but \u201Cwhere does AI-assisted delivery sit inside this map, and what must remain human, tool-driven or auditable at each step?\u201D",
+        },
+        {
+          heading: "What xDev AI deliberately does not own",
+          body: "xDev AI does not compete with the idea stage — intent and roadmap judgment stay with product owners, because intent is a decision about value, not a verification task. It does not replace design, infrastructure provisioning, incident response, or the operational monitoring that follows release. Naming the boundaries matters: an umbrella that claims everything ends up governing nothing. The stages xDev AI leaves untouched are precisely the ones that give its own territory a clear left edge and a clear right edge.",
+          image: {
+            src: `${BASE}inline-full-cycle-zoom.jpg`,
+            alt: "Diagram: zooming from the full eight-stage cycle down to the three xDev AI stages, then into the policy-as-data validation engine.",
+          },
+        },
+        {
+          heading: "The territory: spec, gate and evidence",
+          body: "Inside the cycle, xDev AI owns a contiguous segment: specification, development-assisted delivery, validation and release evidence. Specification is where intent becomes executable — AI drafts specs, but the spec must obey a structure and a trace grammar that humans can review. Development is where AI does most of the drafting, but inside a workspace that pins models and links every branch to a requirement. Validation is the policy gate: a closed engine checking declared rules before anything moves forward. Release is the ledger: every approval and check result joins the trace graph before deployment proceeds.",
+        },
+        {
+          heading: "The junction is the product",
+          body: "The value is not any single stage — it is the junction. Between development and release there is normally a trust gap: someone must believe the AI output is correct, compliant and traceable. Traditional organizations fill that gap with manual review marathons. xDev AI fills it with artifacts: versioned policy that says what counts as acceptable, deterministic checks that verify it, and a retained evidence graph that proves it. The handoffs around xDev AI stay human — product decides what to build, ops decides when to scale — but the trust gap between them is closed by data, not by meetings.",
+        },
+        {
+          heading: "Where products fit under this map",
+          body: "This is why the umbrella holds two products today. AI-SDLC covers the spec-to-release segment end to end: intent capture, spec refinement, policy-gated delivery, evidence retention — the core junction territory. Trace Ledger represents the same conviction at a different depth: if evidence is the product, then the ledger that stores, links and proves it deserves its own surface. Both sit on the same principles — policy as data, closed execution, evidence retained — which is exactly the test the umbrella runs whenever a new product asks to join.",
+        },
+        {
+          heading: "The edge of the map is where honesty lives",
+          body: "Any map that stops at the edges must also admit what it does not see: operating costs after release, the human judgment that frames intent, the failures that arrive unannounced. xDev AI treats that honesty as part of the design — the umbrella is deliberately neutral about future stages, and the public record at github.com/xdev-ai states each principle as an enforceable constraint rather than a roadmap promise. Knowing where xDev AI sits in the full cycle is, at the end of the day, the most useful thing a prospective user can evaluate: not what it claims, but what it refuses to blur.",
+        },
+      ],
+    },
+    vi: {
+      title: "xDev AI nằm ở đâu trong full quy trình: spec, gate và evidence giữa idea và release",
+      summary:
+        "Full chu trình delivery chạy từ idea đến monitoring qua tám giai đoạn. xDev AI không thay thế con người, tooling hay hạ tầng xung quanh — nó chiếm giao lộ giữa công việc AI và governance: spec-driven development, policy gate, và evidence trail kiểm chứng được.",
+      readingMinutes: 10,
+      sections: [
+        {
+          heading: "Full chu trình, vẽ ra trung thực",
+          body: "Vẽ lifecycle hoàn chỉnh của một quy trình delivery phần mềm thông thường: ideation, planning, specification, development, validation, testing, release và operation. Mỗi giai đoạn có owner — product định hình intent, design và planning cấu trúc nó, engineers xây, SRE và ops giữ nó sống. Hầu hết tổ chức đã phủ các giai đoạn này bằng người và tool. Câu hỏi thật không phải \u201Cthiếu gì?\u201D mà là \u201CAI-assisted delivery nằm ở đâu trong bản đồ này, và điều gì phải giữ human, tool-driven hoặc auditable ở từng bước?\u201D",
+        },
+        {
+          heading: "Điều xDev AI chủ đích không chiếm",
+          body: "xDev AI không cạnh tranh với giai đoạn idea — intent và roadmap judgment thuộc về product owners, vì intent là quyết định về value, không phải task verification. Nó không thay design, provisioning hạ tầng, incident response, hay operational monitoring sau release. Việc gọi tên ranh giới quan trọng: một umbrella tuyên bố ôm hết sẽ cuối cùng không governance được gì cả. Các giai đoạn xDev AI để nguyên chính là thứ cho lãnh địa của nó một mép trái rõ ràng và một mép phải rõ ràng.",
+          image: {
+            src: `${BASE}inline-full-cycle-zoom.jpg`,
+            alt: "Sơ đồ: zoom từ full chu trình 8 giai đoạn xuống ba giai đoạn của xDev AI, rồi vào validation engine policy-as-data.",
+          },
+        },
+        {
+          heading: "Lãnh địa: spec, gate và evidence",
+          body: "Trong chu trình, xDev AI chiếm một đoạn liền mạch: specification, development-assisted delivery, validation và release evidence. Specification là nơi intent trở thành executable — AI draft specs, nhưng spec phải tuân structure và trace grammar mà người review được. Development là nơi AI draft phần lớn, nhưng trong workspace pin model và link mọi branch về requirement. Validation là policy gate: engine đóng check các rule đã khai báo trước khi bất cứ thứ gì tiến tiếp. Release là ledger: mọi approval và kết quả check đi vào trace graph trước khi deployment chạy.",
+        },
+        {
+          heading: "Giao lộ chính là sản phẩm",
+          body: "Giá trị không nằm ở bất kỳ giai đoạn đơn lẻ nào — nó là giao lộ. Giữa development và release thường có một trust gap: ai đó phải tin output của AI đúng, compliant và traceable. Tổ chức truyền thống lấp khoảng trống đó bằng marathon review thủ công. xDev AI lấp nó bằng artifacts: policy có version nói rõ cái gì được chấp nhận, deterministic checks verify điều đó, và evidence graph được giữ lại chứng minh điều đó. Các handoff quanh xDev AI vẫn là con người — product quyết định build gì, ops quyết định scale khi nào — nhưng trust gap giữa họ được đóng bằng data, không phải bằng meetings.",
+        },
+        {
+          heading: "Sản phẩm nằm trên bản đồ thế nào",
+          body: "Đây là lý do umbrella giữ hai sản phẩm hôm nay. AI-SDLC phủ đoạn spec-to-release trọn gói: intent capture, spec refinement, policy-gated delivery, evidence retention — lãnh địa giao lộ cốt lõi. Trace Ledger thể hiện cùng conviction ở độ sâu khác: nếu evidence là sản phẩm, thì ledger lưu trữ, liên kết và chứng minh nó xứng đáng có surface riêng. Cả hai ngồi trên cùng nguyên tắc — policy là data, thực thi khép kín, evidence được giữ lại — chính là test mà umbrella chạy mỗi khi sản phẩm mới xin gia nhập.",
+        },
+        {
+          heading: "Mép của bản đồ là nơi sự trung thực sống",
+          body: "Bản đồ dừng ở mép nào cũng phải thừa nhận những gì nó không thấy: chi phí vận hành sau release, judgment của con người khi framing intent, những failure đến không báo trước. xDev AI coi sự trung thực đó là một phần của thiết kế — umbrella chủ đích trung lập với các giai đoạn tương lai, và public record tại github.com/xdev-ai trình bày từng nguyên tắc như ràng buộc có thể enforce chứ không phải lời hứa roadmap. Biết xDev AI nằm ở đâu trong full quy trình, xét đến cùng, là điều hữu dụng nhất một người dùng tiềm năng có thể đánh giá: không phải nó tuyên bố gì, mà là nó từ chối làm mờ điều gì.",
+        },
+      ],
+    },
+  },
+  {
     slug: "why-governance-beats-prompts",
     dateISO: "2026-08-10",
     tags: ["AI-SDLC", "Governance", "Policy-as-data"],
