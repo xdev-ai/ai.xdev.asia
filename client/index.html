@@ -1,11 +1,8 @@
 <!doctype html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>xDev AI — Governed AI-Assisted Delivery Platform</title>
     <meta name="description" content="xDev AI is an open engineering organization building governed AI-assisted software delivery: versioned policy-as-data, deterministic validation, and traceable evidence — home of AI-SDLC." />
     <meta name="keywords" content="AI-SDLC, governed delivery, AI governance, policy-as-code, deterministic validation, evidence trace, xDev AI, open engineering" />
@@ -30,28 +27,10 @@
     <meta name="twitter:description" content="Versioned policy-as-data, deterministic validation, and traceable evidence for AI-assisted software delivery." />
     <meta name="twitter:image" content="https://ai.xdev.asia/brand/xdevai-mark-420.png" />
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "xDev AI",
-      "alternateName": "xDev",
-      "url": "https://ai.xdev.asia",
-      "logo": "https://ai.xdev.asia/brand/xdevai-mark-420.png",
-      "email": "duy@xdev.asia",
-      "sameAs": ["https://github.com/xdev-ai"],
-      "description": "Open engineering organization building governed AI-assisted software delivery.",
-      "knowsAbout": ["AI-SDLC", "AI governance", "policy-as-code", "deterministic validation"]
-    }
+    {"@context":"https://schema.org","@type":"Organization","name":"xDev AI","alternateName":"xDev","url":"https://ai.xdev.asia","logo":"https://ai.xdev.asia/brand/xdevai-mark-420.png","email":"duy@xdev.asia","sameAs":["https://github.com/xdev-ai"],"description":"Open engineering organization building governed AI-assisted software delivery.","knowsAbout":["AI-SDLC","AI governance","policy-as-code","deterministic validation"]}
     </script>
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "xDev AI",
-      "url": "https://ai.xdev.asia",
-      "inLanguage": ["en", "vi"],
-      "publisher": { "@type": "Organization", "name": "xDev AI", "url": "https://ai.xdev.asia" }
-    }
+    {"@context":"https://schema.org","@type":"WebSite","name":"xDev AI","url":"https://ai.xdev.asia","inLanguage":["en","vi"],"publisher":{"@type":"Organization","name":"xDev AI","url":"https://ai.xdev.asia"}}
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -61,7 +40,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="./brand/favicon-32.png" />
     <link rel="apple-touch-icon" href="./brand/favicon-64.png" />
   </head>
-
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
@@ -70,7 +48,7 @@
       (function () {
         var domain = "";
         try { domain = import.meta.env.VITE_PLAUSIBLE_DOMAIN || ""; } catch (e) { domain = ""; }
-        if (!domain) return; // analytics off until configured — no cookies, no tracking
+        if (!domain) return;
         var s = document.createElement("script");
         s.defer = true;
         s.src = "https://plausible.io/js/script.js";
@@ -79,5 +57,4 @@
       })();
     </script>
   </body>
-
 </html>

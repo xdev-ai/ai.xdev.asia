@@ -18,6 +18,8 @@ const Docs = lazy(() => import("./pages/Docs"));
 const Legal = lazy(() => import("./pages/Legal"));
 const PolicyRegistry = lazy(() => import("./pages/PolicyRegistry"));
 const PolicyDetail = lazy(() => import("./pages/PolicyDetail"));
+const Quickstart = lazy(() => import("./pages/Quickstart"));
+const Releases = lazy(() => import("./pages/Releases"));
 const TraceLedger = lazy(() => import("./pages/TraceLedger"));
 const Umbrella = lazy(() => import("./pages/Umbrella"));
 
@@ -34,61 +36,36 @@ function useSpaRestore() {
 }
 
 function PageLoader() {
-  return (
-    <div className="mx-auto flex min-h-[50vh] max-w-3xl items-center justify-center px-4">
-      <span className="h-8 w-8 animate-spin rounded-full border-2 border-[#102440] border-t-transparent" aria-label="Loading" />
-    </div>
-  );
+  return <div className="mx-auto flex min-h-[50vh] max-w-3xl items-center justify-center px-4"><span className="h-8 w-8 animate-spin rounded-full border-2 border-[#102440] border-t-transparent" aria-label="Loading" /></div>;
 }
 
 function LazyPage({ cmp, extraProps }: { cmp: React.LazyExoticComponent<any>; extraProps?: Record<string, any> }) {
   const Component = cmp;
-  return (
-    <Suspense fallback={<PageLoader />}>
-      <Component {...(extraProps ?? {})} />
-    </Suspense>
-  );
+  return <Suspense fallback={<PageLoader />}><Component {...(extraProps ?? {})} /></Suspense>;
 }
 
 function Router() {
   useSpaRestore();
-  return (
-    <Switch>
-      <Route path={"/"}>{() => <LazyPage cmp={Umbrella} />}</Route>
-      <Route path={"/ai-sdlc"}>{() => <LazyPage cmp={AiSdlc} />}</Route>
-      <Route path={"/trace-ledger"}>{() => <LazyPage cmp={TraceLedger} />}</Route>
-      <Route path={"/blog"}>{() => <LazyPage cmp={Blog} />}</Route>
-      <Route path={"/blog/:slug"}>{() => <LazyPage cmp={BlogPost} />}</Route>
-      <Route path={"/privacy"}>{() => <LazyPage cmp={Legal} extraProps={{ page: "privacy" }} />}</Route>
-      <Route path={"/terms"}>{() => <LazyPage cmp={Legal} extraProps={{ page: "terms" }} />}</Route>
-      <Route path={"/docs"}>{() => <LazyPage cmp={Docs} />}</Route>
-      <Route path={"/policies/:slug"}>{() => <LazyPage cmp={PolicyDetail} />}</Route>
-      <Route path={"/policies"}>{() => <LazyPage cmp={PolicyRegistry} />}</Route>
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
-  );
+  return <Switch>
+    <Route path="/">{() => <LazyPage cmp={Umbrella} />}</Route>
+    <Route path="/ai-sdlc">{() => <LazyPage cmp={AiSdlc} />}</Route>
+    <Route path="/trace-ledger">{() => <LazyPage cmp={TraceLedger} />}</Route>
+    <Route path="/blog">{() => <LazyPage cmp={Blog} />}</Route>
+    <Route path="/blog/:slug">{() => <LazyPage cmp={BlogPost} />}</Route>
+    <Route path="/privacy">{() => <LazyPage cmp={Legal} extraProps={{ page: "privacy" }} />}</Route>
+    <Route path="/terms">{() => <LazyPage cmp={Legal} extraProps={{ page: "terms" }} />}</Route>
+    <Route path="/docs">{() => <LazyPage cmp={Docs} />}</Route>
+    <Route path="/quickstart">{() => <LazyPage cmp={Quickstart} />}</Route>
+    <Route path="/releases">{() => <LazyPage cmp={Releases} />}</Route>
+    <Route path="/policies/:slug">{() => <LazyPage cmp={PolicyDetail} />}</Route>
+    <Route path="/policies">{() => <LazyPage cmp={PolicyRegistry} />}</Route>
+    <Route path="/404" component={NotFound} />
+    <Route component={NotFound} />
+  </Switch>;
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across pages
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
-  return (
-    <ErrorBoundary>
-      <ThemeProvider defaultTheme="light">
-        <LanguageProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Router />
-          </TooltipProvider>
-        </LanguageProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
-  );
+  return <ErrorBoundary><ThemeProvider defaultTheme="light"><LanguageProvider><TooltipProvider><Toaster /><Router /></TooltipProvider></LanguageProvider></ThemeProvider></ErrorBoundary>;
 }
 
 export default App;
