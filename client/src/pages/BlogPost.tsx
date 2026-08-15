@@ -64,6 +64,7 @@ export default function BlogPost() {
       mainEntityOfPage: `https://ai.xdev.asia/blog/${post.slug}`,
       url: `https://ai.xdev.asia/blog/${post.slug}`,
       keywords: post.tags.join(", "),
+      image: `https://ai.xdev.asia${post.cover}`,
     }),
     [meta, post, locale],
   );
@@ -110,6 +111,12 @@ export default function BlogPost() {
             </span>
           </div>
           <p className="mt-5 text-[15px] leading-relaxed text-[#4a6470]">{meta.summary}</p>
+          <img
+            src={post.cover}
+            alt={locale === "vi" ? post.coverAlt.vi : post.coverAlt.en}
+            loading="eager"
+            className="mt-8 w-full rounded border border-[#b5c6c9] object-cover shadow-[8px_8px_0_rgba(29,84,114,.08)]"
+          />
         </div>
       </section>
 
@@ -119,6 +126,16 @@ export default function BlogPost() {
           <section key={s.heading} className="mb-10">
             <h2 className="text-[clamp(1.2rem,3vw,1.5rem)] font-semibold leading-[1.25] tracking-tight text-[#142641]">{s.heading}</h2>
             <p className="mt-3 text-[15px] leading-[1.75] text-[#33495a]">{s.body}</p>
+            {s.image && (
+              <figure className="mt-6">
+                <img
+                  src={s.image.src}
+                  alt={s.image.alt}
+                  loading="lazy"
+                  className="w-full rounded border border-[#b5c6c9] object-cover shadow-[6px_6px_0_rgba(29,84,114,.07)]"
+                />
+              </figure>
+            )}
           </section>
         ))}
 

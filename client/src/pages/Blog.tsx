@@ -80,12 +80,18 @@ export default function Blog() {
                 <span>{formatDate(post.dateISO, locale)}</span>
                 <span>·</span>
                 <span>
-                  {post.en.readingMinutes} {t.blog.minutes}
+                  {(locale === "vi" ? post.vi : post.en).readingMinutes} {t.blog.minutes}
                 </span>
                 <span>·</span>
                 <span>{post.tags.join(" / ")}</span>
               </div>
-              <h2 className="mt-4 text-[clamp(1.3rem,3.2vw,1.6rem)] font-semibold leading-[1.2] tracking-tight text-[#142641]">
+              <img
+                src={post.cover}
+                alt={locale === "vi" ? post.coverAlt.vi : post.coverAlt.en}
+                loading="lazy"
+                className="mt-4 w-full rounded border border-[#b5c6c9] object-cover shadow-[5px_5px_0_rgba(29,84,114,.08)]"
+              />
+              <h2 className="mt-5 text-[clamp(1.3rem,3.2vw,1.6rem)] font-semibold leading-[1.2] tracking-tight text-[#142641]">
                 {locale === "vi" ? post.vi.title : post.en.title}
               </h2>
               <p className="mt-3 flex-1 text-[14px] leading-relaxed text-[#4a6470]">
