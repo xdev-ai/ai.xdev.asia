@@ -28,4 +28,4 @@
 - [x] Define the Policy Registry record model with identifiers, scope, severity, owner, review cadence, evidence, and change status.
 - [x] Add scalable bilingual navigation and role-based reading paths to Docs.
 - [x] Add detailed policy cards and registry views for current and future policy packs.
-- [ ] Publish and verify the expanded Docs and Policy Registry structure.
+- [x] Publish and verify the expanded Docs and Policy Registry structure.
