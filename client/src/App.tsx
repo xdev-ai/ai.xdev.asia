@@ -17,14 +17,15 @@ import Umbrella from "./pages/Umbrella";
 const SPA_RESTORE_KEY = "xdev-ai:restore";
 
 function useSpaRestore() {
-  const [, navigate] = useLocation();
   useEffect(() => {
     const restore = sessionStorage.getItem(SPA_RESTORE_KEY);
-    if (restore && restore !== "/") {
+    if (restore && restore !== location.pathname + location.search + location.hash) {
       sessionStorage.removeItem(SPA_RESTORE_KEY);
-      navigate(restore, { replace: true });
+      const url = new URL(restore, location.origin);
+      history.replaceState(null, "", url.pathname + url.search + url.hash);
+      window.dispatchEvent(new PopStateEvent("popstate"));
     }
-  }, [navigate]);
+  }, []);
 }
 
 function Router() {
