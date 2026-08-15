@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./umbrella-pages.css";
 @import "./portable-pages.css";
 @import "./detailed-docs-registry.css";
 @import "./policy-detail-search.css";

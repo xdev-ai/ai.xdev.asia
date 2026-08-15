@@ -2,11 +2,12 @@
 type ShieldTraceMarkProps = {
   className?: string;
   decorative?: boolean;
+  size?: number;
 };
 
-export function ShieldTraceMark({ className = "", decorative = false }: ShieldTraceMarkProps) {
+export function ShieldTraceMark({ className = "", decorative = false, size }: ShieldTraceMarkProps) {
   return (
-    <svg className={`brand-mark ${className}`} viewBox="0 0 48 48" fill="none" role={decorative ? undefined : "img"} aria-hidden={decorative || undefined} aria-label={decorative ? undefined : "AI-SDLC shield and trace mark"}>
+    <svg className={`brand-mark ${className}`} viewBox="0 0 48 48" fill="none" {...(size ? { width: size, height: size } : {})} role={decorative ? undefined : "img"} aria-hidden={decorative || undefined} aria-label={decorative ? undefined : "AI-SDLC shield and trace mark"}>
       <path d="M24 3.5 41 9.4v11.1c0 11.4-6.8 19.3-17 24-10.2-4.7-17-12.6-17-24V9.4L24 3.5Z" fill="#123450" stroke="#D8E4E3" strokeWidth="1.25" />
       <path d="M14 17.4h12.6l4.2 4.1H37" stroke="#7DD5DD" strokeWidth="2.15" strokeLinecap="square" />
       <path d="M14 27.7h8.9l4.5-4.5h9.1" stroke="#7DD5DD" strokeWidth="2.15" strokeLinecap="square" />

@@ -1,20 +1,23 @@
-/* Platform route map: the public AI-SDLC portal, Docs, and Policy Registry share one visual system. */
+/* Route map: xDev AI umbrella landing at /, product sheets at /ai-sdlc and /trace-ledger, Docs and Policy Registry share the portal visual system. */
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
+import AiSdlc from "./pages/AiSdlc";
 import Docs from "./pages/Docs";
 import PolicyRegistry from "./pages/PolicyRegistry";
 import PolicyDetail from "./pages/PolicyDetail";
-
+import TraceLedger from "./pages/TraceLedger";
+import Umbrella from "./pages/Umbrella";
 
 function Router() {
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
+      <Route path={"/"} component={Umbrella} />
+      <Route path={"/ai-sdlc"} component={AiSdlc} />
+      <Route path={"/trace-ledger"} component={TraceLedger} />
       <Route path={"/docs"} component={Docs} />
       <Route path={"/policies/:slug"} component={PolicyDetail} />
       <Route path={"/policies"} component={PolicyRegistry} />
