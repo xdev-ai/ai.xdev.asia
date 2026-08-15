@@ -171,6 +171,7 @@ export default function AiSdlc() {
               <div className="mt-2 grid gap-1 border-t border-[rgba(129,192,205,.24)] pt-3">
                 <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#143553]" href="/"><span className="font-mono text-[11px] text-[#6f8ba6]">00</span>{t.product.siblingHome} <ArrowUpRight size={13} /></a>
                 <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#143553]" href="/trace-ledger"><span className="font-mono text-[11px] text-[#6f8ba6]">02</span>{t.nav.traceLedger} <ArrowUpRight size={13} /></a>
+                <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#143553]" href="/blog"><span className="font-mono text-[11px] text-[#6f8ba6]">03</span>{t.blog.navBlog} <ArrowUpRight size={13} /></a>
               </div>
               <div className="mt-3 flex items-center gap-2 rounded border border-amber-400/30 bg-amber-400/10 px-3 py-3 text-[12px] text-amber-200">
                 <span className="inline-block size-2 shrink-0 rounded-full bg-amber-400" />
@@ -196,6 +197,7 @@ export default function AiSdlc() {
         <div className="mt-6 grid gap-1 border-t border-[rgba(129,192,205,.24)] pt-4">
           <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/"><span className="font-mono text-[8px] text-[#6f8ba6]">00</span>{t.product.siblingHome} <ArrowUpRight size={13} /></a>
           <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/trace-ledger"><span className="font-mono text-[8px] text-[#6f8ba6]">02</span>{t.nav.traceLedger} <ArrowUpRight size={13} /></a>
+          <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/blog"><span className="font-mono text-[8px] text-[#6f8ba6]">03</span>{t.blog.navBlog} <ArrowUpRight size={13} /></a>
         </div>
         <div className="mt-auto flex items-center gap-2 pt-6 text-[12px] text-[#8ea3bf]">
           <span className="inline-block size-2 shrink-0 rounded-full bg-amber-400" />
@@ -242,7 +244,7 @@ export default function AiSdlc() {
           </div>
           <Pipeline3D />
           <div className="mt-12 grid gap-4 border-y border-[#9fb6bd] sm:grid-cols-2 lg:grid-cols-5">
-            {["lc1", "lc2", "lc3", "lc4", "lc5"].map((key, index) => { const lc = t.aiSdlc[key as keyof typeof t.aiSdlc] as string[]; return { number: String(index + 1).padStart(2, "0"), name: lc[0], copy: lc[1], gate: index === 2, last: index === 4 }; }).map(({ number, name, copy, gate }) => (
+            {["lc1", "lc2", "lc3", "lc4", "lc5"].map((key, index) => { const lc = t.aiSdlc[key as keyof typeof t.aiSdlc] as unknown as string[]; return { number: String(index + 1).padStart(2, "0"), name: lc[0], copy: lc[1], gate: index === 2, last: index === 4 }; }).map(({ number, name, copy, gate }) => (
               <article key={name} className={`border-b border-[#b5c6c9] py-5 sm:border-b-0 ${gate ? "border-l-2 border-l-amber-400 bg-amber-400/10 sm:border-b sm:border-[#b5c6c9]" : ""}`}>
                 <span className="font-mono text-[11px] text-[#5a8090]">{number}</span>
                 <strong className="mt-2 block text-[16px] tracking-tight text-[#173b59]">{name}</strong>
@@ -251,7 +253,7 @@ export default function AiSdlc() {
             ))}
           </div>
           <div className="mt-12 grid gap-4 sm:grid-cols-2">
-            {["sf0", "sf1", "sf2", "sf3"].map((key, index) => { const sf = t.aiSdlc[key as keyof typeof t.aiSdlc] as string[]; return { number: String(index).padStart(2, "0"), label: sf[0], title: sf[1], copy: sf[2], idx: index }; }).map(({ label, title, copy, idx }) => (
+            {["sf0", "sf1", "sf2", "sf3"].map((key, index) => { const sf = t.aiSdlc[key as keyof typeof t.aiSdlc] as unknown as string[]; return { number: String(index).padStart(2, "0"), label: sf[0], title: sf[1], copy: sf[2], idx: index }; }).map(({ label, title, copy, idx }) => (
               <article key={label} className="flex gap-5 border border-[#b5c6c9] bg-white p-6 transition-transform hover:-translate-y-1">
                 <span className="font-mono text-[28px] text-[#0a6e7f]/35">0{idx + 1}</span>
                 <div>
@@ -445,7 +447,7 @@ export default function AiSdlc() {
               </a>
               <button className="flex items-center gap-3 border border-[#b5c6c9] bg-white p-4 text-left hover:border-[#0a6e7f]" onClick={() => copyText("https://ai.xdev.asia/ai-sdlc", "product")}>
                 <span className="font-mono text-[10px] text-[#6f8ba6]">02</span>
-                <div className="flex-1"><strong className="block text-[14px] text-[#142641]">{copied === "product" ? t.product.copiedUrl : "ai.xdev.asia/ai-sdlc"}</strong><em className="block text-[12px] not-italic text-[#4a6470]">Product path on the umbrella</em></div>
+                <div className="flex-1"><strong className="block text-[14px] text-[#142641]">{copied === "product" ? t.aiSdlc.copiedUrl : "ai.xdev.asia/ai-sdlc"}</strong><em className="block text-[12px] not-italic text-[#4a6470]">Product path on the umbrella</em></div>
                 <Copy size={16} className="text-[#0a6e7f]" />
               </button>
               <button className="flex items-center gap-3 border border-[#b5c6c9] bg-white p-4 text-left hover:border-[#0a6e7f]" onClick={() => goTo("tree")}>

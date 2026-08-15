@@ -35,7 +35,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, [locale]);
 
   const setLocale = useCallback((next: Locale) => setLocaleState(next), []);
-  const t = useMemo(() => dictionary[locale], [locale]);
+  const t = useMemo(() => dictionary[locale] as typeof dictionary.en, [locale]);
 
   return (
     <LanguageContext.Provider value={{ locale, setLocale, t }}>

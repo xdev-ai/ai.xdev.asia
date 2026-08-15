@@ -111,6 +111,7 @@ export default function TraceLedger() {
               <div className="mt-2 grid gap-1 border-t border-[rgba(229,180,76,.3)] pt-3">
                 <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#1a2d44]" href="/"><span className="font-mono text-[11px] text-[#6f8ba6]">00</span>{t.product.siblingHome} <ArrowUpRight size={13} /></a>
                 <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#1a2d44]" href="/ai-sdlc"><span className="font-mono text-[11px] text-[#6f8ba6]">01</span>{t.nav.aiSdlc} <ArrowUpRight size={13} /></a>
+                <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#1a2d44]" href="/blog"><span className="font-mono text-[11px] text-[#6f8ba6]">02</span>{t.blog.navBlog} <ArrowUpRight size={13} /></a>
               </div>
               <div className="mt-3 flex items-center gap-2 rounded border border-amber-400/30 bg-amber-400/10 px-3 py-3 text-[12px] text-amber-200">
                 <span className="inline-block size-2 shrink-0 rounded-full bg-amber-400" />
@@ -136,6 +137,7 @@ export default function TraceLedger() {
         <div className="mt-6 grid gap-1 border-t border-[rgba(229,180,76,.3)] pt-4">
           <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/"><span className="font-mono text-[8px] text-[#6f8ba6]">00</span>{t.product.siblingHome} <ArrowUpRight size={13} /></a>
           <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/ai-sdlc"><span className="font-mono text-[8px] text-[#6f8ba6]">01</span>{t.nav.aiSdlc} <ArrowUpRight size={13} /></a>
+          <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/blog"><span className="font-mono text-[8px] text-[#6f8ba6]">02</span>{t.blog.navBlog} <ArrowUpRight size={13} /></a>
         </div>
         <div className="mt-auto flex items-center gap-2 pt-6 text-[12px] text-[#8ea3bf]">
           <span className="inline-block size-2 shrink-0 rounded-full bg-amber-400" />

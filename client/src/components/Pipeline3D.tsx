@@ -93,7 +93,7 @@ function AnimatedDataPulse({ start, end, color }: {
     const x = start + (end - start) * t;
     mesh.current.position.x = x;
     mesh.current.position.y = 1.5 + Math.sin(t * Math.PI) * 0.3;
-    mesh.current.material.opacity = Math.sin(t * Math.PI);
+    (mesh.current.material as THREE.MeshBasicMaterial).opacity = Math.sin(t * Math.PI);
   });
   return (
     <mesh ref={mesh} position={[start, 1.5, 0]}>

@@ -8,6 +8,8 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import AiSdlc from "./pages/AiSdlc";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Docs from "./pages/Docs";
 import PolicyRegistry from "./pages/PolicyRegistry";
 import PolicyDetail from "./pages/PolicyDetail";
@@ -35,6 +37,8 @@ function Router() {
       <Route path={"/"} component={Umbrella} />
       <Route path={"/ai-sdlc"} component={AiSdlc} />
       <Route path={"/trace-ledger"} component={TraceLedger} />
+      <Route path={"/blog"} component={Blog} />
+      <Route path={"/blog/:slug"} component={BlogPost} />
       <Route path={"/docs"} component={Docs} />
       <Route path={"/policies/:slug"} component={PolicyDetail} />
       <Route path={"/policies"} component={PolicyRegistry} />

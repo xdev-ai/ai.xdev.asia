@@ -10,17 +10,19 @@ import { useLang } from "@/i18n/LanguageContext";
    The umbrella page must stay neutral toward any single product so future products
    (AI-SDLC, Trace Ledger, ...) plug in as siblings under ai.xdev.asia/<product>. */
 
+type Bilingual = { en: string; vi: string };
+
 type ProductCard = {
   slug: string;
   index: string;
   name: string;
-  tagline: string;
+  taglineKey: string;
   status: string;
   statusTone: "live" | "incubating";
-  copy: string;
-  stack: string;
+  copy: Bilingual;
+  stackKey: string;
   href: string;
-  cta: string;
+  ctaKey: string;
 };
 
 const products: ProductCard[] = [
@@ -71,7 +73,7 @@ const record = [
 
 export default function Umbrella() {
   const [open, setOpen] = useState(false);
-  const { t, lang } = useLang();
+  const { t, locale } = useLang();
 
   return (
     <div className="min-h-screen bg-[#0f243f] text-[#eaf3f4]">
@@ -92,6 +94,7 @@ export default function Umbrella() {
           <nav className="hidden items-center gap-5 md:flex">
             <a className="text-sm hover:text-cyan-300" href="/ai-sdlc">{t.nav.aiSdlc}</a>
             <a className="text-sm hover:text-cyan-300" href="/trace-ledger">{t.nav.traceLedger}</a>
+            <a className="text-sm hover:text-cyan-300" href="/blog">{t.blog.navBlog}</a>
             <a className="flex items-center gap-1 text-sm hover:text-cyan-300" href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">
               {t.nav.github} <ExternalLink size={12} />
             </a>
@@ -128,8 +131,11 @@ export default function Umbrella() {
                 <a className="flex items-baseline gap-3 rounded px-3 py-3 text-[15px] hover:bg-[#143553]" href="/trace-ledger" onClick={() => setOpen(false)}>
                   <span className="font-mono text-xs text-cyan-300/70">02</span><span>{t.nav.traceLedger}</span>
                 </a>
+                <a className="flex items-baseline gap-3 rounded px-3 py-3 text-[15px] hover:bg-[#143553]" href="/blog" onClick={() => setOpen(false)}>
+                  <span className="font-mono text-xs text-cyan-300/70">03</span><span>{t.blog.navBlog}</span>
+                </a>
                 <a className="flex items-baseline gap-3 rounded px-3 py-3 text-[15px] hover:bg-[#143553]" href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">
-                  <span className="font-mono text-xs text-cyan-300/70">03</span><span>{t.nav.github}</span>
+                  <span className="font-mono text-xs text-cyan-300/70">04</span><span>{t.nav.github}</span>
                 </a>
               </nav>
             </div>
@@ -199,13 +205,13 @@ export default function Umbrella() {
                     </span>
                   </div>
                   <h3 className="text-xl font-semibold tracking-tight">{p.name}</h3>
-                  <p className="mt-1 text-sm italic text-[#4a6470]">{t.umbrella[p.taglineKey]}</p>
-                  <p className="mt-4 flex-1 text-[14px] leading-relaxed text-[#2e4854]">{lang === "vi" ? p.copy.vi : p.copy.en}</p>
+                  <p className="mt-1 text-sm italic text-[#4a6470]">{t.umbrella[p.taglineKey as keyof typeof t.umbrella]}</p>
+                  <p className="mt-4 flex-1 text-[14px] leading-relaxed text-[#2e4854]">{locale === "vi" ? p.copy.vi : p.copy.en}</p>
                   <div className="mt-6 flex items-center gap-2 border-t border-[#dde7e4] pt-4 text-[11px] text-[#4a6470]">
-                    <FileCode2 size={13} /><span>{t.umbrella[p.stackKey]}</span>
+                    <FileCode2 size={13} /><span>{t.umbrella[p.stackKey as keyof typeof t.umbrella]}</span>
                   </div>
                   <a className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-[#0a6e7f] hover:underline" href={p.href}>
-                    {t.umbrella[p.ctaKey]} {p.statusTone === "live" ? <ArrowUpRight size={15} /> : <ArrowRight size={15} />}
+                    {t.umbrella[p.ctaKey as keyof typeof t.umbrella]} {p.statusTone === "live" ? <ArrowUpRight size={15} /> : <ArrowRight size={15} />}
                   </a>
                 </article>
               ))}
@@ -228,9 +234,9 @@ export default function Umbrella() {
               {principles.map((p, i) => (
                 <article key={p.index} className="relative border-l-2 border-cyan-400/50 bg-[#143553] p-5 md:p-6">
                   <span className="block text-[10px] uppercase tracking-[0.18em] text-cyan-300/60">{t.umbrella.principleLabel} / {p.index}</span>
-                  <h3 className="mt-2 text-lg font-semibold tracking-tight">{lang === "vi" ? p.title.vi : p.title.en}</h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-[#c7d6de]">{lang === "vi" ? p.copy.vi : p.copy.en}</p>
-                  {i === 0 && <span className="absolute right-4 top-4 size-2 rounded-full bg-amber-400" aria-label={t.product.verifiedDot} />}
+                  <h3 className="mt-2 text-lg font-semibold tracking-tight">{locale === "vi" ? p.title.vi : p.title.en}</h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-[#c7d6de]">{locale === "vi" ? p.copy.vi : p.copy.en}</p>
+                  {i === 0 && <span className="absolute right-4 top-4 size-2 rounded-full bg-amber-400" aria-label={t.aiSdlc.verifiedDot} />}
                 </article>
               ))}
             </div>
@@ -254,8 +260,8 @@ export default function Umbrella() {
                 <a key={r.label} className="flex items-center gap-4 border border-[#b5c6c9] bg-white p-4 transition-colors hover:border-[#0a6e7f] md:p-5" href={i === 0 ? "https://github.com/xdev-ai" : i === 1 ? "https://ai.xdev.asia" : "mailto:duy@xdev.asia"} target="_blank" rel="noreferrer">
                   <span className="shrink-0 font-mono text-xs text-[#0a6e7f]">{r.label}</span>
                   <div className="flex-1">
-                    <strong className="block text-[15px]">{lang === "vi" ? r.title.vi : r.title.en}</strong>
-                    <em className="block text-[13px] not-italic text-[#4a6470]">{lang === "vi" ? r.copy.vi : r.copy.en}</em>
+                    <strong className="block text-[15px]">{locale === "vi" ? r.title.vi : r.title.en}</strong>
+                    <em className="block text-[13px] not-italic text-[#4a6470]">{locale === "vi" ? r.copy.vi : r.copy.en}</em>
                   </div>
                   {i < 2 ? <ExternalLink size={15} className="shrink-0 text-[#0a6e7f]" /> : <ShieldCheck size={15} className="shrink-0 text-[#0a6e7f]" />}
                 </a>

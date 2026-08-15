@@ -26,6 +26,32 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://ai.xdev.asia/trace-ledger" />
   </url>
   <url>
+    <loc>https://ai.xdev.asia/blog</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ai.xdev.asia/blog" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://ai.xdev.asia/blog" />
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/why-governance-beats-prompts</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/the-10-contract-check-kinds</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/umbrella-brand-product-fit</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ai.xdev.asia/docs</loc>
     <lastmod>2026-08-15</lastmod>
     <changefreq>weekly</changefreq>
