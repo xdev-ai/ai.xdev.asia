@@ -8,6 +8,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Docs from "./pages/Docs";
 import PolicyRegistry from "./pages/PolicyRegistry";
+import PolicyDetail from "./pages/PolicyDetail";
 
 
 function Router() {
@@ -15,6 +16,7 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/docs"} component={Docs} />
+      <Route path={"/policies/:slug"} component={PolicyDetail} />
       <Route path={"/policies"} component={PolicyRegistry} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

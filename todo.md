@@ -29,3 +29,8 @@
 - [x] Add scalable bilingual navigation and role-based reading paths to Docs.
 - [x] Add detailed policy cards and registry views for current and future policy packs.
 - [x] Publish and verify the expanded Docs and Policy Registry structure.
+- [x] Define shared bilingual policy-detail data for all current YAML rule packs and their check contracts.
+- [x] Add policy-detail routes with traceable metadata, enforcement, evidence, and related Docs links.
+- [x] Add searchable Docs navigation with bilingual labels, result summaries, and keyboard-friendly interactions.
+- [x] Add stable section anchors and URL deep-link behavior across Docs.
+- [x] Validate policy routes, search, deep links, responsive layouts, and GitHub Pages publication.
