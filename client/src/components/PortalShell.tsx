@@ -1,11 +1,10 @@
 /* Governance Blueprint shared shell: document spine, evidence rail, and bilingual platform navigation. */
 import { useEffect, useState, type ReactNode } from "react";
 import { ArrowUpRight, Languages, Menu, ShieldCheck, X } from "lucide-react";
+import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 
 export type Locale = "en" | "vi";
 export type PortalRoute = "platform" | "docs" | "policies";
-
-const markAsset = "/manus-storage/aisdlc-mark_22edf57e.png";
 
 const navigation: Array<{ route: PortalRoute; href: string; number: string; en: string; vi: string }> = [
   { route: "platform", href: "/", number: "01", en: "Platform", vi: "Nền tảng" },
@@ -42,7 +41,7 @@ export function PortalShell({ route, children }: PortalShellProps) {
       <aside className={`knowledge-spine ${open ? "is-open" : ""}`} style={narrow ? { position: "fixed", transform: open ? "translateX(0)" : "translateX(-104%)", transition: "transform .23s cubic-bezier(.23,1,.32,1)" } : { position: "sticky", top: 0, height: "100vh" }} aria-label={t ? "AI-SDLC platform navigation" : "Điều hướng nền tảng AI-SDLC"}>
         <div className="spine-topline"><span /> <span>AI-SDLC / OPEN SYSTEM</span></div>
         <a className="spine-brand" href="/">
-          <img src={markAsset} alt="AI-SDLC shield and trace mark" />
+          <ShieldTraceMark className="spine-mark" />
           <span><strong>AI-SDLC</strong><em>by xDev AI</em></span>
         </a>
         <div className="spine-status"><span>RECORD</span><code>PUBLIC / v1.0</code><span>MODE</span><strong>{t ? "BILINGUAL" : "SONG NGỮ"}</strong></div>

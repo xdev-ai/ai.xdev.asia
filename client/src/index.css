@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./portable-pages.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -20,7 +21,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; color: #152540; background-color: #f7f4eb; background-image: url("/manus-storage/aisdlc-grid-texture_7643ef69.png"); background-size: 900px auto; background-blend-mode: multiply; font-family: "Space Grotesk", sans-serif; }
+body { margin: 0; min-width: 320px; color: #152540; background-color: #f7f4eb; background-image: linear-gradient(rgba(23,60,87,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(23,60,87,.045) 1px, transparent 1px); background-size: 42px 42px; font-family: "Space Grotesk", sans-serif; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, a:focus-visible { outline: 2px solid #29d3e8; outline-offset: 3px; }
 
@@ -56,7 +57,7 @@ main { margin-left: 0; overflow: hidden; }
 .mobile-menu { display: none; }
 
 .hero { position: relative; min-height: 684px; padding: 76px clamp(32px, 7vw, 118px) 46px; display: flex; flex-direction: column; justify-content: center; overflow: hidden; background: #102340; color: #f8f7f0; }
-.hero-image { position: absolute; inset: 0; background: linear-gradient(90deg, #102340 0%, rgba(16,35,64,.91) 38%, rgba(16,35,64,.18) 75%, rgba(16,35,64,.36) 100%), url("/manus-storage/aisdlc-speckit-hero_806451c9.png") center/cover; }
+.hero-image { position: absolute; inset: 0; background: linear-gradient(90deg, #102340 0%, rgba(16,35,64,.91) 38%, rgba(16,35,64,.3) 75%, rgba(16,35,64,.52) 100%), radial-gradient(circle at 82% 34%, rgba(74,157,178,.56) 0 5%, rgba(35,94,120,.3) 21%, transparent 48%), linear-gradient(135deg, #163b58 0%, #102340 49%, #224a61 100%); }
 .hero-grid { position: absolute; inset: 0; opacity: .28; background-image: linear-gradient(rgba(100,191,214,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(100,191,214,.13) 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(90deg, black, transparent 80%); }
 .hero-content { position: relative; z-index: 1; max-width: 770px; }
 .eyebrow { display: flex; align-items: center; gap: 9px; color: #84cfdd; font-size: 10px; }

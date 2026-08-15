@@ -18,6 +18,7 @@ import {
   ShieldCheck,
   X,
 } from "lucide-react";
+import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 
 const navItems = [
   ["01", "Platform", "platform"],
@@ -105,9 +106,6 @@ const platformSurfaces = [
   ["Open record", "Repository as source of truth", "Architecture notes, release work, and policy changes remain inspectable and versioned."],
 ];
 
-const traceAsset = "/manus-storage/aisdlc-trace-visual_ade867ea.png";
-const markAsset = "/manus-storage/aisdlc-mark_22edf57e.png";
-
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
@@ -144,7 +142,7 @@ export default function Home() {
       <aside className={`rail ${open ? "is-open" : ""}`} aria-label="Điều hướng tài liệu">
         <div className="rail-topline"><span /> <span>PLATFORM BRIEF / 01</span></div>
         <a className="brand-lockup" href="#overview" onClick={() => goTo("overview")}>
-          <img src={markAsset} alt="AI-SDLC shield and trace mark" />
+          <ShieldTraceMark className="rail-mark" />
           <span><strong>AI-SDLC</strong><em>by xDev AI</em></span>
         </a>
         <div className="rail-file" aria-label="File metadata"><span>FILE</span><code>AI-SDLC / 01</code><span>STATUS</span><strong>PUBLIC BRIEF</strong></div>
@@ -196,7 +194,7 @@ export default function Home() {
             <div className="evidence-route"><span>REQ</span><i /><span>SPEC</span><i /><span>RULE</span><i /><span>TC</span></div>
             <div className="evidence-foot"><span>policy pinned</span><span>trace resolved</span></div>
           </div>
-          <img className="hero-witness" src={markAsset} alt="" aria-hidden="true" />
+          <ShieldTraceMark className="hero-witness" decorative />
           <div className="hero-index"><span>01</span><span>GOVERNED AI-ASSISTED DELIVERY</span></div>
         </section>
 
@@ -275,7 +273,16 @@ export default function Home() {
         </section>
 
         <section id="contract" className="contract-section section-anchor">
-          <div className="contract-visual"><img src={traceAsset} alt="Conceptual traceability lattice" /></div>
+          <div className="contract-visual" role="img" aria-label="Conceptual traceability lattice">
+            <svg className="trace-lattice" viewBox="0 0 620 500" fill="none" aria-hidden="true">
+              <defs><pattern id="blueprint-grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#9FBCC1" strokeOpacity=".34" strokeWidth="1" /></pattern></defs>
+              <rect width="620" height="500" fill="url(#blueprint-grid)" />
+              <path d="M85 108H250L315 174H502M85 326H192L273 244H510M171 428H355L450 330H533" stroke="#1C6372" strokeWidth="2.5" />
+              <path d="M108 202H205L274 272H422L489 202" stroke="#9B702F" strokeWidth="1.5" strokeDasharray="7 7" />
+              {[[85,108],[250,108],[315,174],[502,174],[85,326],[192,326],[273,244],[510,244],[171,428],[355,428],[450,330],[533,330],[108,202],[205,202],[274,272],[422,272],[489,202]].map(([cx, cy], index) => <circle key={index} cx={cx} cy={cy} r={index % 4 === 0 ? 7 : 5} fill={index % 4 === 0 ? "#D79B43" : "#175468"} stroke="#F3F0E4" strokeWidth="2" />)}
+              <text x="83" y="88" fill="#173C57" fontSize="13" fontFamily="IBM Plex Mono, monospace">REQ</text><text x="489" y="154" fill="#173C57" fontSize="13" fontFamily="IBM Plex Mono, monospace">SPEC</text><text x="494" y="265" fill="#173C57" fontSize="13" fontFamily="IBM Plex Mono, monospace">RULE</text><text x="515" y="351" fill="#173C57" fontSize="13" fontFamily="IBM Plex Mono, monospace">TC</text>
+            </svg>
+          </div>
           <div className="contract-copy">
             <div className="section-marker"><span>04</span><span>THE CENTRAL CONTRACT</span></div>
             <h2><code>check-kinds.md</code><br />là nơi engine <i>và luật gặp nhau.</i></h2>
@@ -363,7 +370,7 @@ export default function Home() {
           <div className="closing-actions"><p>Khi policy là YAML versioned và engine là tập đóng, thay đổi có thể review, pin, phân phối và audit — không cần tin vào một prompt.</p><a href="https://github.com/xdev-ai" target="_blank" rel="noreferrer" className="ink-button">Theo dõi xDev AI <ArrowUpRight size={16} /></a></div>
         </section>
 
-        <footer><span className="footer-brand"><img src={markAsset} alt="" aria-hidden="true" /> AI-SDLC / XDEV AI</span><span>GOVERNED DELIVERY PLATFORM — 2026</span><span><code>AI.XDEV.ASIA</code> / SPEC KIT BASELINE</span></footer>
+        <footer><span className="footer-brand"><ShieldTraceMark decorative /> AI-SDLC / XDEV AI</span><span>GOVERNED DELIVERY PLATFORM — 2026</span><span><code>AI.XDEV.ASIA</code> / SPEC KIT BASELINE</span></footer>
       </main>
     </div>
   );
