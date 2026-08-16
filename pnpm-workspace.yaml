@@ -1,4 +1,4 @@
 allowBuilds:
-  - '@firebase/util'
-  - esbuild
-  - protobufjs
+  '@firebase/util': true
+  esbuild: true
+  protobufjs: true
