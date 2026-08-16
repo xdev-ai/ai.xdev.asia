@@ -2272,20 +2272,20 @@ Góc nhìn cho team Việt: nếu dữ liệu dự án nhạy cảm (đây là m
     ],
     faq: [
       {
-        q: "Công cụ AI coding nào đáng tiền nhất năm 2026?",
-        a: "Theo giá trị velocity/chi phí: Cursor (~$0,07/tác vụ trên coding-agent index) và Copilot (theo gói GitHub hiện có) là hai lựa chọn cân bằng nhất. Claude Code mạnh nhất về benchmark thuần nhưng chi phí token cao. Quyết định nên theo kiến trúc team hơn theo benchmark.",
+        q: "Which AI coding tool is the best value in 2026?",
+        a: "By velocity-per-cost: Cursor (~$0.07 per task on the coding-agent index) and Copilot (bundled with existing GitHub plans) are the two most balanced options. Claude Code leads on raw benchmarks but carries high token costs. The decision should follow your team's architecture rather than benchmarks.",
       },
       {
-        q: "Công ty outsource Việt dùng AI coding thế nào cho an toàn với NDA?",
-        a: "Ưu tiên hai hướng: (1) tự-host harness mã nguồn mở như OpenCode trên hạ tầng riêng với key tự mang, hoặc (2) dùng giải pháp cloud có DPA rõ ràng về data residency. Luôn đọc DPA trước khi dùng cloud VM. Thêm policy gate để mọi output AI đi qua review như code người viết.",
+        q: "How should Vietnamese outsourcing companies use AI coding safely under NDA?",
+        a: "Prioritize two directions: (1) self-host an open-source harness like OpenCode on your own infrastructure with your own keys, or (2) use a cloud solution with a clear DPA covering data residency. Always read the DPA before using any cloud VM. Add a policy gate so all AI output goes through review like human-written code.",
       },
       {
-        q: "Team nhỏ có nên dùng AI coding agent không?",
-        a: "Có — đây chính là nơi velocity cá nhân có tác động lớn nhất. Bắt đầu từ công cụ miễn phí hoặc rẻ (Gemini CLI, tier cơ bản của Cursor/Copilot) cho prototyping, rồi nâng cấp khi có dòng tiền. Quy tắc an toàn cơ bản (không secrets trong tầm agent, pin dependencies) vẫn áp dụng ở mọi quy mô.",
+        q: "Should a small team adopt an AI coding agent?",
+        a: "Yes — this is exactly where individual velocity has the biggest impact. Start with free or cheap tools (Gemini CLI, basic tiers of Cursor/Copilot) for prototyping, then upgrade as cash flow allows. The basic safety rules (no secrets within the agent's reach, pinned dependencies) still apply at every scale.",
       },
       {
-        q: "AI-SDLC khác gì với việc chọn công cụ AI coding?",
-        a: "Công cụ AI coding là harness cho từng developer; AI-SDLC là lớp pipeline quản trị output: intent → spec có version → draft (bất kỳ agent nào) → gate kiểm định → evidence → release. Chọn công cụ trả lời câu hỏi velocity; xây pipeline trả lời câu hỏi accountability.",
+        q: "How is AI-SDLC different from just choosing an AI coding tool?",
+        a: "An AI coding tool is a harness for each developer; AI-SDLC is the governance pipeline layer over that output: intent → versioned spec → draft (any agent) → validation gate → evidence → release. Choosing a tool answers the velocity question; building the pipeline answers the accountability question.",
       },
     ],
   },
@@ -2445,20 +2445,20 @@ Thực tế đáng suy ngẫm: chỉ 18% tổ chức có hội đồng AI govern
     ],
     faq: [
       {
-        q: "Prompt injection trong công cụ AI coding là gì?",
-        a: "Là chèn lệnh ẩn vào ngữ cảnh đầu vào hệ AI để chiếm quyền hành vi. Trong công cụ coding, indirect injection là dạng nguy hiểm: lệnh cưỡi trên dữ liệu agent tin cậy — comment code, file cấu hình, docs package, repo bên thứ ba — và thực thi khi agent hành động trên dữ liệu đó.",
+        q: "What is prompt injection in AI coding tools?",
+        a: "It is the insertion of hidden commands into an AI system's input context to hijack its behavior. In coding tools, indirect injection is the most dangerous form: commands ride on data the agent trusts — code comments, config files, package docs, third-party repos — and execute when the agent acts on that data.",
       },
       {
-        q: "Tấn công prompt injection thật thành công bao nhiêu trên coding agent?",
-        a: "Nghiên cứu AIShellJack (USENIX Security 2026) ghi nhận 84% thành công tổng thể trên GPT-5, 22/24 payload thực thi trên Claude Code, và 314 payload độc hại đã lưu hành ngoài tự nhiên. Safeguard tích hợp của chính nhà cung cấp model bỏ sót hơn 60% indirect injection.",
+        q: "How successful are real prompt injection attacks on coding agents?",
+        a: "The AIShellJack study (USENIX Security 2026) recorded an 84% overall success rate on GPT-5, 22 out of 24 payloads executing on Claude Code, and 314 malicious payloads already circulating in the wild. The model vendors' own built-in safeguards miss more than 60% of indirect injection.",
       },
       {
-        q: "Model AI có tự bảo vệ khỏi prompt injection không?",
-        a: "Không đáng tin: safeguard nhúng trong model bỏ sót hơn 60% indirect injection, và model tốt hơn không đóng gap về căn bản vì đòn tấn công khai thác quan hệ tin cậy với ngữ cảnh. Phòng thủ hiệu quả đòi hỏi các lớp ngoài model: phát hiện static, policy gate deterministic, giám sát runtime.",
+        q: "Can AI models protect themselves from prompt injection?",
+        a: "Not reliably: embedded safeguards miss more than 60% of indirect injection, and a better model does not fundamentally close the gap because the attack exploits the trust relationship with the context. Effective defense requires layers outside the model: static detection, deterministic policy gates, and runtime monitoring.",
       },
       {
-        q: "Policy gate chặn prompt injection thế nào?",
-        a: "Policy gate kiểm định artifact output của agent bằng quy tắc deterministic — nó không đánh giá chat của agent. Injection không thuyết phục được check deterministic, nên output độc hại fail gate bất kể thuyết phục thế nào. Mọi kết quả check được ghi làm evidence truy vấn được.",
+        q: "How does a policy gate stop prompt injection?",
+        a: "A policy gate validates the agent's output artifacts against deterministic rules — it does not evaluate the agent's chat. Injection cannot convince a deterministic check, so malicious output fails the gate no matter how persuasive it is. Every check result is recorded as queryable evidence.",
       },
     ],
   },
