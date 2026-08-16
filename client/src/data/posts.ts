@@ -33,6 +33,647 @@ const BASE = "/blog/";
 
 export const posts: Post[] = [
   {
+  slug: "spec-driven-development-ai",
+  dateISO: "2026-08-11",
+  tags: ["Spec-driven", "AI coding", "Governance"],
+  draft: false,
+  cover: `${BASE}cover-spec-driven.jpg`,
+  coverAlt: {
+    en: "Illustration: a versioned spec document flowing through an amber policy gate into three deliverables — code, tests and deployment — each checked.",
+    vi: "Minh họa: tài liệu spec có version chảy qua một policy gate màu amber thành ba deliverable — code, test và deployment — mỗi deliverable được kiểm tra.",
+  },
+  faq: [
+    {
+      q: {
+        en: "What is spec-driven development with AI?",
+        vi: "Spec-driven development với AI là gì?",
+      },
+      a: {
+        en: "Spec-driven development treats specifications as executable contracts, not passive documents: AI drafts code, tests and plans against a versioned spec, and a validation gate verifies every deliverable against the spec's declared outcomes, scope, constraints and verification criteria before release. The spec, not the developer's memory, is the source of truth.",
+        vi: "Spec-driven development coi spec là contract có thể thực thi, không phải tài liệu thụ động: AI draft code, test và plan theo một spec có version, và một validation gate kiểm tra mọi deliverable so với outcomes, scope, constraints và verification criteria của spec trước khi release. Spec, không phải trí nhớ developer, là nguồn chân lý.",
+      },
+    },
+    {
+      q: {
+        en: "Why does AI coding need specs more than human coding?",
+        vi: "Vì sao AI coding cần spec hơn human coding?",
+      },
+      a: {
+        en: "AI agents produce large volumes of code at high speed without the shared context a human team builds over months. Without an explicit contract, drift accumulates invisibly: missing scope, silent constraint violations, and tests that pass but don't check what the system actually needs. A spec is the anchor that makes AI output reviewable at all — it tells the gate what to check.",
+        vi: "AI agents sinh lượng lớn code với tốc độ cao mà không có shared context mà đội human xây dựng trong nhiều tháng. Không có contract tường minh, drift tích lũy thầm lặng: scope thiếu, constraint bị vi phạm âm thầm, và test pass nhưng không kiểm đúng cái hệ thống thật sự cần. Spec là mỏ neo làm output AI reviewable — nó nói cho gate biết phải check cái gì.",
+      },
+    },
+    {
+      q: {
+        en: "What makes a spec good enough for AI-assisted delivery?",
+        vi: "Spec thế nào là đủ tốt cho delivery AI-assisted?",
+      },
+      a: {
+        en: "Six elements: explicit outcomes (what must be true after the change), bounded scope (what is and isn't included), hard constraints (security, performance, compatibility), prior decisions that carry over, a task breakdown the agent can execute, and verification criteria that state how compliance will be checked. Vague prose specs fail because the gate has nothing deterministic to verify against.",
+        vi: "Sáu yếu tố: outcomes tường minh (điều gì phải đúng sau change), scope được giới hạn (cái gì thuộc và không thuộc), constraints cứng (security, performance, compatibility), các quyết định trước đó được carry over, task breakdown mà agent thực thi được, và verification criteria nói rõ compliance sẽ được check thế nào. Spec dạng prose mơ hồ fail vì gate không có gì deterministic để verify.",
+      },
+    },
+    {
+      q: {
+        en: "Is spec-driven development the same as specification-first TDD?",
+        vi: "Spec-driven development có giống specification-first TDD không?",
+      },
+      a: {
+        en: "They are related but distinct. TDD starts from failing unit tests; spec-driven delivery starts from a versioned contract and validates all deliverable kinds — code, tests, plans, configurations — against it. Tests remain one verification artifact among several, and the spec itself becomes versioned data that the gate, not a person's memory, enforces. In xDev AI's model the spec is a document the policy gate reads.",
+        vi: "Có liên quan nhưng khác nhau. TDD bắt đầu từ unit test failing; spec-driven delivery bắt đầu từ một contract có version và validate mọi loại deliverable — code, test, plan, configuration — so với nó. Test chỉ là một verification artifact trong nhiều artifact, và bản thân spec trở thành data có version mà gate enforce, không phải trí nhớ một người. Trong mô hình xDev AI, spec là document mà policy gate đọc.",
+      },
+    },
+  ],
+  en: {
+    title: "Spec-driven development with AI: why specs beat vibes at enterprise scale",
+    summary:
+      "When AI writes most of the code, the only thing separating disciplined delivery from vibe coding is the spec: a versioned contract that declares outcomes, scope, constraints and verification criteria, enforced by a policy gate. This article explains why specs become more valuable, not less, as AI participation rises — and what a spec good enough for AI-assisted delivery actually contains.",
+    readingMinutes: 11,
+    sections: [
+      {
+        heading: "The answer in one paragraph",
+        body: "Spec-driven development with AI treats the specification as an executable contract rather than a passive document: intent is written down as versioned data declaring outcomes, scope, constraints and verification criteria; AI drafts code, tests and plans inside a pinned workspace; and a deterministic policy gate verifies every deliverable against the spec before release. The faster AI writes, the more the spec matters — because at high volume, the difference between engineering and vibe coding is whether anything outside a developer's head defines what \u201Cdone\u201D means. xDev AI's model makes the spec the single artifact the gate, the agent and the auditor all read.",
+        image: {
+          src: `${BASE}inline-spec-contract.jpg`,
+          alt: "Diagram: spec document flowing into a contract gate, then distributing to code, tests and deployment, with a feedback loop back to the spec.",
+        },
+      },
+      {
+        heading: "Vibe coding scales, governance doesn't",
+        body: "Vibe coding is a legitimate description of what many AI-assisted workflows actually look like: describe the feature, let the agent go, eyeball the diff. For a one-person side project this is genuinely productive. The problem is structural, not moral: vibe coding's QA process is the developer's memory, and memory does not scale, does not survive staff turnover, and produces nothing an auditor can read. When AI participation in committed code reaches 30\u201370% of output — the range most industry estimates now cite — the \u201Csomeone looked at it\u201D assurance collapses under volume. What survives is a contract: a spec that says what must be true, written in a form a machine can verify.",
+      },
+      {
+        heading: "Why AI needs specs more than humans do",
+        body: "A human team builds shared context over months: design reviews, hallway conversations, tribal knowledge of what \u201Cdone\u201D meant last time. An AI agent shows up to every task with a clean context window and no memory of prior decisions unless someone writes them down. This makes three failure modes near-certain without a contract. First, scope drift: the agent happily implements the adjacent feature that sounds nice. Second, silent constraint violations: security, performance and compatibility requirements live in people's heads and never get checked because nobody told the agent they mattered. Third, superficially passing tests: tests that verify the implementation exists rather than the behavior the system actually needs. Each failure mode is individually invisible at PR-review scale and collectively catastrophic at release scale. The spec is what makes all three checkable.",
+      },
+      {
+        heading: "The six elements of a spec good enough for AI-assisted delivery",
+        body: "Not every specification document can serve as a contract. Research on specification-driven AI development and the practical grammar used by tools like AI-SDLC converge on six elements. Outcomes state what must be true after the change, in terms observable at the system boundary. Scope is bounded both ways: what is included and, explicitly, what is not. Hard constraints — security requirements, performance ceilings, compatibility floors — are declared separately from outcomes so a gate can fail them independently. Prior decisions that carry over from earlier work are listed so the agent doesn't re-debate settled architecture. A task breakdown gives the agent executable steps without removing the human's authority over outcomes. And verification criteria state, in advance, how compliance will be checked — which tests, which checks, which evidence. A prose paragraph containing none of these is a wish; a document containing all six is a contract a policy gate can enforce.",
+      },
+      {
+        heading: "Three patterns for putting specs to work",
+        body: "Organizations adopt spec-driven delivery in three recognizable patterns. The spec-first pattern writes the full contract before any drafting begins — highest discipline, best fit for regulated or high-consequence changes. The spec-anchored pattern, the practical enterprise default, lets AI draft freely but pins the spec as the authoritative reference the gate checks against; drift is caught at validation time rather than prevented up front. The spec-as-source pattern, which ThoughtWorks' Technology Radar placed in the Assess ring, treats the spec itself as the primary artifact from which code, tests and documentation are derived and versioned together. All three share the same core move: the spec becomes typed, versioned data that a closed engine reads — not a document that happens to exist in the same repository as the code.",
+      },
+      {
+        heading: "The gate is where the spec earns its keep",
+        body: "A spec without enforcement is decoration. The point of writing outcomes, constraints and verification criteria in a machine-readable form is that a deterministic policy gate can check them automatically on every deliverable, in CI, before merge. In xDev AI's model the spec declares what must hold, rule packs express those declarations as versioned checks, and the engine validates each artifact against the closed set of check kinds — producing retained evidence per check. An unknown requirement is an engine change, never a silent no-op, which is exactly the property that makes spec-driven delivery auditable. The human stays in the loop at the meaningful moments: writing the spec, reviewing the evidence, approving the release. The machine handles the volume. That division of labor is what lets AI participation rise without governance falling.",
+      },
+      {
+        heading: "Where spec-driven sits in the AI-SDLC picture",
+        body: "Spec-driven delivery is the left half of the governed pipeline: intent becomes spec, spec anchors the agent's drafting, and the gate converts the spec's declarations into verified evidence. The right half is what the blog's other articles cover — policy-as-code, evidence trails, compliance mapping. Together they answer the question each alone cannot: not \u201Ccan AI write this?\u201D but \u201Cwhat can you prove about what AI wrote, against what contract, under which rules?\u201D Organizations adopting AI delivery without a spec contract are accelerating toward the same cliff every unmeasured AI adoption has hit; organizations that write the contract first are the ones for whom \u201Cgoverned AI delivery\u201D stops being a slogan and starts being an audit result.",
+      },
+    ],
+  },
+  vi: {
+    title: "Spec-driven development với AI: vì sao spec thắng vibe ở quy mô enterprise",
+    summary:
+      "Khi AI viết phần lớn code, thứ duy nhất tách delivery kỷ luật khỏi vibe coding là spec: một contract có version khai báo outcomes, scope, constraints và verification criteria, được policy gate enforce. Bài này giải thích vì sao spec càng ngày càng quan trọng khi AI tham gia nhiều hơn — và một spec đủ tốt cho delivery AI-assisted chứa gì.",
+    readingMinutes: 11,
+    sections: [
+      {
+        heading: "Câu trả lời trong một đoạn",
+        body: "Spec-driven development với AI coi spec là contract có thể thực thi thay vì tài liệu thụ động: intent được viết thành data có version khai báo outcomes, scope, constraints và verification criteria; AI draft code, test và plan trong một workspace đã pin; và một policy gate deterministic kiểm tra mọi deliverable so với spec trước khi release. AI viết càng nhanh, spec càng quan trọng — vì ở khối lượng cao, sự khác biệt giữa engineering và vibe coding là có thứ gì ngoài đầu developer định nghĩa \u201Cdone\u201D hay không. Mô hình xDev AI biến spec thành artifact duy nhất mà gate, agent và auditor cùng đọc.",
+        image: {
+          src: `${BASE}inline-spec-contract.jpg`,
+          alt: "Sơ đồ: tài liệu spec chảy vào một contract gate, rồi phân phối ra code, test và deployment, với vòng phản hồi quay lại spec.",
+        },
+      },
+      {
+        heading: "Vibe coding scale được, governance thì không",
+        body: "Vibe coding là mô tả đúng về nhiều workflow AI-assisted thực tế: mô tả feature, để agent chạy, nhìn diff bằng mắt. Với side project một người đây thật sự hiệu quả. Vấn đề là cấu trúc, không phải đạo đức: QA process của vibe coding là trí nhớ developer, và trí nhớ không scale, không sống sót qua turnover nhân sự, và không sinh ra thứ auditor đọc được. Khi AI tham gia committed code đạt 30\u201370% output — khoảng mà hầu hết ước tính industry hiện nêu — assurance dạng \u201Ccó người nhìn rồi\u201D sụp đổ dưới khối lượng. Thứ sống sót là contract: spec nói điều gì phải đúng, viết ở dạng máy verify được.",
+      },
+      {
+        heading: "Vì sao AI cần spec hơn con người",
+        body: "Đội human xây shared context trong nhiều tháng: design review, nói chuyện hành lang, tribal knowledge về \u201Cdone\u201D nghĩa là gì lần trước. AI agent xuất hiện ở mọi task với context window sạch và không có memory về các quyết định trước đó trừ khi ai đó viết ra. Điều này làm ba failure mode gần như chắc chắn khi không có contract. Thứ nhất, scope drift: agent vui vẻ implement feature lân cận nghe có vẻ hay. Thứ hai, constraint bị vi phạm thầm lặng: requirement security, performance, compatibility nằm trong đầu người và không bao giờ được check vì không ai nói cho agent chúng quan trọng. Thứ ba, test pass trên bề mặt: test verify implementation tồn tại thay vì hành vi hệ thống thật sự cần. Mỗi failure mode riêng lẻ vô hình ở quy mô PR review và tập thể thảm họa ở quy mô release. Spec là thứ làm cả ba checkable.",
+      },
+      {
+        heading: "Sáu yếu tố của một spec đủ tốt cho delivery AI-assisted",
+        body: "Không phải tài liệu specification nào cũng làm contract được. Nghiên cứu về specification-driven AI development và grammar thực tiễn dùng bởi công cụ như AI-SDLC hội tụ về sáu yếu tố. Outcomes nói điều gì phải đúng sau change, ở mức observable tại system boundary. Scope được giới hạn hai chiều: cái gì thuộc và, tường minh, cái gì không. Constraints cứng — security requirement, performance ceiling, compatibility floor — được khai báo riêng khỏi outcomes để gate fail chúng độc lập. Các quyết định trước đó được carry over liệt kê để agent không tranh luận lại kiến trúc đã chốt. Task breakdown cho agent các bước thực thi được mà không tước quyền của human trên outcomes. Và verification criteria nói trước compliance sẽ được check thế nào — test nào, check nào, evidence nào. Một đoạn prose không chứa yếu tố nào là điều ước; một document chứa cả sáu là contract mà policy gate enforce được.",
+      },
+      {
+        heading: "Ba pattern đưa spec vào vận hành",
+        body: "Tổ chức áp dụng spec-driven delivery theo ba pattern dễ nhận ra. Pattern spec-first viết toàn bộ contract trước khi draft bắt đầu — kỷ luật cao nhất, fit nhất cho change regulated hoặc hệ trọng. Pattern spec-anchored, mặc định enterprise thực dụng, để AI draft tự do nhưng pin spec làm reference authoritative mà gate check; drift bị bắt lúc validation thay vì chặn từ đầu. Pattern spec-as-source, được ThoughtWorks Technology Radar đặt vào ring Assess, coi bản thân spec là artifact chính mà từ đó code, test và documentation được derive và version cùng nhau. Cả ba chia sẻ cùng một move cốt lõi: spec trở thành data typed, có version mà engine khép kín đọc — không phải document tình cờ nằm cùng repository với code.",
+      },
+      {
+        heading: "Gate là nơi spec chứng minh giá trị",
+        body: "Spec không có enforcement là đồ trang trí. Ý nghĩa của việc viết outcomes, constraints và verification criteria ở dạng machine-readable là policy gate deterministic có thể check chúng tự động trên mọi deliverable, trong CI, trước merge. Trong mô hình xDev AI, spec khai báo điều gì phải hold, rule packs biểu diễn những khai báo đó thành check có version, và engine validate từng artifact so với bộ check kinds đóng — sinh evidence giữ lại cho từng check. Requirement lạ là engine change, không bao giờ là silent no-op, chính xác là thuộc tính làm spec-driven delivery auditable. Human ở trong loop ở các thời điểm có nghĩa: viết spec, review evidence, approve release. Máy xử lý khối lượng. Sự phân công lao động đó là thứ cho phép AI participation tăng mà governance không rớt.",
+      },
+      {
+        heading: "Spec-driven nằm đâu trong bức tranh AI-SDLC",
+        body: "Spec-driven delivery là nửa trái của pipeline có governance: intent trở thành spec, spec làm mỏ neo cho drafting của agent, và gate chuyển các khai báo của spec thành evidence đã verify. Nửa phải là các bài khác của blog này — policy-as-code, evidence trail, compliance mapping. Cùng nhau chúng trả lời câu hỏi mỗi bài riêng không trả lời được: không phải \u201CAI viết được cái này không?\u201D mà \u201Cbạn chứng minh được gì về điều AI đã viết, theo contract nào, dưới rule nào?\u201D Tổ chức áp dụng AI delivery mà không có spec contract đang tăng tốc về cùng một vách đá mà mọi adoption AI không đo lường đã va phải; tổ chức viết contract trước là tổ chức khiến \u201Cgoverned AI delivery\u201D ngừng là slogan và bắt đầu là kết quả audit.",
+      },
+    ],
+  },
+},
+  {
+  slug: "ai-sdlc-maturity-model",
+  dateISO: "2026-08-10",
+  tags: ["Maturity model", "AI-SDLC", "Strategy"],
+  draft: false,
+  cover: `${BASE}cover-maturity-model.jpg`,
+  coverAlt: {
+    en: "Illustration: four ascending glowing platforms representing maturity stages, from a single developer to a fully connected governed mesh with a shield at the top.",
+    vi: "Minh họa: bốn platform phát sáng đi lên đại diện cho các stage maturity, từ một developer đơn lẻ đến mesh governed kết nối đầy đủ với shield trên đỉnh.",
+  },
+  faq: [
+    {
+      q: {
+        en: "What does an AI-SDLC maturity model measure?",
+        vi: "Maturity model AI-SDLC đo cái gì?",
+      },
+      a: {
+        en: "It measures how deeply and how governably an organization has integrated AI into its delivery pipeline: from individual augmentation (developers using AI tools alone) through team-level embedding, coordinated multi-agent workflows, to orchestrated delivery where AI participation is policy-gated, evidence-based and audit-ready. Speed alone is not maturity — governance depth is.",
+        vi: "Nó đo tổ chức đã tích hợp AI vào pipeline delivery sâu và có governance thế nào: từ augmentation cá nhân (developer dùng tool AI riêng lẻ) qua embedding ở đội, workflow multi-agent được điều phối, đến delivery được orchestrate nơi AI participation có policy gate, evidence-based và audit-ready. Tốc độ riêng không phải maturity — độ sâu governance mới là.",
+      },
+    },
+    {
+      q: {
+        en: "Why do measured AI gains differ so much between organizations?",
+        vi: "Vì sao AI gains đo được chênh lệch lớn giữa các tổ chức?",
+      },
+      a: {
+        en: "McKinsey's research shows organizations with structured measurement and adoption programs capture three to four times more value from the same AI tools than those without. Adoption is uneven within every company — power users, casual users and idle licenses coexist — and aggregate adoption rates hide the distribution that determines real outcomes.",
+        vi: "Nghiên cứu của McKinsey cho thấy tổ chức có structured measurement và adoption program capture được gấp ba đến bốn lần value từ cùng tool AI so với tổ chức không có. Adoption không đồng đều trong mọi công ty — power user, casual user và license nhàn rỗi cùng tồn tại — và adoption rate tổng che distribution quyết định outcome thật.",
+      },
+    },
+    {
+      q: {
+        en: "What is the verification tax in AI-assisted delivery?",
+        vi: "Verification tax trong delivery AI-assisted là gì?",
+      },
+      a: {
+        en: "The verification tax is the extra review burden AI-generated code places on human engineers — reading diffs they didn't write, judging code they didn't author, and answering for behavior they didn't fully inspect. It falls hardest in the middle stages: fast enough that volume explodes, but not orchestrated enough that policy gates carry the verification automatically.",
+        vi: "Verification tax là burden review thêm mà code do AI sinh ra đặt lên engineers human — đọc diff họ không viết, đánh giá code họ không tạo ra, và trả lời cho hành vi họ không inspect đầy đủ. Nó đè nặng nhất ở các stage giữa: đủ nhanh để volume nổ, nhưng chưa đủ orchestrate để policy gate tự gánh verification.",
+      },
+    },
+    {
+      q: {
+        en: "How does a policy gate change maturity progression?",
+        vi: "Policy gate thay đổi tiến trình maturity thế nào?",
+      },
+      a: {
+        en: "It converts governance from a people problem into an infrastructure property: deterministic checks on a closed set of check kinds run automatically on every deliverable, evidence is retained per check, and the review bottleneck stops scaling linearly with AI output. This is the difference between stage two (team habits) and stage three (coordinated process) — and the reason orchestration is sustainable while ad-hoc adoption eventually plateaus.",
+        vi: "Nó chuyển governance từ vấn đề con người thành thuộc tính hạ tầng: check deterministic trên bộ check kinds đóng chạy tự động trên mọi deliverable, evidence được giữ lại cho từng check, và bottleneck review ngừng scale tuyến tính theo output AI. Đây là khác biệt giữa stage hai (team habits) và stage ba (process được điều phối) — và lý do orchestration bền vững trong khi adoption ad-hoc cuối cùng đạt plateau.",
+      },
+    },
+  ],
+  en: {
+    title: "The AI-SDLC maturity model: from individual adoption to orchestrated, governed delivery",
+    summary:
+      "AI adoption in software delivery follows a maturity curve — and the middle stages are where organizations get stuck. This article maps the four stages from individual augmentation to orchestrated governance, explains why measured gains differ by a factor of three to four between organizations running the same tools, and shows how policy gates change the shape of the curve by converting the verification tax from a people problem into an infrastructure property.",
+    readingMinutes: 11,
+    sections: [
+      {
+        heading: "The answer in one paragraph",
+        body: "AI-SDLC maturity measures how governably AI participates in delivery, not how fast AI writes. The curve runs through four stages: individual augmentation, where developers use AI tools alone and governance is whatever each person remembers; team embedding, where shared habits and review rituals appear; coordinated delivery, where workflows are pinned, validation is automated and AI participation is governed by policy gates; and orchestration, where AI drafting, policy enforcement and evidence retention operate as one system that auditors can read. The decisive variable at each transition is whether governance is a person-level habit or an infrastructure property — and the data suggests the gap between organizations that answer this well and those that don't is worth three to four times the value of the tools themselves.",
+        image: {
+          src: `${BASE}inline-maturity-steps.jpg`,
+          alt: "Diagram: five ascending stages from a lone developer to an orchestrated governed pipeline, with the policy gate highlighted as the transition enabler.",
+        },
+      },
+      {
+        heading: "Why maturity matters more than adoption rate",
+        body: "The headline adoption number has been stable for a while: surveys put daily AI tool usage among developers at around 84%, and AI-assisted pull requests now account for roughly half of all merged PRs in large engineering datasets, up from about 14% two years earlier. But adoption rate answers the wrong question. What an organization actually gets from AI depends on how the output is governed. McKinsey's research on AI-enabled software engineering found gains to be highly uneven across teams and functions, and — decisively — that organizations with structured measurement and adoption programs capture three to four times more value from the same tools than those without. The tools are the same. The maturity of the system around the tools is not.",
+      },
+      {
+        heading: "Stage one: individual augmentation",
+        body: "At the first stage, AI assistance is a personal productivity choice. Each developer has their own tool, their own workflow, and their own judgment about when to trust the output. There is no shared policy, no shared evidence, and no system-level view of what AI has touched. This stage is genuinely valuable — individual productivity gains are real and measurable — but it is also where the governance debt begins: code enters the repository at machine speed with human-level assurance, and the organization has no record it can point to when something later goes wrong. Stage one is where most organizations stall, because the gains are visible and the risks are not.",
+      },
+      {
+        heading: "Stage two: team embedding",
+        body: "The second stage adds shared habits: the team agrees on which tools are sanctioned, how AI-assisted PRs get reviewed, and what labeling is expected on commits. Review rituals emerge — someone reads the diff, someone checks the tests. The problem is that every safeguard at this stage is a person, and people do not scale linearly with AI output. This is where the verification tax bites: engineers spend increasing fractions of their time reviewing code they didn't write, judging behavior they can't fully attribute, and the review bottleneck grows with every percentage point of AI participation. Teams at stage two frequently report that AI is \u201Cslowing things down\u201D — the tools got faster, but the surrounding process did not change. DORA's research on AI's impact on delivery performance found exactly this pattern: AI amplifiers raise throughput while degrading stability in organizations that scale AI without scaling verification.",
+      },
+      {
+        heading: "Stage three: coordinated delivery",
+        body: "The transition to stage three is the point where governance stops being a habit and becomes infrastructure. Specifications become versioned data that anchor AI drafting; a deterministic policy gate checks every deliverable against a closed set of check kinds before merge; approvals pin versions rather than feelings; and evidence is retained per check, in a form an auditor can read. AI output no longer requires a human to verify all of it — it requires humans to verify the gate that verifies all of it. This is the stage where AI participation can keep rising without the verification tax growing with it, and it is the stage at which the three-to-four-times value gap between measured and unmeasured organizations starts to show up in the numbers. The tools have not changed since stage one. The system around them has.",
+      },
+      {
+        heading: "Stage four: orchestrated governance",
+        body: "At the highest stage, AI drafting, policy enforcement and evidence retention operate as one system. Rule packs are versioned like code and resolved by a closed engine; unknown rules are engine changes, never silent no-ops; the approval chain from decision to release is a traceable graph rather than a memory; and the organization can answer the questions regulators and enterprise customers increasingly ask — who decided, under which rule, at which version, and where is the proof. Orchestration is not about removing humans: it is about placing them at the moments that matter (writing the spec, reviewing the evidence, approving the release) while machines carry the volume. This is the stage the AI-SDLC platform is built for, and the stage at which \u201Cgoverned AI delivery\u201D becomes an audit result instead of a marketing claim.",
+      },
+      {
+        heading: "Where your organization probably is — and how to move",
+        body: "Most organizations overestimate their stage, because stage one feels like progress and stage two feels like process. Three honest diagnostics help. First, ask what happens to your assurance when AI participation doubles: if review burden doubles with it, you are at stage two. Second, ask what evidence exists for a release that shipped six months ago: if the answer is \u201Cwe'd have to reconstruct it,\u201D governance is not yet infrastructure. Third, ask whether policy lives in versioned data an engine reads or in prompts people vaguely remember: prompt-policy is a stage-one artifact at any company size. The move upward at each transition is the same: make the contract explicit, make validation deterministic, keep the evidence. Everything else — tools, agents, velocity — follows.",
+      },
+    ],
+  },
+  vi: {
+    title: "Maturity model AI-SDLC: từ adoption cá nhân đến delivery được orchestrate có governance",
+    summary:
+      "AI adoption trong software delivery theo một đường cong maturity — và các stage giữa là nơi tổ chức kẹt lại. Bài này map bốn stage từ augmentation cá nhân đến governance được orchestrate, giải thích vì sao gains đo được chênh lệch gấp ba đến bốn lần giữa các tổ chức dùng cùng tool, và cho thấy policy gate đổi hình dạng đường cong bằng cách chuyển verification tax từ vấn đề con người thành thuộc tính hạ tầng.",
+    readingMinutes: 11,
+    sections: [
+      {
+        heading: "Câu trả lời trong một đoạn",
+        body: "Maturity AI-SDLC đo AI tham gia delivery có governance thế nào, không đo AI viết nhanh bao nhiêu. Đường cong chạy qua bốn stage: augmentation cá nhân, developer dùng tool AI riêng lẻ và governance là thứ mỗi người nhớ; embedding ở đội, nơi habits chung và review rituals xuất hiện; delivery được điều phối, nơi workflow được pin, validation tự động và AI participation được policy gate governance; và orchestration, nơi AI drafting, policy enforcement và evidence retention vận hành như một hệ thống auditor đọc được. Biến số quyết định ở mỗi transition là governance là habit cấp người hay thuộc tính hạ tầng — và dữ liệu gợi ý khoảng cách giữa tổ chức trả lời tốt câu này và tổ chức không trả lời đáng giá gấp ba đến bốn lần value của chính các tool.",
+        image: {
+          src: `${BASE}inline-maturity-steps.jpg`,
+          alt: "Sơ đồ: năm stage đi lên từ một developer đơn lẻ đến pipeline governed được orchestrate, với policy gate được highlight làm enabler của transition.",
+        },
+      },
+      {
+        heading: "Vì sao maturity quan trọng hơn adoption rate",
+        body: "Con số adoption headline đã ổn định một thời gian: survey đặt daily AI tool usage của developer ở khoảng 84%, và AI-assisted pull requests giờ chiếm khoảng một nửa tất cả PR merge trong các dataset engineering lớn, từ khoảng 14% hai năm trước. Nhưng adoption rate trả lời sai câu hỏi. Thứ tổ chức thật sự nhận được từ AI phụ thuộc output được governance thế nào. Nghiên cứu của McKinsey về AI-enabled software engineering thấy gains không đồng đều giữa các team và function, và — quyết định — tổ chức có structured measurement và adoption program capture gấp ba đến bốn lần value từ cùng tool so với tổ chức không có. Tool giống nhau. Độ maturity của hệ thống quanh tool thì không.",
+      },
+      {
+        heading: "Stage một: augmentation cá nhân",
+        body: "Ở stage đầu, AI assistance là lựa chọn năng suất cá nhân. Mỗi developer có tool riêng, workflow riêng, và phán đoán riêng về khi nào tin output. Không có policy chung, không có evidence chung, không có view cấp hệ thống về AI đã chạm gì. Stage này thật sự có giá trị — gains năng suất cá nhân là thật và đo được — nhưng cũng là nơi governance debt bắt đầu: code vào repository ở tốc độ máy với assurance cấp người, và tổ chức không có record nào để chỉ khi sau này có gì sai. Stage một là nơi hầu hết tổ chức kẹt, vì gains thấy được còn risks thì không.",
+      },
+      {
+        heading: "Stage hai: embedding ở đội",
+        body: "Stage hai thêm shared habits: team thống nhất tool nào được sanction, PR AI-assisted được review thế nào, labeling nào được kỳ vọng trên commit. Review rituals xuất hiện — có người đọc diff, có người check test. Vấn đề là mọi safeguard ở stage này là một người, và người không scale tuyến tính theo output AI. Đây là nơi verification tax cắn: engineers dành ngày càng nhiều phần thời gian review code họ không viết, đánh giá hành vi không thể fully attribute, và bottleneck review lớn theo từng điểm phần trăm AI participation. Các team ở stage hai thường báo cáo AI \u201Clàm chậm mọi thứ\u201D — tool nhanh hơn, nhưng process quanh nó không đổi. Nghiên cứu DORA về impact của AI lên delivery performance thấy đúng pattern này: AI amplifier tăng throughput trong khi làm giảm stability ở tổ chức scale AI mà không scale verification.",
+      },
+      {
+        heading: "Stage ba: delivery được điều phối",
+        body: "Transition sang stage ba là điểm governance ngừng là habit và thành hạ tầng. Spec trở thành data có version làm mỏ neo cho AI drafting; policy gate deterministic kiểm tra mọi deliverable so với bộ check kinds đóng trước merge; approvals pin version thay vì cảm giác; và evidence được giữ lại cho từng check, ở dạng auditor đọc được. Output AI không còn cần human verify tất cả — nó cần human verify cái gate verify tất cả. Đây là stage AI participation tiếp tục tăng mà verification tax không tăng theo, và là stage khoảng cách value gấp ba đến bốn lần giữa tổ chức có đo lường và không đo lường bắt đầu hiện lên trong con số. Tool không đổi từ stage một. Hệ thống quanh chúng thì có.",
+      },
+      {
+        heading: "Stage bốn: governance được orchestrate",
+        body: "Ở stage cao nhất, AI drafting, policy enforcement và evidence retention vận hành như một hệ thống. Rule packs được version như code và resolve bởi engine khép kín; rule lạ là engine change, không bao giờ là silent no-op; approval chain từ decision đến release là graph traceable thay vì trí nhớ; và tổ chức trả lời được các câu hỏi regulator và khách hàng enterprise ngày càng hỏi — ai quyết định, dưới rule nào, version nào, proof nằm đâu. Orchestration không phải bỏ human: nó đặt human ở các thời điểm có nghĩa (viết spec, review evidence, approve release) trong khi máy gánh khối lượng. Đây là stage platform AI-SDLC được xây cho, và stage khiến \u201Cgoverned AI delivery\u201D thành kết quả audit thay vì claim marketing.",
+      },
+      {
+        heading: "Tổ chức của bạn có lẽ đang ở đâu — và cách đi lên",
+        body: "Hầu hết tổ chức overestimate stage của mình, vì stage một cảm giác như progress và stage hai cảm giác như process. Ba diagnostic trung thực giúp ích. Thứ nhất, hỏi assurance của bạn thế nào khi AI participation gấp đôi: nếu review burden gấp đôi theo, bạn đang ở stage hai. Thứ hai, hỏi evidence nào tồn tại cho release ship sáu tháng trước: nếu câu trả lời là \u201Cphải dựng lại thôi\u201D, governance chưa phải hạ tầng. Thứ ba, hỏi policy nằm trong data có version mà engine đọc hay trong prompt người ta nhớ mơ hồ: prompt-policy là artifact stage một ở mọi quy mô công ty. Move đi lên ở mỗi transition là như nhau: làm contract tường minh, làm validation deterministic, giữ evidence. Mọi thứ khác — tool, agent, velocity — sẽ theo sau.",
+      },
+    ],
+  },
+},
+  {
+  slug: "soc2-iso-42001-ai-engineering",
+  dateISO: "2026-08-09",
+  tags: ["Compliance", "SOC 2", "ISO 42001", "Evidence"],
+  draft: false,
+  cover: `${BASE}cover-compliance.jpg`,
+  coverAlt: {
+    en: "Illustration: a bridge connecting an engineering pipeline to a compliance panel of documents, supported by a shield of evidence blocks.",
+    vi: "Minh họa: cây cầu nối pipeline engineering với panel compliance gồm các document, được đỡ bởi shield các khối evidence.",
+  },
+  faq: [
+    {
+      q: {
+        en: "Does SOC 2 cover AI-assisted software delivery?",
+        vi: "SOC 2 có cover delivery software AI-assisted không?",
+      },
+      a: {
+        en: "Yes — SOC 2 is outcomes-based, not prescriptive, so AI participation is not excluded, but every Trust Services Criterion still has to be demonstrably met. What auditors increasingly require for AI-assisted pipelines is evidence that changes are attributable to accountable individuals (not generic agent accounts), that approvals include documented validation and rollback plans, and that logs are tamper-evident. The AI changes the evidence workload, not the criteria.",
+        vi: "Có — SOC 2 outcomes-based, không prescriptive, nên AI participation không bị loại trừ, nhưng mọi Trust Services Criterion vẫn phải được chứng minh đạt. Thứ auditor ngày càng yêu cầu cho pipeline AI-assisted là evidence rằng changes attributable tới cá nhân chịu trách nhiệm (không phải generic agent account), approvals gồm documented validation và rollback plan, và logs tamper-evident. AI thay đổi workload evidence, không thay đổi criteria.",
+      },
+    },
+    {
+      q: {
+        en: "What does ISO 42001 require that SOC 2 doesn't?",
+        vi: "ISO 42001 yêu cầu gì mà SOC 2 không yêu cầu?",
+      },
+      a: {
+        en: "ISO 42001 is an AI management system standard: it covers the full AI system lifecycle (Annex A devotes roughly 11 controls to it), AI impact assessments, AI policies, bias and accuracy evaluation, and third-party AI supplier management. SOC 2 certifies trust outcomes of your systems and data handling; ISO 42001 certifies a management system for governing AI itself. Organizations using AI to build software frequently pursue both, and ISO 27001-certified organizations typically reach 42001 compliance about 40% faster.",
+        vi: "ISO 42001 là chuẩn AI management system: nó cover toàn bộ lifecycle hệ thống AI (Annex A dành khoảng 11 control), AI impact assessments, AI policies, đánh giá bias và accuracy, và quản lý AI supplier bên thứ ba. SOC 2 certify trust outcomes của systems và xử lý data; ISO 42001 certify management system để governance chính AI. Tổ chức dùng AI xây software thường theo đuổi cả hai, và tổ chức đã có ISO 27001 thường đạt compliance 42001 nhanh hơn khoảng 40%.",
+      },
+    },
+    {
+      q: {
+        en: "How much does ISO 42001 certification cost?",
+        vi: "Certification ISO 42001 tốn bao nhiêu?",
+      },
+      a: {
+        en: "Initial certification typically takes 6–12 months and costs from roughly USD 5,000–30,000+ for the audit itself, with total implementation spend ranging from around USD 10,000 for small organizations to over USD 100,000 for enterprises. Certification is valid for three years with annual surveillance audits. The main cost driver is not the audit fee but the internal effort of building documented processes and evidence — which is exactly what an evidence-retaining delivery pipeline reduces.",
+        vi: "Initial certification thường mất 6–12 tháng và chi phí khoảng USD 5.000–30.000+ cho bản thân audit, với tổng chi phí implementation từ khoảng USD 10.000 cho tổ chức nhỏ đến hơn USD 100.000 cho enterprise. Certification có giá trị ba năm với annual surveillance audits. Cost driver chính không phải audit fee mà là internal effort xây documented process và evidence — chính xác là thứ pipeline delivery giữ evidence giảm.",
+      },
+    },
+    {
+      q: {
+        en: "How does retained evidence map to audit requirements?",
+        vi: "Evidence giữ lại map vào audit requirements thế nào?",
+      },
+      a: {
+        en: "Audit requirements decompose into evidence classes: documented policy (what the rule is, at which version), deterministic validation (the gate checked each deliverable against closed check kinds), attributable approvals (a named individual reviewed the evidence), and retention (the record exists six months later). A governed AI-SDLC pipeline produces all four classes automatically per deliverable — policy-as-data for documented policy, the policy gate for validation, versioned approvals for attribution, and the evidence trail for retention.",
+        vi: "Audit requirements tách thành các evidence class: documented policy (rule là gì, version nào), validation deterministic (gate check mỗi deliverable so với check kinds đóng), approvals attributable (một cá nhân có tên review evidence), và retention (record còn tồn tại sáu tháng sau). Pipeline AI-SDLC có governance sinh cả bốn class tự động cho mỗi deliverable — policy-as-data cho documented policy, policy gate cho validation, approvals có version cho attribution, và evidence trail cho retention.",
+      },
+    },
+  ],
+  en: {
+    title: "SOC 2 and ISO 42001 for AI-assisted engineering: a practitioner's map",
+    summary:
+      "Auditors are no longer asking whether AI writes your code — they are asking what you can prove about it. This article maps the two certifications most relevant to AI-assisted delivery (SOC 2's Trust Services Criteria and ISO 42001's AI management system controls), shows how retained delivery evidence satisfies their requirements, and covers certification timelines, costs, and how the EU AI Act's August 2026 high-risk obligations change the urgency.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "The answer in one paragraph",
+        body: "Neither SOC 2 nor ISO 42001 forbids AI-assisted software delivery, because both are outcomes-based — but both now demand evidence that organizations shipping AI-written code rarely have: changes attributable to accountable individuals rather than generic agent accounts, approvals supported by documented validation and rollback plans, tamper-evident logs, and records that survive into the audit period. The practical map is short: SOC 2 certifies the trust outcomes of your systems and data handling through the five Trust Services Criteria, while ISO 42001 certifies an AI management system covering the full AI lifecycle, impact assessments, bias evaluation and third-party AI suppliers. An evidence-retaining governed pipeline produces what both frameworks want by construction — versioned policy as documented policy, deterministic gates as validation evidence, versioned approvals as attribution, and retained traces as long-term records.",
+        image: {
+          src: `${BASE}inline-compliance-table.jpg`,
+          alt: "Diagram: a matrix aligning pipeline evidence classes (policy, gate, approvals, retention) against SOC 2 criteria and ISO 42001 controls.",
+        },
+      },
+      {
+        heading: "What auditors actually ask about AI-written code",
+        body: "The question under audit is not \u201Cdoes AI write your code?\u201D but \u201Cwhat can you prove about a release that shipped six months ago?\u201D SOC 2 auditors working with AI-using organizations now consistently ask for three things. First, attribution: logs must show who is accountable for a change — a log entry reading \u201CCI/CD Runner\u201D or a generic agent account no longer satisfies access-control criteria, because privileged actions must be attributable to an individual who approved them. Second, change discipline: documented request, approval, validation and rollback plan for every change, which means an AI agent promoting code to production must pass through the same evidence-backed gates as a human — automation never excuses bypassing validation. Third, integrity of the record: logs must be tamper-evident, and AI configuration itself must be treated as production code, versioned and reviewed. None of these requirements is new; all of them get dramatically more expensive to satisfy when half your merged PRs were AI-generated and no evidence was retained.",
+      },
+      {
+        heading: "SOC 2: the five criteria through an AI lens",
+        body: "The AICPA Trust Services Criteria — Security, Availability, Processing Integrity, Confidentiality and Privacy — each pick up specific AI risks. Unintended autonomous actions by coding agents map to logical access controls (CC6): who can an agent touch, and can it escalate beyond its scope? Model drift maps to change management and continuous monitoring (CC8): does the pipeline detect when AI outputs degrade in character over time? Training-data leakage maps to encryption and data protection (CC6 again); bias and decision opacity map to audit procedures and decision documentation (CC3, CC4, CC7, CC8). The pattern in every mapping is the same: SOC 2 does not prescribe controls — it prescribes outcomes, and the auditor decides whether your evidence meets them. An organization whose delivery pipeline retains versioned policy, per-check gate evidence and attributable approvals walks into the audit carrying its proof; an organization that relied on chat transcripts and memories walks in needing to reconstruct everything under pressure.",
+      },
+      {
+        heading: "ISO 42001: the management system for governing AI itself",
+        body: "ISO/IEC 42001:2023 is the first international standard for AI management systems, built on the Plan-Do-Check-Act cycle and the same High-Level Structure as ISO 27001 — which is why ISO 27001-certified organizations typically reach 42001 compliance about 40% faster. Its core clauses (Context, Leadership, Planning, Support, Operation, Performance Evaluation, Improvement) define the management system, while Annex A adds roughly 39 controls in nine categories: policies for AI, internal organization, resources, AI impact assessments, the AI system lifecycle — with about eleven controls dedicated to it — documented information, interested parties, AI system use, and third-party and supplier management. Where SOC 2 asks whether your outputs are trustworthy, ISO 42001 asks whether you have a functioning system for governing AI through its whole life: how impact is assessed before adoption, how models and AI-assisted processes are monitored, how bias and accuracy are evaluated, and how external AI suppliers are controlled. For an organization whose product is AI-assisted delivery, the lifecycle controls are the ones that bite hardest — and the ones an evidence trail serves directly.",
+      },
+      {
+        heading: "Cost, timeline, and the EU AI Act clock",
+        body: "Certification is a real commitment. ISO 42001 initial certification typically takes six to twelve months; the audit itself runs roughly USD 5,000 to USD 30,000 or more, and total implementation spend ranges from around USD 10,000 at small organizations to over USD 100,000 for enterprises, with certification valid for three years under annual surveillance. But the bigger driver of urgency is external: the EU AI Act's high-risk obligations take effect from August 2026, with fines up to EUR 15 million or 3% of global turnover, and AI systems used in regulated domains — including safety components and critical infrastructure — will need demonstrable lifecycle governance, documentation and human oversight. Teams that already operate evidence-retaining pipelines find both the Act's obligations and the ISO 42001 controls familiar terrain: documented policy, validated change, attributable approval, retained proof. The gap between compliant and non-compliant organizations is increasingly less about intent and more about whether the plumbing existed before the deadline.",
+      },
+      {
+        heading: "A practitioner's map: from audit requirement to pipeline feature",
+        body: "The table below is the working translation most teams need. Each audit requirement decomposes into an evidence class, and each evidence class is something a governed AI-SDLC pipeline produces by default: policy-as-data yields the documented-policy requirement (what rule, at which version, reviewed by whom); the deterministic policy gate yields the validation requirement (every deliverable checked against closed check kinds, evidence retained per check); versioned approvals yield attribution (a named individual reviewed named evidence at a named version); and the retained evidence trail yields the survival requirement (the record is still there when the auditor arrives, six months or three years later). One honest caveat closes the map: no pipeline makes an audit automatic — interpretation, scoping and judgment remain human work, and SOC 2's outcome-based nature means your auditor decides what counts. What a governed pipeline removes is the reconstruction phase, which is where most AI-using organizations bleed during an audit.",
+      },
+    ],
+  },
+  vi: {
+    title: "SOC 2 và ISO 42001 cho engineering AI-assisted: bản đồ practitioner",
+    summary:
+      "Auditor không còn hỏi \u201CAI có viết code của bạn không\u201D — họ hỏi bạn chứng minh được gì về nó. Bài này map hai certification quan trọng nhất cho delivery AI-assisted (Trust Services Criteria của SOC 2 và các control AI management system của ISO 42001), cho thấy evidence delivery giữ lại thỏa audit requirements thế nào, và cover timeline, chi phí certification, cùng EU AI Act obligation high-risk tháng 8/2026 đổi mức độ khẩn cấp.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "Câu trả lời trong một đoạn",
+        body: "Không SOC 2 cũng không ISO 42001 cấm delivery software AI-assisted, vì cả hai outcomes-based — nhưng cả hai giờ đòi evidence mà tổ chức ship code AI-viết hiếm khi có: changes attributable tới cá nhân chịu trách nhiệm thay vì generic agent account, approvals được documented validation và rollback plan đỡ, logs tamper-evident, và records sống đến kỳ audit. Bản đồ thực tiễn ngắn: SOC 2 certify trust outcomes của systems và xử lý data qua năm Trust Services Criteria, trong khi ISO 42001 certify AI management system cover toàn lifecycle AI, impact assessments, bias evaluation và third-party AI suppliers. Pipeline governed giữ evidence sinh ra điều cả hai framework muốn by construction — policy có version làm documented policy, gate deterministic làm validation evidence, approvals có version làm attribution, và traces giữ lại làm long-term records.",
+        image: {
+          src: `${BASE}inline-compliance-table.jpg`,
+          alt: "Sơ đồ: ma trận align evidence classes của pipeline (policy, gate, approvals, retention) với SOC 2 criteria và ISO 42001 controls.",
+        },
+      },
+      {
+        heading: "Auditor thật sự hỏi gì về code AI-viết",
+        body: "Câu hỏi dưới audit không phải \u201CAI có viết code của bạn không?\u201D mà \u201Cbạn chứng minh được gì về release ship sáu tháng trước?\u201D SOC 2 auditor làm việc với tổ chức dùng AI giờ nhất quán hỏi ba thứ. Thứ nhất, attribution: logs phải chỉ ai chịu trách nhiệm cho change — log entry đọc \u201CCI/CD Runner\u201D hoặc generic agent account không còn thỏa access-control criteria, vì privileged actions phải attributable tới một individual đã approve. Thứ hai, change discipline: documented request, approval, validation và rollback plan cho mọi change, nghĩa là AI agent promote code lên production phải qua cùng gate evidence-backed như human — automation không bao giờ bao biện cho bypassing validation. Thứ ba, integrity của record: logs phải tamper-evident, và bản thân AI configuration phải được coi là production code, versioned và review. Không requirement nào mới; tất cả đắt hơn rất nhiều khi một nửa PR merge là AI-generate và không evidence nào được giữ.",
+      },
+      {
+        heading: "SOC 2: năm criteria qua lăng kính AI",
+        body: "AICPA Trust Services Criteria — Security, Availability, Processing Integrity, Confidentiality và Privacy — mỗi cái pick up AI risks cụ thể. Autonomous actions ngoài ý muốn của coding agents map vào logical access controls (CC6): agent chạm được gì, và nó có escalate khỏi scope không? Model drift map vào change management và continuous monitoring (CC8): pipeline có phát hiện khi output AI suy giảm character theo thời gian không? Training-data leakage map vào encryption và data protection (CC6 lần nữa); bias và opacity decision map vào audit procedures và decision documentation (CC3, CC4, CC7, CC8). Pattern trong mọi mapping giống nhau: SOC 2 không prescribe controls — nó prescribe outcomes, và auditor quyết định evidence của bạn có thỏa không. Tổ chức có delivery pipeline giữ policy có version, gate evidence cho từng check và approvals attributable bước vào audit mang theo proof; tổ chức dựa vào chat transcript và trí nhớ bước vào cần dựng lại mọi thứ dưới áp lực.",
+      },
+      {
+        heading: "ISO 42001: management system để governance chính AI",
+        body: "ISO/IEC 42001:2023 là chuẩn quốc tế đầu tiên cho AI management systems, xây trên chu trình Plan-Do-Check-Act và High-Level Structure giống ISO 27001 — đó là lý do tổ chức có ISO 27001 thường đạt compliance 42001 nhanh hơn khoảng 40%. Core clauses của nó (Context, Leadership, Planning, Support, Operation, Performance Evaluation, Improvement) định nghĩa management system, trong khi Annex A thêm khoảng 39 control trong chín category: policies for AI, internal organization, resources, AI impact assessments, AI system lifecycle — dành khoảng 11 control — documented information, interested parties, AI system use, và third-party/supplier management. SOC 2 hỏi outputs của bạn có trustworthy không, ISO 42001 hỏi bạn có system vận hành để governance AI qua toàn lifecycle: impact được assess trước adoption thế nào, models và processes AI-assisted được monitor thế nào, bias và accuracy được evaluate thế nào, external AI suppliers được control thế nào. Với tổ chức có product là AI-assisted delivery, lifecycle controls là cái cắn mạnh nhất — và evidence trail phục vụ trực tiếp chúng.",
+      },
+      {
+        heading: "Chi phí, timeline, và đồng hồ EU AI Act",
+        body: "Certification là cam kết thật. ISO 42001 initial certification thường mất sáu đến mười hai tháng; bản thân audit khoảng USD 5.000 đến USD 30.000 hoặc hơn, và tổng chi phí implementation từ khoảng USD 10.000 ở tổ chức nhỏ đến hơn USD 100.000 ở enterprise, certification có giá trị ba năm dưới annual surveillance. Nhưng driver lớn hơn của urgency là bên ngoài: high-risk obligations của EU AI Act có hiệu lực từ tháng 8/2026, với phạt tới EUR 15 triệu hoặc 3% global turnover, và AI systems dùng trong domains regulated — bao gồm safety components và critical infrastructure — sẽ cần demonstrable lifecycle governance, documentation và human oversight. Team đã vận hành pipeline giữ evidence thấy cả obligations của Act và controls của ISO 42001 là địa hình quen thuộc: documented policy, validated change, attributable approval, retained proof. Khoảng cách giữa tổ chức compliant và non-compliant ngày càng ít là về intent và nhiều hơn về plumbing có tồn tại trước deadline hay không.",
+      },
+      {
+        heading: "Bản đồ practitioner: từ audit requirement đến pipeline feature",
+        body: "Bảng dưới là bản dịch working mà hầu hết team cần. Mỗi audit requirement tách thành một evidence class, và mỗi evidence class là thứ pipeline AI-SDLC có governance sinh mặc định: policy-as-data cho documented-policy requirement (rule nào, version nào, ai review); policy gate deterministic cho validation requirement (mọi deliverable check so với check kinds đóng, evidence giữ cho từng check); approvals có version cho attribution (một individual có tên review evidence có tên ở version có tên); và evidence trail giữ lại cho survival requirement (record vẫn ở đó khi auditor đến, sáu tháng hay ba năm sau). Một caveat trung thực khép bản đồ: không pipeline nào làm audit tự động — interpretation, scoping và judgment vẫn là việc human, và bản chất outcome-based của SOC 2 nghĩa auditor của bạn quyết định cái gì đếm. Thứ pipeline có governance gỡ là reconstruction phase — nơi hầu hết tổ chức dùng AI chảy máu trong audit.",
+      },
+    ],
+  },
+},
+  {
+  slug: "governed-ai-development-roi",
+  dateISO: "2026-08-08",
+  tags: ["ROI", "Cost", "Measurement", "AI coding"],
+  draft: false,
+  cover: `${BASE}cover-roi.jpg`,
+  coverAlt: {
+    en: "Illustration: a balance comparing a rising velocity curve against falling defect and rework costs, with a magnifier over the gap.",
+    vi: "Minh họa: cân so sánh đường cong velocity tăng với chi phí defect và rework giảm, với kính lúp trên khoảng gap.",
+  },
+  faq: [
+    {
+      q: {
+        en: "How much does AI-assisted development cost per team?",
+        vi: "Development AI-assisted tốn bao nhiêu cho một team?",
+      },
+      a: {
+        en: "A mid-size team of 100 developers typically spends USD 400,000–600,000 per year on AI coding tools before API costs, and usage patterns vary enormously within that spend: power users, casual users, new users and fully idle licenses coexist. The first ROI move is measuring actual adoption cohorts rather than counting seats, because the gap between licensed and used licenses is where most waste hides.",
+        vi: "Team 100 developer mid-size thường chi USD 400.000–600.000 mỗi năm cho AI coding tools trước API costs, và patterns usage rất khác nhau trong số chi đó: power user, casual user, new user và license nhàn rỗi cùng tồn tại. Move ROI đầu tiên là đo actual adoption cohorts thay vì đếm seats, vì khoảng cách giữa license mua và license dùng là nơi hầu hết waste ẩn.",
+      },
+    },
+    {
+      q: {
+        en: "What gains do measured organizations actually see?",
+        vi: "Tổ chức có đo lường thật sự thấy gains gì?",
+      },
+      a: {
+        en: "Measured engineering data (Jellyfish, 500+ organizations) shows average PR cycle time improvement around 25% and PR throughput up roughly 12%, while AI-assisted PRs reach about half of all merged PRs. But McKinsey's finding is the decisive one: organizations with structured measurement and adoption programs capture three to four times more value from the same tools than those without. The tools deliver modest gains; the measurement discipline multiplies them.",
+        vi: "Dữ liệu engineering có đo lường (Jellyfish, 500+ tổ chức) cho thấy cycle time PR cải thiện trung bình khoảng 25% và PR throughput tăng khoảng 12%, trong khi AI-assisted PRs đạt khoảng một nửa PR merge. Nhưng finding của McKinsey là quyết định: tổ chức có structured measurement và adoption program capture gấp ba đến bốn lần value từ cùng tool so với tổ chức không có. Tool deliver gains khiêm tốn; discipline đo lường nhân chúng lên.",
+      },
+    },
+    {
+      q: {
+        en: "Why is the cost of bugs the hidden ROI variable?",
+        vi: "Vì sao cost of bugs là biến ROI ẩn?",
+      },
+      a: {
+        en: "A defect found in production costs roughly 30–100 times more to fix than one found at the requirements stage, depending on the model used (IBM SSI puts it at up to 100x). AI-generated code shipped without validation therefore carries a tail risk that erases measured velocity gains: one production incident can consume months of productivity savings. Governance compresses this tail — which is why ROI models that count only cycle time systematically overstate AI's value.",
+        vi: "Defect tìm thấy trong production tốn khoảng gấp 30–100 lần để fix so với tìm ở stage requirements, tùy model (IBM SSI đặt tới 100x). Code AI-generate ship không có validation do đó mang tail risk xóa gains velocity đo được: một production incident có thể tiêu hết tiết kiệm năng suất nhiều tháng. Governance nén tail này — đó là lý do ROI models chỉ đếm cycle time overstate có hệ thống value của AI.",
+      },
+    },
+    {
+      q: {
+        en: "How does governance reduce the verification tax?",
+        vi: "Governance giảm verification tax thế nào?",
+      },
+      a: {
+        en: "Without governance, every AI-written line eventually needs a human eyeball — review burden scales linearly with AI output, and engineers spend increasing time on diffs they didn't author. A policy gate converts that burden: humans verify the gate and its evidence rather than each artifact, and audit shows only the failing checks instead of everything. The verification tax stops growing with AI participation, which is the difference between ROI that compounds and ROI that plateaus.",
+        vi: "Không có governance, mọi dòng AI-viết cuối cùng cần mắt human — review burden scale tuyến tính theo output AI, và engineers dành ngày càng nhiều thời gian cho diff họ không viết. Policy gate chuyển burden đó: human verify gate và evidence của nó thay vì từng artifact, và audit chỉ hiển thị check failing thay vì mọi thứ. Verification tax ngừng tăng theo AI participation, đó là khác biệt giữa ROI compound và ROI plateau.",
+      },
+    },
+  ],
+  en: {
+    title: "The real ROI of governed AI development: measurement beyond velocity",
+    summary:
+      "AI coding tool spend has crossed the half-million-dollar mark for mid-size teams — and the organizations getting real returns share one trait: they measure adoption, verification cost and defect tails, not just velocity. This article breaks down where the money actually goes (USD 400–600K per 100 developers), what measured gains look like (25% cycle time, 3–4x value with measurement discipline), and why governance is the variable that decides whether AI ROI compounds or plateaus.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "The answer in one paragraph",
+        body: "The real ROI of AI-assisted development is a three-part equation most organizations never write down: measured velocity gains (real, but modest — around 25% cycle time improvement and 12% PR throughput uplift in data across 500+ organizations), minus verification cost (the human review burden that scales linearly with AI output unless a policy gate intercepts it), minus the defect tail (production-stage bugs cost 30–100x their requirements-stage equivalents and one serious incident can erase a year of gains). What separates high-return organizations is not better tools — the tools are the same — but measurement discipline: McKinsey finds organizations with structured measurement capture three to four times more value from identical AI tooling, and governed pipelines are what make the tail risk measurable and the verification cost stop scaling. The spend is real (USD 400,000–600,000 per year per 100 developers before API costs); the question is whether it compounds.",
+        image: {
+          src: `${BASE}inline-cost-curve.jpg`,
+          alt: "Diagram: an exponentially rising cost-of-defect curve versus a flat governed-delivery cost line, with the widening gap highlighted.",
+        },
+      },
+      {
+        heading: "What the spend actually looks like",
+        body: "Before discussing returns, it helps to state the baseline: a mid-size engineering organization of 100 developers typically spends USD 400,000 to USD 600,000 per year on AI coding tool seats — Copilot-class assistants plus agentic tools — before API costs, custom models or bespoke integrations. Inside that number, waste hides in plain sight: adoption is deeply uneven, with power users, casual users, newly onboarded developers and fully idle licenses coexisting in the same subscription. Industry observation puts daily usage among developers at 84%, yet only around 29% say they trust AI output — the usage-to-trust gap is where shadow workflows, redundant review and quiet abandonment live. The first ROI move for any engineering leader is therefore not \u201Cbuy more tools\u201D but \u201Cmeasure which seats produce,\u201D and the metric that exposes it is cost per productive PR, not cost per seat. Organizations that blow through a year's AI budget in four months — a pattern observed in large teams adopting AI review without usage policy — do not fail because AI is expensive. They fail because nothing measures whether the spend is doing anything.",
+      },
+      {
+        heading: "What measured gains actually look like",
+        body: "The vendor claims will tell you 55% faster, 10x output, and other spectacular numbers. The measured data is more modest and more honest. Engineering-intelligence datasets spanning 500+ organizations show AI-assisted development improving average PR cycle time by about 25% and lifting PR throughput by roughly 12%, while AI-assisted pull requests have grown to about half of all merged PRs — up from around 14% two years earlier. Those are genuinely useful gains at portfolio scale: a quarter faster cycle time across thousands of PRs is real money. But the finding that matters most comes from McKinsey's research on AI-enabled software engineering: organizations with structured measurement and adoption programs capture three to four times more value from the same tools than those without, and gains are highly uneven across teams and functions. The tools do not transform engineering. Measurement discipline, applied to identical tools, multiplies what they produce — which means ROI is mostly a management system property, not a technology property.",
+      },
+      {
+        heading: "The variable nobody prices: the defect tail",
+        body: "The hidden side of the equation is the cost of being wrong, and it scales badly. A defect found in production costs on the order of 30 to 100 times more to fix than the same defect caught at the requirements stage — IBM's systems-and-software intelligence puts the production-stage multiple at up to 100x, and the pattern holds across decades of cost-of-quality research. Now layer AI on top: AI participation in committed code has roughly tripled in two years, and AI-generated output carries well-documented vulnerability and correctness rates that vary by task. Unvalidated AI code shipped at machine speed is not a steady-state risk — it is a tail: mostly fine, occasionally catastrophic. One production incident caused by an AI-introduced defect can consume more than a year of measured productivity savings in a single outage. This is why ROI models that count only cycle time systematically overstate AI's value: they book the velocity and ignore the tail. Governance exists, economically, to compress that tail — deterministic gates catch what review misses, and the cost of the gate is fixed while the cost of the incident it prevents is not.",
+      },
+      {
+        heading: "The verification tax: where ROI plateaus",
+        body: "There is a second hidden cost between the velocity gain and the defect tail: verification. Without governance, every AI-written artifact eventually wants a human eyeball — engineers read diffs they didn't author, judge behavior they cannot attribute, and answer for releases they did not fully inspect. That burden scales linearly with AI participation, and it is the reason teams at moderate adoption levels report AI slowing things down even as tool vendors show speedups: the tools got faster, but the review surface grew faster. A policy gate changes the shape of this curve. Humans no longer verify every artifact; they verify the gate and its evidence — and audit attention concentrates on the checks that fail rather than everything that passed. The verification tax stops growing with AI participation, and this is the mechanical difference between AI ROI that compounds (governance absorbs volume) and AI ROI that plateaus (humans absorb volume). At the adoption levels now visible industry-wide, this is the single variable that separates organizations for whom AI participation keeps rising from organizations that stall at stage two of the maturity curve.",
+      },
+      {
+        heading: "A working ROI model for governed AI delivery",
+        body: "Putting the three parts together yields a model any engineering leader can run with real numbers: measured velocity gain (cycle-time and throughput deltas from your own engineering-intelligence data, in hours) minus verification cost (review hours per AI-assisted PR times the fraction of PRs that are AI-assisted, before and after governance) minus expected defect cost (incident frequency times the production-stage fix multiple, 30–100x). Against that sits the spend: seats plus APIs plus the governance infrastructure. Three patterns emerge from the arithmetic. First, velocity-only models overstate returns wherever the verification tax is growing — the fix is gating, not more seats. Second, the defect-tail term dominates for teams shipping AI output at high volume without validation; a single catastrophic incident resets the year. Third, the measurement line item pays for itself: the same disciplined adoption programs that McKinsey credits with the 3–4x value multiplier are what produce the numbers this model needs. xDev AI's model treats the evidence trail as the accounting substrate — retained, versioned proof of what was checked and approved means the ROI conversation happens in auditable numbers rather than anecdotes. Governed AI delivery is not the expensive version of AI adoption. It is the version whose ROI survives contact with a spreadsheet.",
+      },
+    ],
+  },
+  vi: {
+    title: "ROI thật của governed AI development: đo lường ngoài velocity",
+    summary:
+      "Chi cho AI coding tool đã vượt mốc nửa triệu đô cho team mid-size — và tổ chức nhận return thật chia sẻ một đặc điểm: họ đo adoption, verification cost và defect tail, không chỉ velocity. Bài này bóc tách tiền thật sự đi đâu (USD 400–600K cho 100 developer), gains đo được trông thế nào (25% cycle time, gấp 3–4 lần value với discipline đo lường), và vì sao governance là biến quyết định AI ROI compound hay plateau.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "Câu trả lời trong một đoạn",
+        body: "ROI thật của development AI-assisted là phương trình ba phần mà hầu hết tổ chức không bao giờ viết ra: velocity gains đo được (thật nhưng khiêm tốn — khoảng 25% cải thiện cycle time và 12% uplift PR throughput trong dữ liệu 500+ tổ chức), trừ verification cost (burden review human scale tuyến tính theo output AI trừ khi policy gate chặn), trừ defect tail (bug production cost gấp 30–100 lần equivalent ở requirements stage và một incident nghiêm trọng có thể xóa một năm gains). Thứ tách tổ chức high-return không phải tool tốt hơn — tool giống nhau — mà là discipline đo lường: McKinsey thấy tổ chức có structured measurement capture gấp ba đến bốn lần value từ cùng tooling AI, và pipeline governed là thứ làm tail risk đo được và verification cost ngừng scale. Spend là thật (USD 400.000–600.000 mỗi năm cho 100 developer trước API costs); câu hỏi là nó có compound không.",
+        image: {
+          src: `${BASE}inline-cost-curve.jpg`,
+          alt: "Sơ đồ: đường cong cost-of-defect tăng theo hàm mũ so với đường cost delivery governed phẳng, với khoảng gap mở rộng được highlight.",
+        },
+      },
+      {
+        heading: "Chi phí thật trông thế nào",
+        body: "Trước khi nói return, nên nói baseline: tổ chức engineering mid-size 100 developer thường chi USD 400.000 đến 600.000 mỗi năm cho AI coding tool seats — assistants lớp Copilot cộng tool agentic — trước API costs, custom models hay integrations riêng. Trong con số đó, waste ẩn giữa ban ngày: adoption không đồng đều sâu, với power user, casual user, developer mới onboard và license hoàn toàn nhàn rỗi cùng tồn tại trong cùng subscription. Quan sát industry đặt daily usage của developer ở 84%, nhưng chỉ khoảng 29% nói họ tin output AI — khoảng cách usage-to-trust là nơi shadow workflows, review trùng lặp và abandonment thầm lặng sống. Move ROI đầu tiên cho mọi engineering leader do đó không phải \u201Cmua thêm tool\u201D mà \u201Cđo seat nào sản xuất,\u201D và metric lộ nó là cost per productive PR, không phải cost per seat. Tổ chức tiêu hết ngân sách AI một năm trong bốn tháng — pattern quan sát ở team lớn adopt AI review không có usage policy — không fail vì AI đắt. Họ fail vì không gì đo spend có đang làm gì không.",
+      },
+      {
+        heading: "Gains đo được thật sự trông thế nào",
+        body: "Claim của vendor sẽ nói 55% nhanh hơn, 10x output, và các con số spectacular khác. Dữ liệu đo được khiêm tốn hơn và trung thực hơn. Dataset engineering-intelligence trên 500+ tổ chức cho thấy development AI-assisted cải thiện cycle time PR trung bình khoảng 25% và nâng PR throughput khoảng 12%, trong khi AI-assisted pull requests đã tăng đến khoảng một nửa PR merge — từ khoảng 14% hai năm trước. Đó là gains thật sự hữu ích ở quy mô portfolio: cycle time nhanh một phần tư qua hàng nghìn PR là tiền thật. Nhưng finding quan trọng nhất đến từ nghiên cứu McKinsey về AI-enabled software engineering: tổ chức có structured measurement và adoption program capture gấp ba đến bốn lần value từ cùng tool so với tổ chức không có, và gains rất không đồng đều giữa các team và function. Tool không transform engineering. Discipline đo lường, áp vào tool giống hệt, nhân thứ tool produce — nghĩa là ROI phần lớn là thuộc tính management system, không phải thuộc tính technology.",
+      },
+      {
+        heading: "Biến không ai price: defect tail",
+        body: "Phía ẩn của phương trình là cost của việc sai, và nó scale tệ. Defect tìm trong production tốn cỡ 30 đến 100 lần để fix hơn cùng defect bắt ở requirements stage — IBM systems-and-software intelligence đặt multiple production-stage tới 100x, và pattern giữ qua nhiều thập kỷ cost-of-quality research. Giờ layer AI lên: AI participation trong committed code tăng gấp ba trong hai năm, và output AI-generated mang rates vulnerability và correctness có documentation rõ thay đổi theo task. Code AI không validated ship ở tốc độ máy không phải risk steady-state — nó là tail: hầu hết ổn, thỉnh thoảng thảm họa. Một production incident do defect AI-introduced có thể tiêu hơn một năm savings năng suất đo được chỉ trong một outage. Đó là lý do ROI models chỉ đếm cycle time overstate có hệ thống value của AI: chúng book velocity và bỏ tail. Governance tồn tại, về kinh tế, để nén tail đó — gate deterministic bắt thứ review miss, và cost của gate cố định trong khi cost của incident nó ngăn không cố định.",
+      },
+      {
+        heading: "Verification tax: nơi ROI đạt plateau",
+        body: "Có cost ẩn thứ hai giữa velocity gain và defect tail: verification. Không có governance, mọi artifact AI-viết cuối cùng muốn một mắt human — engineers đọc diff họ không viết, đánh giá hành vi không thể attribute, trả lời cho release không inspect đầy đủ. Burden đó scale tuyến tính theo AI participation, và nó là lý do team ở mức adoption trung bình báo cáo AI làm chậm mọi thứ dù vendor tool cho thấy speedup: tool nhanh hơn, nhưng review surface lớn nhanh hơn. Policy gate đổi hình dạng đường cong này. Human không còn verify mọi artifact; họ verify gate và evidence của nó — và audit attention tập trung vào check fail thay vì mọi thứ pass. Verification tax ngừng tăng theo AI participation, và đây là khác biệt cơ học giữa AI ROI compound (governance hấp thụ khối lượng) và AI ROI plateau (human hấp thụ khối lượng). Ở mức adoption thấy được industry-wide, đây là biến đơn lẻ tách tổ chức mà AI participation tiếp tục tăng khỏi tổ chức kẹt ở stage hai của maturity curve.",
+      },
+      {
+        heading: "ROI model vận hành cho governed AI delivery",
+        body: "Ghép ba phần lại cho model mà mọi engineering leader chạy được với số thật: velocity gain đo được (delta cycle-time và throughput từ dữ liệu engineering-intelligence của bạn, theo giờ) trừ verification cost (review hours per AI-assisted PR nhân tỷ lệ PR AI-assisted, trước và sau governance) trừ expected defect cost (incident frequency nhân production-stage fix multiple, 30–100x). Đối lại là spend: seats cộng APIs cộng governance infrastructure. Ba pattern nổi từ số học. Thứ nhất, velocity-only models overstate returns ở mọi nơi verification tax đang tăng — fix là gating, không phải thêm seats. Thứ hai, defect-tail term thống trị team ship output AI khối lượng cao không validation; một incident catastrophic đơn lẻ reset cả năm. Thứ ba, measurement line item tự trả lương: chính adoption program disciplined mà McKinsey ghi công cho multiplier 3–4x là thứ sinh số model này cần. Mô hình xDev AI coi evidence trail là substrate kế toán — proof có version giữ lại về cái gì được check và approved nghĩa là cuộc trò chuyện ROI diễn ra trong số auditable thay vì giai thoại. Governed AI delivery không phải bản đắt của AI adoption. Nó là bản mà ROI sống sót khi chạm spreadsheet.",
+      },
+    ],
+  },
+},
+  {
+  slug: "governed-ai-delivery-checklist",
+  dateISO: "2026-08-07",
+  tags: ["Checklist", "Governance", "Practical"],
+  draft: false,
+  cover: `${BASE}cover-checklist.jpg`,
+  coverAlt: {
+    en: "Illustration: a clipboard with five grouped check sections, each row marked by a hexagonal check mark.",
+    vi: "Minh họa: clipboard với năm nhóm check, mỗi hàng được đánh dấu bằng dấu tick hình lục giác.",
+  },
+  faq: [
+    {
+      q: {
+        en: "How should a team use this checklist?",
+        vi: "Team nên dùng checklist này thế nào?",
+      },
+      a: {
+        en: "As a maturity diagnostic, not a pass/fail exam. Score each of the 25 items as implemented, partial, or absent — the pattern of partial scores tells you where governance is ad-hoc. Items 1–5 (spec quality) are the foundation: if specs are not versioned contracts, everything downstream is decoration. A team scoring mostly \u201Cpartial\u201D on items 6–15 is ready for a policy gate; a team scoring \u201Cimplemented\u201D on those but \u201Cabsent\u201D on 16–20 has a gate that produces no evidence an auditor can read.",
+        vi: "Như diagnostic maturity, không phải bài thi pass/fail. Chấm mỗi trong 25 mục là implemented, partial, hoặc absent — pattern điểm partial nói governance đang ad-hoc ở đâu. Mục 1–5 (spec quality) là nền: nếu spec không phải contract có version, mọi thứ downstream là đồ trang trí. Team chủ yếu \u201Cpartial\u201D ở mục 6–15 sẵn sàng cho policy gate; team \u201Cimplemented\u201D ở đó nhưng \u201Cabsent\u201D ở 16–20 có gate sinh ra không evidence nào auditor đọc được.",
+      },
+    },
+    {
+      q: {
+        en: "Which five items matter most for a team just starting?",
+        vi: "Năm mục nào quan trọng nhất cho team mới bắt đầu?",
+      },
+      a: {
+        en: "Version the spec as data (item 1), keep hard constraints separate from prose outcomes (item 3), pin rule packs as versioned YAML instead of prompts (item 7), retain gate evidence per check (item 16), and make every release approval attributable to a named individual (item 21). These five are the load-bearing columns of governed AI delivery — the rest of the checklist strengthens them.",
+        vi: "Version spec thành data (mục 1), giữ hard constraints tách khỏi outcomes dạng prose (mục 3), pin rule packs thành YAML có version thay vì prompt (mục 7), giữ gate evidence cho từng check (mục 16), và mọi release approval attributable tới một cá nhân có tên (mục 21). Năm mục này là cột chịu lực của governed AI delivery — phần còn lại của checklist làm chúng chắc hơn.",
+      },
+    },
+    {
+      q: {
+        en: "Is this checklist aligned with compliance frameworks?",
+        vi: "Checklist này có align với compliance frameworks không?",
+      },
+      a: {
+        en: "Yes by construction: group A covers the documented-policy requirements auditors ask for, group C the deterministic validation evidence SOC 2 change-management expects, group D the tamper-evident retention an audit demands, and group E the attribution and oversight records both SOC 2 and ISO 42001 require. An organization that can demonstrate the group D items is most of the way to answering a SOC 2 evidence request about AI-assisted delivery.",
+        vi: "Có by construction: nhóm A cover documented-policy requirements auditor hỏi, nhóm C deterministic validation evidence SOC 2 change-management kỳ vọng, nhóm D tamper-evident retention audit đòi, và nhóm E attribution và oversight records cả SOC 2 và ISO 42001 yêu cầu. Tổ chức demonstrate được các mục nhóm D đã đi được phần lớn đường trả lời SOC 2 evidence request về delivery AI-assisted.",
+      },
+    },
+    {
+      q: {
+        en: "How often should the checklist be re-run?",
+        vi: "Checklist nên re-run bao lâu một lần?",
+      },
+      a: {
+        en: "Run the full 25 points at every major process change (new tooling, new agent, new CI surface) and spot-check the D and E groups quarterly — evidence retention and attribution are the items that decay silently. Re-running takes under an hour once the practices are real; the costlier alternative is discovering a gap during an audit, when reconstruction is the only option.",
+        vi: "Run cả 25 điểm ở mỗi major process change (tooling mới, agent mới, CI surface mới) và spot-check nhóm D và E hàng quý — evidence retention và attribution là các mục suy giảm thầm lặng. Re-run mất chưa đến một giờ một khi practices là thật; phương án đắt hơn là phát hiện gap trong audit, khi reconstruction là lựa chọn duy nhất.",
+      },
+    },
+  ],
+  en: {
+    title: "The 25-point governed AI delivery checklist",
+    summary:
+      "A practical, print-ready diagnostic for teams shipping AI-assisted code: 25 checks in five groups — spec quality, policy configuration, gate operation, evidence retention, and organizational audit readiness — each mappable to SOC 2 and ISO 42001 requirements. Score every item implemented, partial, or absent, and the pattern of your answers shows exactly where governance is ad-hoc.",
+    readingMinutes: 9,
+    sections: [
+      {
+        heading: "How to use this checklist",
+        body: "This is a maturity diagnostic, not a pass/fail exam. For each of the 25 items below, score implemented (the practice is real and verifiable), partial (it happens but inconsistently or informally), or absent (nobody could point to evidence). The pattern of your partial scores tells you where governance is ad-hoc — and ad-hoc governance is exactly what fails when AI participation rises. Five items carry the whole structure: a versioned spec as data, hard constraints separated from prose outcomes, rule packs pinned as versioned YAML, gate evidence retained per check, and every release approval attributable to a named individual. If those five are absent, the remaining twenty cannot save you; if they are implemented, the rest is strengthening.",
+      },
+      {
+        heading: "Group A — Spec quality (items 1–5)",
+        body: "Every governed pipeline begins with the contract. Item 1: specifications are versioned data, not prose documents that happen to live in the repository — a human can name the version that anchored any given release. Item 2: every spec declares explicit outcomes in terms observable at the system boundary, not intentions. Item 3: hard constraints — security, performance, compatibility — are written separately from prose outcomes so a machine can fail them independently. Item 4: prior decisions that carry over are listed, so the agent never re-debates settled architecture. Item 5: verification criteria state in advance which tests and checks will prove compliance, so nothing is invented at review time. A team where all five are partial is doing vibe coding with extra documentation.",
+      },
+      {
+        heading: "Group B — Policy configuration (items 6–10)",
+        body: "Policy is where governance becomes enforceable. Item 6: policy lives in versioned data an engine reads — not scattered through prompts that people vaguely remember. Item 7: rule packs are pinned YAML, reviewed and merged like code, with no rule change possible outside the review path. Item 8: the engine's check kinds are a closed set — an unknown rule is an engine change, never a silent no-op. Item 9: the same policy resolves identically in local workspaces, CI and review surfaces, so evidence is portable. Item 10: there is a named owner for the rule packs, and policy changes require the same approval discipline as production code. Prompt-based \u201Cpolicy\u201D scores zero on all five of these — that is the point of the group.",
+      },
+      {
+        heading: "Group C — Gate operation (items 11–15)",
+        body: "The gate is where the contract earns its keep. Item 11: every deliverable — code, tests, plans, configurations — passes through validation before merge, with no bypass path, not even for hotfixes. Item 12: validation is deterministic: identical inputs produce identical verdicts, rerun-able at any later date. Item 13: the gate checks against the spec's declared outcomes and constraints, not against a reviewer's feeling about the diff. Item 14: AI-generated and human-written artifacts are checked by the same rules — no double standard in either direction. Item 15: failing checks block merge automatically; no human can rubber-stamp a failed gate, only the gate owner can change the rules. If a team has items 1–10 but scores partial here, the pipeline has governance in name only.",
+      },
+      {
+        heading: "Group D — Evidence retention (items 16–20)",
+        body: "Evidence is what survives into the audit. Item 16: every check produces retained evidence — pass or fail — stored with the artifact it validated. Item 17: approvals pin versions: who approved, what they approved, at which version, visible in one trace. Item 18: evidence is tamper-evident: any change to a record would leave a trace of its own. Item 19: records are retained on a defined schedule that survives staff turnover — the record of a release shipped six months ago still exists when the auditor arrives. Item 20: evidence retrieval is scripted, not archaeological: a new team member can pull the proof for any release in under an hour. This is the group most organizations score worst on, and the group that decides whether governance is real or claimed.",
+      },
+      {
+        heading: "Group E — Organizational and audit readiness (items 21–25)",
+        body: "Governance must outlive individuals. Item 21: every release approval is attributable to a named accountable individual — no generic agent accounts signing off privileged actions. Item 22: AI configuration (prompts, rule packs, agent settings) is treated as production code: versioned, reviewed, and change-controlled. Item 23: there is a documented rollback plan for AI-assisted releases, tested at least once per quarter. Item 24: a designated owner can walk an auditor through any release end-to-end within a business day. Item 25: the checklist itself is re-run at every major process change and spot-checked quarterly, with scores recorded — because the diagnostic is only worth as much as its last run. Completing all five groups does not make an audit automatic; it makes the audit survivable, which for most AI-using organizations is the entire difference.",
+      },
+      {
+        heading: "Scoring and next steps",
+        body: "Add the five load-bearing columns (items 1, 3, 7, 16, 21) first — they are where the next release's risk actually lives. Then treat each partial score as a backlog item, prioritized by group: C before B (a working gate matters more than a prettier policy file), D immediately after C (a gate that keeps no evidence is a gate for internal use only), and E as the final layer before any compliance engagement. Teams consistently scoring \u201Cimplemented\u201D across all five groups have, by construction, the documented policy, deterministic validation, attributable approval and retained proof that SOC 2 evidence requests and ISO 42001 lifecycle controls ask for. The checklist is deliberately tool-agnostic: run it against any pipeline, and the gaps it finds are gaps in governance — not gaps in tooling. Re-run it after every major process change, and keep the scores. The trend line is your maturity curve.",
+      },
+    ],
+  },
+  vi: {
+    title: "Checklist 25 điểm cho governed AI delivery",
+    summary:
+      "Một diagnostic thực tiễn, in được cho team ship code AI-assisted: 25 check trong năm nhóm — spec quality, policy configuration, gate operation, evidence retention, và organizational audit readiness — mỗi cái mappable sang requirements SOC 2 và ISO 42001. Chấm mọi mục implemented, partial, hoặc absent, và pattern câu trả lời cho thấy chính xác governance đang ad-hoc ở đâu.",
+    readingMinutes: 9,
+    sections: [
+      {
+        heading: "Cách dùng checklist này",
+        body: "Đây là diagnostic maturity, không phải bài thi pass/fail. Với mỗi trong 25 mục dưới, chấm implemented (practice là thật và verifiable), partial (có xảy ra nhưng không nhất quán hoặc informal), hoặc absent (không ai chỉ được evidence). Pattern điểm partial nói governance ad-hoc ở đâu — và governance ad-hoc chính là thứ fail khi AI participation tăng. Năm mục gánh cả cấu trúc: spec có version dạng data, hard constraints tách khỏi outcomes dạng prose, rule packs pin thành YAML có version, gate evidence giữ cho từng check, và mọi release approval attributable tới một cá nhân có tên. Nếu năm mục đó absent, hai mươi mục còn lại không cứu được; nếu implemented, phần còn lại là củng cố.",
+      },
+      {
+        heading: "Nhóm A — Spec quality (mục 1–5)",
+        body: "Mọi pipeline governed bắt đầu bằng contract. Mục 1: spec là data có version, không phải document prose tình cờ nằm trong repository — human có thể gọi tên version đã anchor cho release bất kỳ. Mục 2: mọi spec khai báo outcomes tường minh ở mức observable tại system boundary, không phải intentions. Mục 3: hard constraints — security, performance, compatibility — viết riêng khỏi outcomes dạng prose để máy fail chúng độc lập. Mục 4: prior decisions carry over được liệt kê, để agent không bao giờ tranh luận lại kiến trúc đã chốt. Mục 5: verification criteria nói trước test và check nào sẽ prove compliance, để không gì được invent lúc review. Team mà cả năm mục partial đang làm vibe coding với thêm documentation.",
+      },
+      {
+        heading: "Nhóm B — Policy configuration (mục 6–10)",
+        body: "Policy là nơi governance trở nên enforceable. Mục 6: policy nằm trong data có version mà engine đọc — không rải trong prompt người ta nhớ mơ hồ. Mục 7: rule packs là YAML đã pin, review và merge như code, không rule change nào khả thi ngoài review path. Mục 8: check kinds của engine là bộ đóng — rule lạ là engine change, không bao giờ là silent no-op. Mục 9: cùng policy resolve giống hệt ở local workspace, CI và review surfaces, để evidence portable. Mục 10: có named owner cho rule packs, và policy changes yêu cầu cùng approval discipline như production code. \u201CPolicy\u201D dạng prompt chấm không ở cả năm mục này — đó là điểm của nhóm.",
+      },
+      {
+        heading: "Nhóm C — Gate operation (mục 11–15)",
+        body: "Gate là nơi contract chứng minh giá trị. Mục 11: mọi deliverable — code, test, plan, configuration — qua validation trước merge, không bypass path nào, kể cả hotfix. Mục 12: validation deterministic: cùng inputs sinh cùng verdicts, rerun-able ở bất kỳ ngày sau. Mục 13: gate check so với outcomes và constraints khai báo của spec, không theo cảm giác reviewer về diff. Mục 14: artifact AI-generated và human-viết check cùng rules — không double standard theo hướng nào. Mục 15: check fail block merge tự động; không human nào rubber-stamp gate fail, chỉ gate owner có thể đổi rules. Team có mục 1–10 nhưng partial ở đây, pipeline có governance chỉ trong tên.",
+      },
+      {
+        heading: "Nhóm D — Evidence retention (mục 16–20)",
+        body: "Evidence là thứ sống đến audit. Mục 16: mọi check sinh evidence giữ lại — pass hay fail — lưu với artifact nó validate. Mục 17: approvals pin versions: ai approve, họ approve gì, version nào, thấy trong một trace. Mục 18: evidence tamper-evident: mọi change tới record sẽ để lại trace của chính nó. Mục 19: records giữ theo schedule định nghĩa sống qua turnover nhân sự — record của release ship sáu tháng trước vẫn tồn tại khi auditor đến. Mục 20: evidence retrieval được script, không khảo cổ: member mới kéo proof cho release bất kỳ dưới một giờ. Đây nhóm hầu hết tổ chức chấm tệ nhất, và nhóm quyết định governance là thật hay claim.",
+      },
+      {
+        heading: "Nhóm E — Organizational và audit readiness (mục 21–25)",
+        body: "Governance phải sống hơn cá nhân. Mục 21: mọi release approval attributable tới một cá nhân chịu trách nhiệm có tên — không generic agent account ký privileged actions. Mục 22: AI configuration (prompts, rule packs, agent settings) được coi là production code: versioned, review, change-controlled. Mục 23: có documented rollback plan cho AI-assisted releases, test ít nhất mỗi quý. Mục 24: owner được chỉ định có thể walk auditor qua release bất kỳ end-to-end trong một business day. Mục 25: bản thân checklist được re-run ở mọi major process change và spot-check hàng quý, với scores ghi lại — vì diagnostic chỉ đáng giá bằng lần run cuối. Hoàn thành cả năm nhóm không làm audit tự động; nó làm audit survivable, và với hầu hết tổ chức dùng AI đó là toàn bộ khác biệt.",
+      },
+      {
+        heading: "Chấm điểm và next steps",
+        body: "Thêm năm cột chịu lực (mục 1, 3, 7, 16, 21) trước — đó là nơi risk của release kế tiếp thật sự sống. Rồi coi mỗi điểm partial là backlog item, ưu tiên theo nhóm: C trước B (gate vận hành quan trọng hơn policy file đẹp hơn), D ngay sau C (gate không giữ evidence là gate chỉ cho internal use), và E làm layer cuối trước mọi compliance engagement. Team nhất quán \u201Cimplemented\u201D cả năm nhóm, by construction, có documented policy, deterministic validation, attributable approval và retained proof mà SOC 2 evidence requests và ISO 42001 lifecycle controls hỏi. Checklist cố tình tool-agnostic: chạy nó trên pipeline bất kỳ, và gaps nó tìm là gaps governance — không phải gaps tooling. Re-run sau mọi major process change, và giữ scores. Đường trend là maturity curve của bạn.",
+      },
+    ],
+  },
+},
+  {
     slug: "what-is-ai-sdlc",
     dateISO: "2026-08-16",
     tags: ["AI-SDLC", "Governance", "Definition"],
