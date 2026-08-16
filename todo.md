@@ -51,4 +51,4 @@
 - [x] Validate the Releases lookup experience, production build, and GitHub Pages publication.
 - [x] Add stable anchor identifiers and bilingual copy-link controls for each release and compatibility record.
 - [x] Synchronize release keyword, version, and state filters with shareable URL query parameters.
-- [ ] Validate deep-link restoration, copy feedback, production build, and GitHub Pages publication.
+- [x] Validate deep-link restoration, copy feedback, production build, and GitHub Pages publication.
