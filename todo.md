@@ -37,11 +37,11 @@
 - [x] Audit the current CLI contract and write bilingual quickstarts for developers, reviewers, and release owners.
 - [x] Add an event-driven core-repository CI pipeline that derives and writes the portal Policy Registry snapshot whenever a YAML rule pack changes.
 - [x] Add a bilingual changelog and Kit/validator compatibility matrix with stable portal navigation.
-- [ ] Validate the generated registry data, documentation routes, production build, and GitHub Pages deployment.
+- [x] Validate the generated registry data, documentation routes, production build, and GitHub Pages deployment.
 - [x] Create the public xdev-ai/ai-sdlc-policies repository as the canonical YAML policy source.
 - [x] Restore the current policy packs and document the one-way source-to-portal synchronization contract.
 - [x] Move the synchronization trigger from the core platform repository to the dedicated policy-source repository.
-- [ ] Regenerate, publish, and verify the portal Registry against the dedicated policy-source revision.
+- [x] Regenerate, publish, and verify the portal Registry against the dedicated policy-source revision.
 - [ ] Configure a least-privilege portal-write token as the policy-source repository Actions secret.
 - [x] Confirm or restore the maintained Rust CLI source that the role-specific quickstarts reference.
 - [x] Create and publish the public xdev-ai/aisdlc-cli repository from the verified historical Rust CLI contract.
