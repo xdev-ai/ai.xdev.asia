@@ -4,6 +4,8 @@ import { Link, useParams } from "wouter";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 import { useLang } from "@/i18n/LanguageContext";
+import { resetOgMeta, updateOgMeta } from "@/lib/ogMeta";
+import NewsletterForm from "@/components/NewsletterForm";
 import { getPost, posts, type Post } from "@/data/posts";
 import { useEffect, useMemo } from "react";
 
@@ -30,6 +32,20 @@ export default function BlogPost() {
     document.title = post
       ? `${locale === "vi" ? post.vi.title : post.en.title} — xDev AI Blog`
       : "Post not found — xDev AI";
+  }, [post, locale]);
+
+  useEffect(() => {
+    if (!post) {
+      resetOgMeta();
+      return;
+    }
+    const meta_ = locale === "vi" ? post.vi : post.en;
+    updateOgMeta({
+      title: meta_.title,
+      description: meta_.summary,
+      image: post.cover ? `https://ai.xdev.asia${post.cover}` : undefined,
+      url: `https://ai.xdev.asia/blog/${post.slug}`,
+    });
   }, [post, locale]);
 
   const index = posts.findIndex((p) => p.slug === params.slug);
@@ -203,6 +219,8 @@ export default function BlogPost() {
             <span />
           )}
         </nav>
+
+        <NewsletterForm />
       </main>
 
       {/* ============ FOOTER ============ */}

@@ -15,6 +15,7 @@
     <link rel="alternate" hreflang="en" href="https://ai.xdev.asia" />
     <link rel="alternate" hreflang="vi" href="https://ai.xdev.asia" />
     <link rel="alternate" hreflang="x-default" href="https://ai.xdev.asia" />
+    <link rel="alternate" type="application/rss+xml" title="xDev AI — Engineering Notes" href="https://ai.xdev.asia/blog/feed.xml" />
     <meta property="og:site_name" content="xDev AI" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
@@ -63,10 +64,19 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+    <!-- Plausible Analytics (cookie-less, privacy-first). Loads only when VITE_PLAUSIBLE_DOMAIN is set (e.g. "ai.xdev.asia"). -->
+    <script>
+      (function () {
+        var domain = "";
+        try { domain = import.meta.env.VITE_PLAUSIBLE_DOMAIN || ""; } catch (e) { domain = ""; }
+        if (!domain) return; // analytics off until configured — no cookies, no tracking
+        var s = document.createElement("script");
+        s.defer = true;
+        s.src = "https://plausible.io/js/script.js";
+        s.dataset.domain = domain;
+        document.currentScript.parentNode.insertBefore(s, document.currentScript);
+      })();
+    </script>
   </body>
 
 </html>

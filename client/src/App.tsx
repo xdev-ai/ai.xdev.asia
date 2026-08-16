@@ -11,6 +11,7 @@ import AiSdlc from "./pages/AiSdlc";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Docs from "./pages/Docs";
+import Legal from "./pages/Legal";
 import PolicyRegistry from "./pages/PolicyRegistry";
 import PolicyDetail from "./pages/PolicyDetail";
 import TraceLedger from "./pages/TraceLedger";
@@ -39,6 +40,8 @@ function Router() {
       <Route path={"/trace-ledger"} component={TraceLedger} />
       <Route path={"/blog"} component={Blog} />
       <Route path={"/blog/:slug"} component={BlogPost} />
+      <Route path={"/privacy"}>{() => <Legal page="privacy" />}</Route>
+      <Route path={"/terms"}>{() => <Legal page="terms" />}</Route>
       <Route path={"/docs"} component={Docs} />
       <Route path={"/policies/:slug"} component={PolicyDetail} />
       <Route path={"/policies"} component={PolicyRegistry} />

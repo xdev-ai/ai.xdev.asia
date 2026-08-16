@@ -240,6 +240,13 @@ export const dictionary = {
       faqLabel: "FREQUENTLY ASKED QUESTIONS",
       openRecord: "Every post is part of the open record",
       openRecordCopy: "Post sources and policy references are versioned in the xdev-ai repository, so claims on this blog can be verified against commits.",
+      rssLabel: "RSS feed",
+      legalNav: "Legal",
+    },
+    legal: {
+      navLabel: "LEGAL",
+      privacyNav: "Privacy",
+      termsNav: "Terms",
     },
     common: {
       langSwitch: "EN / VI",
@@ -494,6 +501,13 @@ export const dictionary = {
       faqLabel: "CÂU HỎI THƯỜNG GẶP",
       openRecord: "Mỗi bài là một phần của open record",
       openRecordCopy: "Nguồn bài viết và policy references được version trong repository xdev-ai, nên mọi khẳng định trên blog đều kiểm chứng được qua commits.",
+      rssLabel: "RSS feed",
+      legalNav: "Pháp lý",
+    },
+    legal: {
+      navLabel: "PHÁP LÝ",
+      privacyNav: "Riêng tư",
+      termsNav: "Điều khoản",
     },
     common: {
       langSwitch: "VI / EN",

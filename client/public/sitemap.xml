@@ -112,6 +112,28 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ai.xdev.asia/privacy</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ai.xdev.asia/privacy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://ai.xdev.asia/privacy" />
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/terms</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ai.xdev.asia/terms" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://ai.xdev.asia/terms" />
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/feed.xml</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://ai.xdev.asia/docs</loc>
     <lastmod>2026-08-15</lastmod>
     <changefreq>weekly</changefreq>
