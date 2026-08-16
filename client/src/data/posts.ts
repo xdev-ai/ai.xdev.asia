@@ -82,6 +82,17 @@ No single tool covers everything. A sensible minimum stack is Garak for periodic
           src: "/blog/inline-toolchain-pipeline.jpg",
           alt: "A horizontal pipeline diagram: threat model feeds into test suites, which feed into five tool icons, whose outputs converge into a CI gate with pass and fail branches",
         },
+        table: {
+          headers: ["Tool", "Strength", "Best use", "CI gating"],
+          rows: [
+            ["Garak (NVIDIA)", "37+ probe classes across 23 backends, single CLI command", "First-pass sweep of a new model or system prompt", "No — periodic scanning"],
+            ["Promptfoo", "50+ vulnerability types in YAML, diff between prompt variants", "Versioned evaluations and regression checks in CI", "Yes — blocks build on rising attack success rate"],
+            ["PyRIT (Microsoft)", "Multi-turn attacks built in: Crescendo, TAP, Skeleton Key", "Multi-turn jailbreak resilience, multi-modal targets", "Via custom eval pipeline"],
+            ["DeepTeam", "40+ vulnerability types mapped to OWASP LLM Top 10", "Compliance conversations anchored on OWASP taxonomy", "Via custom eval pipeline"],
+            ["AI-Infra-Guard (Tencent)", "Agent infrastructure coverage: MCP connectors, plugin ecosystems", "Agent-heavy stacks with third-party tools and plugins", "Via custom eval pipeline"],
+          ],
+        },
+
       },
       {
         heading: "The six-step operating procedure",
@@ -158,6 +169,17 @@ Không công cụ nào phủ toàn bộ. Stack tối thiểu hợp lý là Garak
           src: "/blog/inline-toolchain-pipeline.jpg",
           alt: "Sơ đồ pipeline ngang: threat model chảy vào test suites, chảy vào năm icon công cụ, đầu ra hội tụ về CI gate với nhánh pass và fail",
         },
+        table: {
+          headers: ["Công cụ", "Điểm mạnh", "Khi nào dùng", "Gating trong CI"],
+          rows: [
+            ["Garak (NVIDIA)", "37+ lớp probe trên 23 backend, chạy bằng một lệnh CLI", "Quét nhanh model hoặc system prompt mới", "Không — quét định kỳ"],
+            ["Promptfoo", "50+ loại lỗ hổng cấu hình bằng YAML, so sánh diff giữa các biến thể prompt", "Evaluation có phiên bản và regression check trong CI", "Có — chặn build khi attack success rate tăng"],
+            ["PyRIT (Microsoft)", "Tích hợp sẵn các cuộc tấn công multi-turn: Crescendo, TAP, Skeleton Key", "Khả năng chịu jailbreak multi-turn, target đa phương thức", "Qua eval pipeline tùy chỉnh"],
+            ["DeepTeam", "40+ loại lỗ hổng ánh xạ lên OWASP LLM Top 10", "Trao đổi compliance dựa trên taxonomy OWASP", "Qua eval pipeline tùy chỉnh"],
+            ["AI-Infra-Guard (Tencent)", "Phủ hạ tầng agent: connector MCP, hệ sinh thái plugin", "Stack agent-heavy với công cụ và plugin bên thứ ba", "Qua eval pipeline tùy chỉnh"],
+          ],
+        },
+
       },
       {
         heading: "Quy trình sáu bước vận hành",
@@ -280,6 +302,20 @@ Trade-off rõ ràng: model nội bộ thường nhỏ hơn và kém hơn frontie
         heading: "Tổng hợp: checklist tám thói quen",
         body: `Tám thói quen trên có thể tóm lược thành một chuỗi kiểm tra nhanh trước mỗi phiên làm việc với AI coding: **dữ liệu thuộc loại nào** (PII/credential/tài sản độc quyền/code thường), **secret đã được giữ lại chưa**, **chế độ privacy đã bật chưa**, **ngữ cảnh đã được redact chưa**, **file tự đính kèm đã kiểm tra chưa**, **repo đã quét secret chưa**, **code nhạy cảm đã đúng luồng model chưa**, và **đội ngũ đã nắm chính sách chưa**.
 Lưu ý cuối cùng — nguyên tắc nối dài từ mọi bài viết trong chuỗi AI-SDLC của chúng tôi: mọi thói quen trên đều mạnh hơn khi được **mã hóa thành policy và tự động hóa**. Con người quên; pre-commit hook, CI gate, và default configuration của tổ chức thì không. Evidence trail của mỗi phiên AI coding (prompt, response, file đính kèm) không chỉ phục vụ audit — nó chính là dữ liệu để cải tiến chính những thói quen này theo thời gian.`,
+        table: {
+          headers: ["Habit", "What it blocks", "Effort", "Applies to"],
+          rows: [
+            ["Classify before you paste", "Sending regulated or client data to external endpoints", "Seconds", "Every paste"],
+            ["Never paste secrets into prompts", "Credentials entering training data and logs", "Seconds", "Every paste"],
+            ["Privacy mode and opt-out", "Code used for model training", "Once, per account", "All tools"],
+            ["Redact context", "Project paths, repo names, and client identities leaking into prompts", "Seconds", "Every paste"],
+            ["Review attached files", "Context window poisoning through auto-attached files", "Minutes", "IDE agents"],
+            ["Pre-commit secret scanning", "Accidental commits of credentials", "Once, per repo", "All repos"],
+            ["Internal models for sensitive code", "Leaving the company perimeter with privileged data", "Days", "Sensitive codebases"],
+            ["Usage policy and team training", "Inconsistent behavior across the team", "Weeks", "Whole team"],
+          ],
+        },
+
       },
     ],
     faq: [
@@ -315,6 +351,20 @@ Lưu ý cuối cùng — nguyên tắc nối dài từ mọi bài viết trong c
         heading: "Mỗi lần dán là một quyết định về trust",
         body: `AI coding assistant chỉ hữu ích khi nó"thấy"code của bạn — và đó chính là điểm yếu cấu trúc của nó. Mỗi đoạn bạn dán vào, mỗi file bạn đính kèm, mỗi bối cảnh bạn cho phép agent tự đọc, đều là một trao đổi: hiệu quả đổi lấy khả năng dữ liệu rời khỏi ranh giới của bạn. OWASP xếp **Sensitive Information Disclosure** vào vị trí thứ hai trong Top 10 cho LLM Applications, không phải vì disclosure hiếm — mà vì nó là nền cho gần như mọi hậu quả khác: từ key lộ bị trục vớt trên repo công khai, đến dữ liệu khách hàng lọt vào context window của model bên thứ ba.
 Bài này trình bày **tám thói quen** vận hành giúp giữ credential và context bên trong tổ chức, sắp xếp theo thứ tự bạn gặp chúng trong một ngày làm việc bình thường.`,
+        table: {
+          headers: ["Thói quen", "Ngăn chặn điều gì", "Công sức", "Áp dụng cho"],
+          rows: [
+            ["Phân loại trước khi dán", "Gửi dữ liệu bị quản lý hoặc của khách hàng đến endpoint bên ngoài", "Vài giây", "Mọi lần dán"],
+            ["Không dán secret vào prompt", "Credential lọt vào training data và log", "Vài giây", "Mọi lần dán"],
+            ["Chế độ privacy và opt-out", "Code bị dùng để huấn luyện model", "Một lần mỗi tài khoản", "Mọi công cụ"],
+            ["Redact ngữ cảnh", "Đường dẫn dự án, tên repo và danh tính khách hàng lọt vào prompt", "Vài giây", "Mọi lần dán"],
+            ["Kiểm tra file tự đính kèm", "Context window poisoning qua file tự đính kèm", "Vài phút", "IDE agents"],
+            ["Quét secret trước khi commit", "Commits vô tình chứa credential", "Một lần mỗi repo", "Mọi repo"],
+            ["Model nội bộ cho code nhạy cảm", "Rò dữ liệu đặc quyền ra ngoài biên công ty", "Vài ngày", "Codebase nhạy cảm"],
+            ["Chính sách và đào tạo đội ngũ", "Hành vi không đồng nhất trong cả đội", "Vài tuần", "Cả đội ngũ"],
+          ],
+        },
+
       },
       {
         heading: "Phân loại trước khi dán",
