@@ -2,8 +2,8 @@
 
 /* Legal pages: Privacy Policy (/privacy) and Terms of Use (/terms) — bilingual (EN/VI). */
 import Link from "next/link";
-import { useEffect } from "react";
-import { ArrowLeft, FileText } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowUpRight, FileText, Menu, X } from "lucide-react";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 import { useLang } from "@/i18n/LanguageContext";
@@ -303,9 +303,19 @@ const legalCopy: Record<"en" | "vi", Record<"privacy" | "terms", LegalCopy>> = {
 export default function LegalContent({ legalPage }: { legalPage: "privacy" | "terms" }) {
   const { t, locale } = useLang();
   const copy = legalCopy[locale][legalPage];
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [legalPage, locale]);
+
+  const mobileNavLinks = [
+    { href: "/blog", label: t.blog.navBlog },
+    { href: "/ai-sdlc", label: t.nav.aiSdlc },
+    { href: "/trace-ledger", label: t.nav.traceLedger },
+    { href: "/tools/maturity-assessment", label: t.nav.maturity },
+    { href: "/privacy", label: "Privacy" },
+    { href: "/terms", label: "Terms" },
+  ] as const;
   return (
     <div className="min-h-screen bg-[#eef4f2] text-[#152540]">
       {/* ============ TOPBAR ============ */}
@@ -332,8 +342,47 @@ export default function LegalContent({ legalPage }: { legalPage: "privacy" | "te
               {t.nav.aiSdlc}
             </Link>
             <LanguageSwitch />
+            <button
+              className="inline-flex items-center justify-center rounded border border-cyan-400/30 p-1.5 text-cyan-100 hover:bg-[#143553] md:hidden"
+              onClick={() => setOpen(!open)}
+              aria-label={open ? t.common.menuClose : t.common.menuOpen}
+              aria-expanded={open}
+            >
+              {open ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </div>
         </div>
+        {open && (
+          <nav
+            className="border-t border-[rgba(111,203,220,.18)] bg-[#0e2039] px-4 py-3 md:hidden"
+            aria-label="Legal page navigation"
+          >
+            <ul className="grid gap-1">
+              {mobileNavLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="flex items-center gap-2 rounded px-2 py-2 text-[14px] text-cyan-100 hover:bg-[#143553]"
+                    onClick={() => setOpen(false)}
+                  >
+                    {link.label}
+                    <ArrowUpRight size={13} className="text-cyan-300/70" />
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href="/"
+                  className="flex items-center gap-2 rounded px-2 py-2 text-[14px] font-semibold text-cyan-300 hover:bg-[#143553]"
+                  onClick={() => setOpen(false)}
+                >
+                  {t.common?.backHome ?? "Go home"}
+                  <ArrowUpRight size={13} />
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        )}
       </header>
 
       {/* ============ HERO ============ */}
