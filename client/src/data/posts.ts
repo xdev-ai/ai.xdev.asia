@@ -1415,7 +1415,12 @@ Khác biệt cấu trúc chính cần giữ trong đầu: Act gắn nghĩa vụ 
     summary: "AI agent giờ là actor hạng nhất trong chuỗi cung ứng phần mềm. Bài này giải thích cách bảo mật chúng: SBOM cho AI, MLSecOps, SLSA provenance, và agentic governance theo CRA và CMMC 2.0.",
     readingMinutes: 12,
     sections: [],
-    faq: [],
+    faq: [
+      { q: "AI SBOM có bắt buộc theo luật chưa?", a: "Chưa. Hướng dẫn \"Minimum Elements\" của CISA + G7 (tháng 12/2026) là hướng dẫn đồng thuận, chưa phải luật. Nhưng EU Cyber Resilience Act và CMMC 2.0 đã yêu cầu các artifact — SBOM, provenance, hồ sơ lỗ hổng — mà một AI bill of materials nhiều lớp tạo ra, nên xây dựng nó ngay là bảo hiểm compliance chi phí thấp." },
+      { q: "AI coding agent có thực sự thêm dependency vào codebase không?", a: "Có. Các công cụ agentic tự phân giải package, cài skill và plugin, gợi ý import tự động. Ứng dụng enterprise đã có ~80% code từ bên thứ ba, và phát triển hỗ trợ agent đẩy tỷ lệ này cao hơn với ít review thủ công — mỗi phiên agent thêm các node vào đồ thị dependency mà không ai xem xét." },
+      { q: "Slopsquatting là gì?", a: "Một biến thể tấn công chuỗi cung ứng: model hallucinate ra tên package không tồn tại, developer copy vào code, và attacker đã đăng ký trước tên đó publish code độc hại dưới tên đó. Nó pha trộn dependency confusion với hallucination của AI — đó là lý do dependency do AI đưa vào cần được scrutinize như dependency do người viết." },
+      { q: "Vì sao ưu tiên EPSS hơn CVSS?", a: "CVSS chấm mức nghiêm trọng lý thuyết; EPSS ước lượng xác suất một CVE bị khai thác thật trong 30 ngày tới. Phần lớn CVE trong scan dependency là phantom cho deployment cụ thể của bạn — ưu tiên kiểu EPSS cho phép team nhỏ fix đúng lỗ hổng cần thiết thay vì chết đuối trong backlog chưa phân loại." },
+    ]
   },
   },
   {
@@ -1482,7 +1487,12 @@ Khác biệt cấu trúc chính cần giữ trong đầu: Act gắn nghĩa vụ 
     summary: "Nghiên cứu quy mô lớn độc lập cho thấy code do AI sinh ra chứa khoảng 2,74x nhiều lỗ hổng hơn code con người: 45% trượt benchmark secure coding, 86% trượt XSS, và +322% privilege-escalation paths trong codebase enterprise. Bài này tổng hợp dữ liệu mới nhất và stack 8 quality gates tối thiểu để tăng tốc mà không nhập rủi ro.",
     readingMinutes: 12,
     sections: [],
-    faq: [],
+    faq: [
+      { q: "Vậy tôi có nên ngừng dùng công cụ AI coding?", a: "Không. Con số 2,74 lần là baseline không gate. Các team thêm quality gates scan + review thấy chênh lệch lỗ hổng thu hẹp đáng kể — dữ liệu ủng hộ quản trị, không phải cấm đoán. Nhưng dùng AI không gate nghĩa là nhập khẩu rủi ro ở mức tối đa." },
+      { q: "Tỷ lệ thất bại 45% có phải vấn đề của một LLM cụ thể không?", a: "Không — Veracode đã test hơn 100 model trên bốn ngôn ngữ và kết quả giữ nguyên xuyên suốt. Đó chính là điều khiến nó mang tính cấu trúc: nó đến từ cách LLM dự đoán code theo phân phối huấn luyện, không phải lỗi của một model riêng. Prompt tuning không sửa được vấn đề phân phối huấn luyện; process gate thì có thể." },
+      { q: "Team nhỏ nên triển khai những gate nào trước?", a: "Gate 1, 3, 5 và 6: đầu vào giới hạn phạm vi cho agent, quét SAST + secrets tự động trên mọi AI diff, review người bắt buộc cho thay đổi auth/secrets/privilege, và CI chặn merge cho đến khi các gate này đạt. Bộ này bắt được phần lớn rủi ro với chi phí tối thiểu; thêm gate 2, 4 và 7 khi team mở rộng." },
+      { q: "Vì sao human review là gate có leverage cao nhất?", a: "Code AI đến không kèm accountability ngầm như code người viết — không ai tự động chịu trách nhiệm về nó. Chỉ định một human reviewer tạo ra accountability đó, đó là control duy nhất biến output agent từ \"material chưa tin cậy\" thành \"change đã được review\". Mọi thứ khác trong stack chỉ giảm nhiễu hoặc thực thi gate này." },
+    ]
   },
   },
   {
@@ -1547,7 +1557,12 @@ Khác biệt cấu trúc chính cần giữ trong đầu: Act gắn nghĩa vụ 
     summary: "Hệ thống AI phá vỡ trust boundaries truyền thống: prompt, plugin, retrieved data, model updates, memory states và external APIs đều trở thành bề mặt tấn công. Bài này phân tích vì sao SDL của Microsoft phải mở rộng cho AI — 6 trụ cột tổ chức, threat model mới, và lý do «SDL là cách làm việc, không phải checklist».",
     readingMinutes: 12,
     sections: [],
-    faq: [],
+    faq: [
+      { q: "«AI làm sập trust boundaries» nghĩa là gì trong thực tế?", a: "Hệ thống truyền thống giữ biên có cấu trúc: input được validate ở các edge xác định, dependency được pin trong lockfile, truy cập chạy qua RBAC. Hệ thống AI pha trộn prompt, plugin, dữ liệu retrieve, model update, memory cache và API ngoài thành một nền làm việc duy nhất — mỗi thứ đó trở thành một attack surface, và không cái nào ánh xạ lên control kiểu edge mà SDL giả định." },
+      { q: "Microsoft SDL for AI có phải công cụ mua được không?", a: "Không — đó là framework tổ chức: sáu trụ (research, policy, standards, enablement, cross-functional collaboration, continuous improvement) được định nghĩa rõ là \"a way of working, not a checklist\". Microsoft bán triết lý, không bán sản phẩm. Triển khai nghĩa là xây zone-based control và telemetry trong pipeline của chính bạn." },
+      { q: "Vì sao cached memory là mối lo bảo mật cho hệ thống AI?", a: "Lịch sử hội thoại và embedding cache trở thành lớp phơi bày secret mới: leakage (phiên sau retrieve thứ phiên trước không nên lưu) và poisoning (nội dung tiêm nhiễm tồn tại trong state để ảnh hưởng hành vi tương lai). Khác với network traffic, cached state không có firewall rules — nó cần retention limit, encryption và access scoping riêng." },
+      { q: "Policy gate nằm ở đâu trong SDL for AI?", a: "Policy gate là Zone 4 của SDL (delivery pipeline) được cụ thể hóa: trước khi một change hỗ trợ AI merge hoặc release, các kiểm tra policy tự động phải đạt và kết quả được ghi làm attested evidence. Nó biến \"be secure\" từ một trụ tiêu chuẩn thành thuộc tính bắt buộc của process release — đúng điều SDL-for-AI yêu cầu khi nói AI tăng tốc cycle vượt chuẩn SDL." },
+    ]
   },
   },
   {
@@ -1667,7 +1682,11 @@ Khác biệt cấu trúc chính cần giữ trong đầu: Act gắn nghĩa vụ 
     summary: "Landscape framework bảo mật AI enterprise đã hội tụ: CISA/G7 định nghĩa minimum elements cho AI SBOM, Microsoft SDL-for-AI tổ chức 6 trụ cột, và CSA cấu trúc governance lifecycle quanh năm risk categories. Bài này đối chiếu ba framework song song — và pattern adopt thực tế: bắt đầu nơi evidence đã chảy.",
     readingMinutes: 12,
     sections: [],
-    faq: [],
+    faq: [
+      { q: "Enterprise nên chọn framework nào — CISA, Microsoft SDL hay CSA?", a: "Các framework hội tụ về một kiến trúc diễn đạt bằng từ vựng khác nhau: CISA định nghĩa cái gì phải liệt kê (AI minimum elements trong SBOM machine-readable, versioned theo release), Microsoft SDL định nghĩa cách làm việc (sáu trụ tổ chức), CSA định nghĩa phạm vi (lifecycle governance qua model, data, agent). Chọn một gần như miễn phí; quyết định thật là trình tự adoption — bắt đầu ở delivery pipeline nơi evidence đã chảy." },
+      { q: "Vì sao AI security inventories không bao giờ hoàn thành?", a: "Model, dataset và cấu hình agent thay đổi nhanh hơn khả năng tài liệu hóa. Tổ chức kẹt vì cố xây inventory tĩnh hoàn hảo. Giải pháp là kỷ luật SBOM: version inventory theo từng release. Một inventory chính xác 80% ở thời điểm release tốt hơn mục tiêu 100% không bao giờ đạt — và đó đúng là điều hướng dẫn SBOM versioned-theo-release của CISA yêu cầu." },
+      { q: "«Evidence as infrastructure» nghĩa là gì trong thực tế?", a: "Mỗi change có ảnh hưởng AI tự phát ra một bản ghi attested ngay tại điểm delivery: model version, prompt hash, policy version, reviewer identity, kết quả gate. Câu hỏi accountability — từ regulator hay incident responder — trở thành retrieval trên các bản ghi thay vì investigation. Một control không chứng minh được nó đã chạy chỉ là policy; evidence là thứ phân biệt hai khái niệm đó." },
+    ]
   },
   },
   {
