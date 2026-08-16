@@ -320,24 +320,24 @@ Lưu ý cuối cùng — nguyên tắc nối dài từ mọi bài viết trong c
     ],
     faq: [
       {
-        q: "Tôi paste nhầm API key vào AI assistant — phải làm gì ngay?",
-        a: "Xoay (rotate) key đó ngay lập tức, bất kể scanning có báo gì. Coi key như đã lộ từ giây phút nó rời tổ chức. Sau đó rà soát commit history xem key có vào repo không, chạy quét secret, và ghi nhận sự cố để cải tiến chính sách.",
+        q: "I accidentally pasted an API key into an AI assistant — what should I do immediately?",
+        a: "Rotate that key immediately, regardless of what scanning reports. Treat the key as compromised the second it left the organization. Then audit the commit history to check whether the key entered the repo, run a secret scan, and log the incident so the policy can improve.",
       },
       {
-        q: "Context window poisoning là gì và tôi phòng thủ thế nào?",
-        a: "Là kỹ thuật attacker chèn chỉ thị độc hại vào file mà coding assistant tự động đọc (rider files, indexing files). Phòng thủ bằng cách audit định kỳ những gì agent được phép tự đọc, giới hạn phạm vi index theo dự án, và kiểm tra danh sách file đính kèm trước mỗi yêu cầu nhạy cảm.",
+        q: "What is context window poisoning and how do I defend against it?",
+        a: "It is the technique where an attacker injects malicious instructions into files the coding assistant reads automatically (rider files, indexing files). Defend by periodically auditing what the agent is allowed to read on its own, scoping the project index, and checking the attached-file list before any sensitive request.",
       },
       {
-        q: "Model nội bộ có thực sự cần thiết cho team nhỏ?",
-        a: "Tùy dữ liệu. Nếu bạn không xử lý code nhạy cảm, dữ liệu khách hàng, hay yêu cầu pháp lý đặc thù, privacy mode của nhà cung cấp cộng thói quen redact là đủ. Nếu có — kể cả team nhỏ — một model nội bộ cho luồng nhạy cảm là khoản đầu tư hợp lý.",
+        q: "Is an internal model really necessary for a small team?",
+        a: "It depends on the data. If you do not handle sensitive code, client data, or specific legal requirements, the vendor's privacy mode plus the redaction habit is sufficient. If you do — even a small team — an internal model for the sensitive pipeline is a reasonable investment.",
       },
       {
-        q: "Tôi có thể dùng AI để review code chứa dữ liệu khách hàng không?",
-        a: "Chỉ khi model được sử dụng nằm trong môi trường đã phê duyệt (nội bộ hoặc nhà cung cấp có thỏa thuận không retention/training phù hợp), và chỉ gửi phần code tối thiểu cần review. Quy tắc phân luồng: dữ liệu khách hàng luôn thuộc luồng được phê duyệt, không thuộc luồng mặc định.",
+        q: "Can I use AI to review code that contains client data?",
+        a: "Only when the model being used runs in an approved environment (internal, or a vendor with a no-retention/no-training agreement that fits), and only the minimum code needed for the review is sent. Routing rule: client data always goes through the approved pipeline, never the default one.",
       },
       {
-        q: "Tại sao phải đào tạo nếu tool đã có privacy mode?",
-        a: "Privacy mode là cấu hình kỹ thuật; thói quen dán là hành vi con người. Tool không ngăn được developer paste credential vào tool để «hỏi nhanh» — chỉ chính sách rõ ràng, đào tạo định kỳ, và lưới an toàn kỹ thuật (secret scanning) cùng lúc mới đóng được cả hai mặt.",
+        q: "Why is training necessary if the tool already has privacy mode?",
+        a: "Privacy mode is a technical configuration; the paste habit is human behavior. A tool cannot stop a developer from pasting a credential into it to 'quick-check' something — only clear policy, periodic training, and a technical safety net (secret scanning) together close both sides.",
       },
     ],
   },
