@@ -35,6 +35,9 @@ jobs:
           corepack enable
           pnpm install --frozen-lockfile
 
+      - name: Validate JSON-LD FAQPage & Article across all posts
+        run: node scripts/test-jsonld-faq.cjs
+
       - name: Build static portal
         env:
           VITE_PLAUSIBLE_DOMAIN: ${{ secrets.VITE_PLAUSIBLE_DOMAIN || 'ai.xdev.asia' }}
