@@ -39,9 +39,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://ai.xdev.asia" },
 };
 
-const orgJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
+const orgJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
   name: "xDev AI",
   url: "https://ai.xdev.asia",
   logo: "https://ai.xdev.asia/brand/xdevai-mark-420.png",
@@ -51,7 +52,15 @@ const orgJsonLd = {
     email: "duy@xdev.asia",
     contactType: "general",
   },
-};
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "xDev AI",
+    url: "https://ai.xdev.asia",
+    inLanguage: ["en", "vi"],
+  },
+];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
