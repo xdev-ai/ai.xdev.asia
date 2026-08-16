@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>xDev AI — Engineering Notes</title>
+    <link>https://ai.xdev.asia/blog</link>
+    <description>Design decisions, contract details and lessons learned from governed AI-assisted delivery.</description>
+    <language>en-US</language>
+    <atom:link href="https://ai.xdev.asia/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title><![CDATA[LLM Red Teaming in 2026: A Practical Guide from Threat Model to CI Pipeline]]></title>
+      <link>https://ai.xdev.asia/blog/llm-red-teaming-guide</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/llm-red-teaming-guide</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[Red teaming a language model is no longer a one-off penetration test — it is a statistical discipline that belongs in your delivery pipeline. This guide walks through the 2026 toolchain (Garak, Promptfoo, PyRIT, DeepTeam), the difference between model-layer and application-layer attacks, and how to convert attack findings into versioned evaluations that block risky changes in CI.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-llm-red-teaming.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Data Leakage When Coding with AI: The Eight Habits That Keep Credentials and Context Inside]]></title>
+      <link>https://ai.xdev.asia/blog/ro-ri-du-lieu-khi-code-ai</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/ro-ri-du-lieu-khi-code-ai</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[Every paste into an AI coding assistant is a trust decision. This pillar article in Vietnamese covers the eight habits that prevent PII, secrets, and proprietary context from leaving your repository — from classification before pasting to securing the auto-attached files you never explicitly shared.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-ro-ri-du-lieu-khi-code-ai.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Zero Trust for AI Environments: Five Principles to Secure Autonomous Agents in Production]]></title>
+      <link>https://ai.xdev.asia/blog/zero-trust-ai-environments</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/zero-trust-ai-environments</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[Autonomous AI agents need credentials, tools, and access to production systems — which makes them attractive targets. This article maps the five zero trust principles (verify explicitly, least privilege, assume breach, segmentation, continuous audit) onto AI agents, with concrete IAM controls like JIT access, token exchange, and human approval gates.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-zero-trust-ai-environments.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[AI Phishing and Deepfakes in 2026: How Attacks Scale, What They Cost, and the Defense-in-Depth Playbook]]></title>
+      <link>https://ai.xdev.asia/blog/ai-phishing-deepfakes-2026</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/ai-phishing-deepfakes-2026</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[AI-generated phishing grew 1,210% in 2025 and deepfake attacks jumped 2,100% globally, with enterprise losses exceeding $2B. This article documents the attack typology, real 2025-2026 case studies ($500K CFO scam, $255K cloned-CEO call, $243K voice transfer), why these attacks work, and a seven-layer defense playbook ending in a verified financial transaction procedure.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-ai-phishing-deepfakes-2026.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[AI Incident Response and Detection: An Eight-Step Playbook for Systems That Misbehave Stochastically]]></title>
+      <link>https://ai.xdev.asia/blog/ai-incident-response-detection</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/ai-incident-response-detection</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[AI systems misbehave differently from software bugs: stochastically, without deterministic reproduction, and without a simple patch. This article presents a taxonomy of AI incidents, the eight-step response playbook (preparation through post-incident review), the detection stack (interaction logging, semantic monitoring, drift detection, agent audit trails), and a 12-item runbook checklist.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-ai-incident-response-detection.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Model Weight Security: Treating Learned Weights as First-Class Assets Worth Stealing]]></title>
+      <link>https://ai.xdev.asia/blog/model-weight-security</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/model-weight-security</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[Trained and fine-tuned model weights are intellectual property and liability at once — targetable for theft, typosquatting, and poisoning. This article maps the 2026 threat landscape (weight exfiltration, model confusion on registries, small-sample backdoors, sandbox breakout), a six-layer defense for storage, access, supply chain, inference, fine-tune hygiene and incident revocation, and a ten-item checklist.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-model-weight-security.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[EU AI Act and ISO 42001 in 2026: Full Enforcement Has Arrived — The Engineering Team's Deep-Dive Compliance Map]]></title>
+      <link>https://ai.xdev.asia/blog/eu-ai-act-iso-42001-deep-dive</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/eu-ai-act-iso-42001-deep-dive</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[The EU AI Act entered full application on 2 August 2026, and ISO 42001 remains the leading international AI management system standard. This deep dive covers the Act's timeline, the four-tier risk taxonomy, the seven high-risk developer obligations, how ISO 42001's 11 clauses map onto the Act, and a deployment checklist that turns compliance into policy-as-code evidence.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-eu-ai-act-iso-42001-deep-dive.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[AI Software Supply Chain: Real Security Vulnerabilities and How to Close Them]]></title>
+      <link>https://ai.xdev.asia/blog/security-chat-luong-code-ai</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/security-chat-luong-code-ai</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[AI-generated code carries a higher vulnerability rate — 2026 research shows 10% to 42% vulnerability rates depending on the model and language. This Vietnamese-language article summarizes the concrete supply chain threats — dependency confusion, model poisoning, prompt injection — and the multi-layer defense stack enterprises are actually deploying.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-supply-chain-vi.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[What is AI-SDLC: four meanings on Google, one governed answer]]></title>
+      <link>https://ai.xdev.asia/blog/what-is-ai-sdlc</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/what-is-ai-sdlc</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[Search \u201CAI SDLC\u201D today and you get three different concepts: AI in the SDLC, the lifecycle of AI systems, and agentic SDLC security. The fourth interpretation — spec-driven, policy-gated, evidence-based delivery — is the one no vendor owns yet. This article maps all four and argues why the governed one matters most.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-what-is-ai-sdlc.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[AI SDLC là gì: quy trình phát triển phần mềm AI-assisted có governance]]></title>
+      <link>https://ai.xdev.asia/blog/ai-sdlc-la-gi</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/ai-sdlc-la-gi</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[Giải thích AI SDLC bằng tiếng Việt: tại sao chu trình delivery AI-assisted cần spec có version, policy gate deterministic và evidence được giữ lại — thay vì tin AI bằng cảm giác. So sánh với MLOps và agentic SDLC, kèm vị trí của xDev AI.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-ai-sdlc-la-gi.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[AI Software Supply Chain Security: From Static SBOMs to Agentic Governance]]></title>
+      <link>https://ai.xdev.asia/blog/ai-software-supply-chain-security</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/ai-software-supply-chain-security</guid>
+      <pubDate>2026-08-15T00:00:00+00:00</pubDate>
+      <description><![CDATA[AI agents are now primary actors inside the software supply chain. This article explains how to secure them: SBOMs for AI, MLSecOps, SLSA provenance, and agentic governance under CRA and CMMC 2.0.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-sbom-ai.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[AI-Generated Code Has 2.74x More Vulnerabilities: Data and Eight Quality Gates]]></title>
+      <link>https://ai.xdev.asia/blog/ai-generated-code-vulnerabilities</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/ai-generated-code-vulnerabilities</guid>
+      <pubDate>2026-08-15T00:00:00+00:00</pubDate>
+      <description><![CDATA[Large-scale studies show AI-written code carries significantly more vulnerabilities than human code. This article breaks down the data from Veracode and Apiiro, and gives you eight quality gates to close the gap.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-secure-ai-sdlc.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[A Secure AI Development Lifecycle for the Enterprise: SDL Collapses Trust Boundaries]]></title>
+      <link>https://ai.xdev.asia/blog/secure-ai-development-lifecycle-enterprise</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/secure-ai-development-lifecycle-enterprise</guid>
+      <pubDate>2026-08-15T00:00:00+00:00</pubDate>
+      <description><![CDATA[Microsoft's SDL for AI and the CSA enterprise framework agree on one thing: AI collapses trust boundaries. This article maps what that means practically — the six SDL pillars, where attacks land, and how to build an enterprise lifecycle without slowing delivery.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-agentic-governance.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Enterprise AI Security Frameworks Compared: What Actually Gets Adopted and Why]]></title>
+      <link>https://ai.xdev.asia/blog/enterprise-ai-security-framework</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/enterprise-ai-security-framework</guid>
+      <pubDate>2026-08-15T00:00:00+00:00</pubDate>
+      <description><![CDATA[With CISA's SBOM-for-AI guidance, Microsoft's SDL pillars, and the CSA enterprise framework all converging, enterprises face a choice problem, not an information problem. This article compares the frameworks, measures where real adoption stalls, and lays out a pragmatic adoption sequence.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-enterprise-adoption.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Where xDev AI sits in the full delivery cycle: spec, gate and evidence between idea and release]]></title>
+      <link>https://ai.xdev.asia/blog/where-xdev-ai-sits-in-the-full-cycle</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/where-xdev-ai-sits-in-the-full-cycle</guid>
+      <pubDate>2026-08-15T00:00:00+00:00</pubDate>
+      <description><![CDATA[A full delivery cycle runs from idea to monitoring across eight stages. xDev AI does not replace the humans, tooling or infrastructure around it — it owns the junction between AI work and governance: spec-driven development, a policy gate, and a verifiable evidence trail.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-full-cycle.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Comparing AI Coding Agents in 2026: Cursor, Claude Code, Copilot, Codex and the Rest]]></title>
+      <link>https://ai.xdev.asia/blog/comparing-ai-coding-agents-2026</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/comparing-ai-coding-agents-2026</guid>
+      <pubDate>2026-08-14T00:00:00+00:00</pubDate>
+      <description><![CDATA[The 2026 AI coding agent market has converged on frontier models. What actually differs now is the harness: the terminal, the IDE, the sandbox, the limits, and the price. This guide compares the leading agents in depth — and explains why the policy gate, not the model, is the layer that separates governable teams from governed-by-accident teams.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-comparing-agents-2026.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Policy-as-code for AI coding: why prompts are not policy]]></title>
+      <link>https://ai.xdev.asia/blog/policy-as-code-ai-coding</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/policy-as-code-ai-coding</guid>
+      <pubDate>2026-08-14T00:00:00+00:00</pubDate>
+      <description><![CDATA[Most AI coding governance today lives in prompts — unwritten, unversioned, unenforced. This article explains why prompt-based rules silently fail, what policy-as-code looks like in practice (versioned YAML, a closed engine, retained evidence), and how a policy gate closes the trust gap that chat transcripts never can.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-policy-as-code.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Evidence trails for AI-generated code: from chat archaeology to audit lookups]]></title>
+      <link>https://ai.xdev.asia/blog/evidence-trail-ai-generated-code</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/evidence-trail-ai-generated-code</guid>
+      <pubDate>2026-08-13T00:00:00+00:00</pubDate>
+      <description><![CDATA[When AI writes most of the committed code, the organization's proof must come from retained records — not from reconstructing what people remember. This article explains why chat history fails as evidence, what a real evidence trail contains (deterministic gate results, version-pinned approvals, trace graphs), and why compliance frameworks like SOC 2 and ISO 42001 make it mandatory rather than optional.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-evidence-trail.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Prompt Injection in AI Coding: Attack Vectors, Real Data, and the Defense That Actually Holds]]></title>
+      <link>https://ai.xdev.asia/blog/prompt-injection-ai-coding</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/prompt-injection-ai-coding</guid>
+      <pubDate>2026-08-12T00:00:00+00:00</pubDate>
+      <description><![CDATA[Injected instructions hidden in code comments, config files, and third-party repos are now the top AI risk per OWASP. The AIShellJack study weaponized this with a 84% success rate. This article maps the real attack surface of AI coding tools and explains the three-layer defense — where the policy gate is the layer that does not depend on any model's good behavior.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-prompt-injection.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Agentic SDLC: the 8 real risks and how policy gates close them]]></title>
+      <link>https://ai.xdev.asia/blog/agentic-sdlc-risks</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/agentic-sdlc-risks</guid>
+      <pubDate>2026-08-12T00:00:00+00:00</pubDate>
+      <description><![CDATA[Autonomous coding agents are now planning, writing, testing and shipping — and the risk surface has moved from the artifact to the process. This article maps the eight real risks of agentic development (drawn from Snyk's 2026 ADLC analysis, Kiteworks and Endor Labs research), and shows how each one is closed by a policy gate rather than by a better prompt.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-agentic-risks.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Spec-driven development with AI: why specs beat vibes at enterprise scale]]></title>
+      <link>https://ai.xdev.asia/blog/spec-driven-development-ai</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/spec-driven-development-ai</guid>
+      <pubDate>2026-08-11T00:00:00+00:00</pubDate>
+      <description><![CDATA[When AI writes most of the code, the only thing separating disciplined delivery from vibe coding is the spec: a versioned contract that declares outcomes, scope, constraints and verification criteria, enforced by a policy gate. This article explains why specs become more valuable, not less, as AI participation rises — and what a spec good enough for AI-assisted delivery actually contains.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-spec-driven.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Agentic Workflow Patterns: How Production AI Systems Actually Work in 2026]]></title>
+      <link>https://ai.xdev.asia/blog/agentic-workflow-patterns</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/agentic-workflow-patterns</guid>
+      <pubDate>2026-08-10T00:00:00+00:00</pubDate>
+      <description><![CDATA[Production AI systems in 2026 are not prompt loops — they are structured orchestration: plan-act-reflect cycles, memory-driven agents, tool schemas with safe execution, and first-class observability. This article profiles the eight workflow patterns that define the space and shows how a governed pipeline maps onto each one.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-agentic-workflows.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[The AI-SDLC maturity model: from individual adoption to orchestrated, governed delivery]]></title>
+      <link>https://ai.xdev.asia/blog/ai-sdlc-maturity-model</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/ai-sdlc-maturity-model</guid>
+      <pubDate>2026-08-10T00:00:00+00:00</pubDate>
+      <description><![CDATA[AI adoption in software delivery follows a maturity curve — and the middle stages are where organizations get stuck. This article maps the four stages from individual augmentation to orchestrated governance, explains why measured gains differ by a factor of three to four between organizations running the same tools, and shows how policy gates change the shape of the curve by converting the verification tax from a people problem into an infrastructure property.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-maturity-model.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Why governance beats prompts: moving AI policy from chat memory to versioned data]]></title>
+      <link>https://ai.xdev.asia/blog/why-governance-beats-prompts</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/why-governance-beats-prompts</guid>
+      <pubDate>2026-08-10T00:00:00+00:00</pubDate>
+      <description><![CDATA[Prompt reminders fail silently. xDev AI turns delivery policy into versioned YAML, enforced by a closed validation engine, so every AI change ships with proof instead of promises.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-governance-beats-prompts.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[SOC 2 and ISO 42001 for AI-assisted engineering: a practitioner's map]]></title>
+      <link>https://ai.xdev.asia/blog/soc2-iso-42001-ai-engineering</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/soc2-iso-42001-ai-engineering</guid>
+      <pubDate>2026-08-09T00:00:00+00:00</pubDate>
+      <description><![CDATA[Auditors are no longer asking whether AI writes your code — they are asking what you can prove about it. This article maps the two certifications most relevant to AI-assisted delivery (SOC 2's Trust Services Criteria and ISO 42001's AI management system controls), shows how retained delivery evidence satisfies their requirements, and covers certification timelines, costs, and how the EU AI Act's August 2026 high-risk obligations change the urgency.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-compliance.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[So Sánh Công Cụ AI Coding Năm 2026: Chọn Đúng Harness Cho Team Của Bạn]]></title>
+      <link>https://ai.xdev.asia/blog/so-sanh-cong-cu-ai-coding-2026</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/so-sanh-cong-cu-ai-coding-2026</guid>
+      <pubDate>2026-08-08T00:00:00+00:00</pubDate>
+      <description><![CDATA[Bản tiếng Việt của bài so sánh lớn: năm nhóm công cụ AI coding (terminal-native, IDE-native, platform-native, cloud sandbox, mã nguồn mở) được phân tích theo bốn tiêu chí — velocity, chi phí, security và khả năng govern. Kèm bảng tổng hợp và khuyến nghị theo quy mô team.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-so-sanh-ai-coding-2026.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[The real ROI of governed AI development: measurement beyond velocity]]></title>
+      <link>https://ai.xdev.asia/blog/governed-ai-development-roi</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/governed-ai-development-roi</guid>
+      <pubDate>2026-08-08T00:00:00+00:00</pubDate>
+      <description><![CDATA[AI coding tool spend has crossed the half-million-dollar mark for mid-size teams — and the organizations getting real returns share one trait: they measure adoption, verification cost and defect tails, not just velocity. This article breaks down where the money actually goes (USD 400–600K per 100 developers), what measured gains look like (25% cycle time, 3–4x value with measurement discipline), and why governance is the variable that decides whether AI ROI compounds or plateaus.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-roi.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[The 25-point governed AI delivery checklist]]></title>
+      <link>https://ai.xdev.asia/blog/governed-ai-delivery-checklist</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/governed-ai-delivery-checklist</guid>
+      <pubDate>2026-08-07T00:00:00+00:00</pubDate>
+      <description><![CDATA[A practical, print-ready diagnostic for teams shipping AI-assisted code: 25 checks in five groups — spec quality, policy configuration, gate operation, evidence retention, and organizational audit readiness — each mappable to SOC 2 and ISO 42001 requirements. Score every item implemented, partial, or absent, and the pattern of your answers shows exactly where governance is ad-hoc.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-checklist.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Prompt Injection và Phòng Thủ Cho AI Coding: Từ AIShellJack Đến Policy Gate]]></title>
+      <link>https://ai.xdev.asia/blog/prompt-injection-va-phong-thu-ai-coding</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/prompt-injection-va-phong-thu-ai-coding</guid>
+      <pubDate>2026-08-06T00:00:00+00:00</pubDate>
+      <description><![CDATA[Bản tiếng Việt của bài phân tích prompt injection: cơ chế direct/indirect, dữ liệu thực từ nghiên cứu AIShellJack (thành công 84%), ba khả năng agent phơi bày, và phòng thủ ba lớp trong đó policy gate deterministic là lớp không thể bị social-engineer.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-prompt-injection-vi.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Ten contract check kinds: the grammar that keeps law and machine honest]]></title>
+      <link>https://ai.xdev.asia/blog/the-10-contract-check-kinds</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/the-10-contract-check-kinds</guid>
+      <pubDate>2026-07-28T00:00:00+00:00</pubDate>
+      <description><![CDATA[Every check in an AI-SDLC rule pack must map to one of ten contract check kinds. This post explains the contract grammar, why unknown kinds are engine changes, and how this stops silent drift between policy and execution.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-10-check-kinds.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Umbrella brands and product fit: how one domain can host many governed products]]></title>
+      <link>https://ai.xdev.asia/blog/umbrella-brand-product-fit</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/umbrella-brand-product-fit</guid>
+      <pubDate>2026-07-15T00:00:00+00:00</pubDate>
+      <description><![CDATA[How xDev AI is organized: ai.xdev.asia is the umbrella, each product gets a path. One shared rulebook, one public record, and product-fit tests that keep the umbrella honest as new products join.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-umbrella-brand.jpg" type="image/jpeg"/>
+    </item>
+  </channel>
+</rss>
