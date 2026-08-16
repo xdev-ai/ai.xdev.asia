@@ -49,3 +49,6 @@
 - [x] Add bilingual keyword search across release ledger and compatibility records.
 - [x] Add keyboard-accessible version and compatibility-status filters with a clear empty state.
 - [x] Validate the Releases lookup experience, production build, and GitHub Pages publication.
+- [x] Add stable anchor identifiers and bilingual copy-link controls for each release and compatibility record.
+- [x] Synchronize release keyword, version, and state filters with shareable URL query parameters.
+- [ ] Validate deep-link restoration, copy feedback, production build, and GitHub Pages publication.
