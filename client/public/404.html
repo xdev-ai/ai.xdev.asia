@@ -1,14 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>xDev AI — Redirecting...</title>
-    <script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>xDev AI — Loading...</title>
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="xDev AI — governed AI-assisted software delivery: versioned policy-as-data, deterministic validation, and traceable evidence." />
+    <link rel="canonical" href="https://ai.xdev.asia" />
+    <noscript>
+      <meta http-equiv="refresh" content="2;url=https://ai.xdev.asia" />
+    </noscript>
+    <style>
+      body { margin: 0; background: #eef4f2; font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif; }
+      .ld { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+      .sp { width: 32px; height: 32px; border: 3px solid #102440; border-top-color: transparent; border-radius: 50%; animation: r 0.8s linear infinite; }
+      @keyframes r { to { transform: rotate(360deg); } }
+    </style>
+    <script type="module">
+      // SPA soft-404 bootstrap for GitHub Pages.
+      // GitHub Pages serves this file for any path that does not map to a real
+      // asset; this page boots the real application so crawlers and users end
+      // up on the correct route instead of losing the original URL.
       sessionStorage.setItem("xdev-ai:restore", location.pathname + location.search + location.hash);
-      location.replace(location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : ""));
+      const res = await fetch("/", { headers: { Accept: "text/html" } });
+      const text = await res.text();
+      const m = text.match(/<script[^>]+src="([^"]*index[^"]*\.js)"/);
+      if (m) {
+        const s = document.createElement("script");
+        s.type = "module";
+        s.src = m[1];
+        document.head.appendChild(s);
+      } else {
+        location.replace("https://ai.xdev.asia");
+      }
     </script>
   </head>
   <body>
-    <p>Redirecting to <a href="/">ai.xdev.asia</a>...</p>
+    <div class="ld"><div class="sp" aria-label="Loading"></div></div>
+    <noscript>
+      <p>Redirecting to <a href="https://ai.xdev.asia">ai.xdev.asia</a>...</p>
+    </noscript>
   </body>
 </html>

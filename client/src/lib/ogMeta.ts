@@ -28,6 +28,20 @@ export function updateOgMeta(args: { title: string; description: string; image?:
   setOrCreate('meta[name="twitter:title"]', args.title);
   setOrCreate('meta[name="twitter:description"]', args.description);
   document.title = `${args.title} — xDev AI Blog`;
+
+  // Per-page canonical + meta description (SPA runtime). The static index.html
+  // carries the site-wide defaults; crawlers that execute JavaScript see these
+  // after hydration, which is what Google's rendering pipeline does.
+  const canon =
+    document.querySelector<HTMLLinkElement>('link[rel="canonical"]') ??
+    (() => {
+      const el = document.createElement("link");
+      el.setAttribute("rel", "canonical");
+      document.head.appendChild(el);
+      return el as HTMLLinkElement;
+    })();
+  canon.setAttribute("href", args.url);
+  setOrCreate('meta[name="description"]', args.description);
 }
 
 export function resetOgMeta(): void {
@@ -44,4 +58,7 @@ export function resetOgMeta(): void {
       "Versioned policy-as-data, deterministic validation, and traceable evidence for AI-assisted software delivery.",
   };
   Object.entries(defaults).forEach(([sel, content]) => setOrCreate(sel, content, undefined));
+  const canon = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (canon) canon.setAttribute("href", "https://ai.xdev.asia/");
+  setOrCreate('meta[name="description"]', defaults['meta[property="og:description"]']);
 }
