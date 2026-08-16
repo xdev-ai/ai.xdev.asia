@@ -10,7 +10,6 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./i18n/LanguageContext";
 
 const SPA_RESTORE_KEY = "xdev-ai:restore";
-
 const AiSdlc = lazy(() => import("./pages/AiSdlc"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
@@ -35,14 +34,8 @@ function useSpaRestore() {
   }, []);
 }
 
-function PageLoader() {
-  return <div className="mx-auto flex min-h-[50vh] max-w-3xl items-center justify-center px-4"><span className="h-8 w-8 animate-spin rounded-full border-2 border-[#102440] border-t-transparent" aria-label="Loading" /></div>;
-}
-
-function LazyPage({ cmp, extraProps }: { cmp: React.LazyExoticComponent<any>; extraProps?: Record<string, any> }) {
-  const Component = cmp;
-  return <Suspense fallback={<PageLoader />}><Component {...(extraProps ?? {})} /></Suspense>;
-}
+function PageLoader() { return <div className="mx-auto flex min-h-[50vh] max-w-3xl items-center justify-center px-4"><span className="h-8 w-8 animate-spin rounded-full border-2 border-[#102440] border-t-transparent" aria-label="Loading" /></div>; }
+function LazyPage({ cmp, extraProps }: { cmp: React.LazyExoticComponent<any>; extraProps?: Record<string, any> }) { const Component = cmp; return <Suspense fallback={<PageLoader />}><Component {...(extraProps ?? {})} /></Suspense>; }
 
 function Router() {
   useSpaRestore();
@@ -64,8 +57,5 @@ function Router() {
   </Switch>;
 }
 
-function App() {
-  return <ErrorBoundary><ThemeProvider defaultTheme="light"><LanguageProvider><TooltipProvider><Toaster /><Router /></TooltipProvider></LanguageProvider></ThemeProvider></ErrorBoundary>;
-}
-
+function App() { return <ErrorBoundary><ThemeProvider defaultTheme="light"><LanguageProvider><TooltipProvider><Toaster /><Router /></TooltipProvider></LanguageProvider></ThemeProvider></ErrorBoundary>; }
 export default App;

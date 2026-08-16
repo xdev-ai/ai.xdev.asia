@@ -4,12 +4,14 @@ import { ArrowUpRight, Languages, Menu, ShieldCheck, X } from "lucide-react";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 
 export type Locale = "en" | "vi";
-export type PortalRoute = "platform" | "docs" | "policies";
+export type PortalRoute = "platform" | "docs" | "quickstart" | "policies" | "releases";
 
 const navigation: Array<{ route: PortalRoute; href: string; number: string; en: string; vi: string }> = [
   { route: "platform", href: "/", number: "01", en: "Platform", vi: "Nền tảng" },
   { route: "docs", href: "/docs", number: "02", en: "Docs", vi: "Tài liệu" },
-  { route: "policies", href: "/policies", number: "03", en: "Policy Registry", vi: "Kho chính sách" },
+  { route: "quickstart", href: "/quickstart", number: "03", en: "Quickstarts", vi: "Quickstart" },
+  { route: "policies", href: "/policies", number: "04", en: "Policy Registry", vi: "Kho chính sách" },
+  { route: "releases", href: "/releases", number: "05", en: "Releases", vi: "Release" },
 ];
 
 type PortalShellProps = {

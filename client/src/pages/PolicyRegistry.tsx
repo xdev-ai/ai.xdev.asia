@@ -27,6 +27,6 @@ function RegistryContent({ locale }: { locale: Locale }) {
       </div>
     </section>
     <section className="registry-anatomy"><div><span className="mono-label">{t.anatomy}</span><p>{t.anatomyLead}</p></div><div className="anatomy-table">{t.recordFields.map(([label, value], index) => <div key={label}><span>{String(index + 1).padStart(2, "0")}</span><strong>{label}</strong><p>{value}</p></div>)}</div></section>
-    <section className="registry-note"><div><span className="mono-label">{t.note}</span><p>{t.noteText}</p></div><a href="https://github.com/xdev-ai/ai-sdlc" target="_blank" rel="noreferrer" className="underlined-button">GitHub <ArrowUpRight size={15} /></a></section>
+    <section className="registry-note"><div><span className="mono-label">{t.note}</span><p>{t.noteText}</p></div><a href="https://github.com/xdev-ai/ai-sdlc-policies" target="_blank" rel="noreferrer" className="underlined-button">Policy source <ArrowUpRight size={15} /></a></section>
   </div>;
 }

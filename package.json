@@ -9,7 +9,8 @@
     "start": "NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "policy:sync": "node scripts/sync-policy-registry.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -66,6 +67,7 @@
     "three": "^0.185.1",
     "vaul": "^1.1.2",
     "wouter": "^3.3.5",
+    "yaml": "^2.7.1",
     "zod": "^4.1.12"
   },
   "devDependencies": {
