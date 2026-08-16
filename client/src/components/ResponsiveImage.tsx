@@ -15,7 +15,7 @@ export function ResponsiveImage({
   sizes?: string;
   eager?: boolean;
 }) {
-  const webpSrc = src.replace(/\.jpg$/i, ".webp").replace(/^\/blog\//, "/blog/webp/");
+  const webpSrc = src.replace(/\.jpg$/i, ".webp");
   return (
     <picture>
       <source srcSet={webpSrc} type="image/webp" />

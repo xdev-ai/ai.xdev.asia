@@ -7,6 +7,14 @@
     <language>en-US</language>
     <atom:link href="https://ai.xdev.asia/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title><![CDATA[AI Software Supply Chain: Real Security Vulnerabilities and How to Close Them]]></title>
+      <link>https://ai.xdev.asia/blog/security-chat-luong-code-ai</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/security-chat-luong-code-ai</guid>
+      <pubDate>2026-08-16T00:00:00+00:00</pubDate>
+      <description><![CDATA[AI-generated code carries a higher vulnerability rate — 2026 research shows 10% to 42% vulnerability rates depending on the model and language. This Vietnamese-language article summarizes the concrete supply chain threats — dependency confusion, model poisoning, prompt injection — and the multi-layer defense stack enterprises are actually deploying.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-supply-chain-vi.jpg" type="image/jpeg"/>
+    </item>
+    <item>
       <title><![CDATA[What is AI-SDLC: four meanings on Google, one governed answer]]></title>
       <link>https://ai.xdev.asia/blog/what-is-ai-sdlc</link>
       <guid isPermaLink="true">https://ai.xdev.asia/blog/what-is-ai-sdlc</guid>
@@ -21,6 +29,38 @@
       <pubDate>2026-08-16T00:00:00+00:00</pubDate>
       <description><![CDATA[Giải thích AI SDLC bằng tiếng Việt: tại sao chu trình delivery AI-assisted cần spec có version, policy gate deterministic và evidence được giữ lại — thay vì tin AI bằng cảm giác. So sánh với MLOps và agentic SDLC, kèm vị trí của xDev AI.]]></description>
       <enclosure url="https://ai.xdev.asia/blog/cover-ai-sdlc-la-gi.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[AI Software Supply Chain Security: From Static SBOMs to Agentic Governance]]></title>
+      <link>https://ai.xdev.asia/blog/ai-software-supply-chain-security</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/ai-software-supply-chain-security</guid>
+      <pubDate>2026-08-15T00:00:00+00:00</pubDate>
+      <description><![CDATA[AI agents are now primary actors inside the software supply chain. This article explains how to secure them: SBOMs for AI, MLSecOps, SLSA provenance, and agentic governance under CRA and CMMC 2.0.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-sbom-ai.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[AI-Generated Code Has 2.74x More Vulnerabilities: Data and Eight Quality Gates]]></title>
+      <link>https://ai.xdev.asia/blog/ai-generated-code-vulnerabilities</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/ai-generated-code-vulnerabilities</guid>
+      <pubDate>2026-08-15T00:00:00+00:00</pubDate>
+      <description><![CDATA[Large-scale studies show AI-written code carries significantly more vulnerabilities than human code. This article breaks down the data from Veracode and Apiiro, and gives you eight quality gates to close the gap.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-secure-ai-sdlc.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[A Secure AI Development Lifecycle for the Enterprise: SDL Collapses Trust Boundaries]]></title>
+      <link>https://ai.xdev.asia/blog/secure-ai-development-lifecycle-enterprise</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/secure-ai-development-lifecycle-enterprise</guid>
+      <pubDate>2026-08-15T00:00:00+00:00</pubDate>
+      <description><![CDATA[Microsoft's SDL for AI and the CSA enterprise framework agree on one thing: AI collapses trust boundaries. This article maps what that means practically — the six SDL pillars, where attacks land, and how to build an enterprise lifecycle without slowing delivery.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-agentic-governance.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title><![CDATA[Enterprise AI Security Frameworks Compared: What Actually Gets Adopted and Why]]></title>
+      <link>https://ai.xdev.asia/blog/enterprise-ai-security-framework</link>
+      <guid isPermaLink="true">https://ai.xdev.asia/blog/enterprise-ai-security-framework</guid>
+      <pubDate>2026-08-15T00:00:00+00:00</pubDate>
+      <description><![CDATA[With CISA's SBOM-for-AI guidance, Microsoft's SDL pillars, and the CSA enterprise framework all converging, enterprises face a choice problem, not an information problem. This article compares the frameworks, measures where real adoption stalls, and lays out a pragmatic adoption sequence.]]></description>
+      <enclosure url="https://ai.xdev.asia/blog/cover-enterprise-adoption.jpg" type="image/jpeg"/>
     </item>
     <item>
       <title><![CDATA[Where xDev AI sits in the full delivery cycle: spec, gate and evidence between idea and release]]></title>

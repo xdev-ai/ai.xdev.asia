@@ -112,6 +112,36 @@ export default function BlogPost() {
   const faqA = (f: NonNullable<Post["faq"]>[number]) =>
     typeof f.a === "string" ? f.a : f.a[faqLang];
 
+  /* Lightweight markdown inline rendering: **bold**, *italic*. Batch-4
+     articles carry emphasis markers verbatim in their locale strings. */
+  const richText = (text: string | undefined): React.ReactNode => {
+    if (!text) return null;
+    const parts: React.ReactNode[] = [];
+    // Split on **...** first, then *...* inside each part
+    const reBold = /\*\*([^*]+)\*\*/g;
+    let rest = text;
+    let idx = 0;
+    let m: RegExpExecArray | null;
+    reBold.lastIndex = 0;
+    while ((m = reBold.exec(rest)) !== null) {
+      parts.push(rest.slice(idx, m.index));
+      parts.push(<strong key={`b${idx}`} className="font-semibold text-[#142641]">{m[1]}</strong>);
+      idx = m.index + m[0].length;
+    }
+    parts.push(rest.slice(idx));
+    return parts.map((p, i) =>
+      typeof p === "string" && /\*[^*\n]+\*/.test(p) ? (
+        <span key={i}>
+          {p.split(/\*([^*\n]+)\*/).map((seg, j) =>
+            j % 2 === 1 ? <em key={j}>{seg}</em> : seg,
+          )}
+        </span>
+      ) : (
+        <span key={i}>{p}</span>
+      ),
+    );
+  };
+
   return (
     <div className="min-h-screen bg-[#eef4f2] text-[#152540]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -170,8 +200,8 @@ export default function BlogPost() {
       <main className="mx-auto max-w-3xl px-4 py-10 md:px-6 md:py-14">
         {meta.sections.map((s) => (
           <section key={s.heading} className="mb-10">
-            <h2 className="text-[clamp(1.2rem,3vw,1.5rem)] font-semibold leading-[1.25] tracking-tight text-[#142641]">{s.heading}</h2>
-            <p className="mt-3 text-[15px] leading-[1.75] text-[#33495a]">{s.body}</p>
+            <h2 className="text-[clamp(1.2rem,3vw,1.5rem)] font-semibold leading-[1.25] tracking-tight text-[#142641]">{richText(s.heading)}</h2>
+            <p className="mt-3 text-[15px] leading-[1.75] text-[#33495a]">{richText(s.body)}</p>
             {s.table && <ArticleTable headers={s.table.headers} rows={s.table.rows} />}
             {s.image && (
               <figure className="mt-6">
@@ -185,6 +215,17 @@ export default function BlogPost() {
           </section>
         ))}
 
+        {/* Locale-aware in-body illustrations (batch-4 style images array) */}
+        {(meta.images ?? []).map((img, idx) => (
+          <figure key={img.src + String(idx)} className="mb-10">
+            <ResponsiveImage
+              src={img.src}
+              alt={img.alt}
+              className="w-full rounded border border-[#b5c6c9] object-cover shadow-[6px_6px_0_rgba(29,84,114,.07)]"
+            />
+          </figure>
+        ))}
+
         {faqs.length > 0 && (
           <section className="mb-10">
             <h2 className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5a8090]">{t.blog.faqLabel}</h2>
@@ -192,9 +233,9 @@ export default function BlogPost() {
               {faqs.map((f) => (
                 <details key={typeof f.q === "string" ? f.q.slice(0, 60) : f.q.en.slice(0, 60)} className="group border border-[#b5c6c9] bg-white p-5 open:shadow-[6px_6px_0_rgba(29,84,114,.08)]">
                   <summary className="cursor-pointer list-none text-[15px] font-semibold leading-snug text-[#142641]">
-                    {faqQ(f)}
+                    {richText(faqQ(f))}
                   </summary>
-                  <p className="mt-3 text-[14px] leading-[1.75] text-[#33495a]">{faqA(f)}</p>
+                  <p className="mt-3 text-[14px] leading-[1.75] text-[#33495a]">{richText(faqA(f))}</p>
                 </details>
               ))}
             </div>

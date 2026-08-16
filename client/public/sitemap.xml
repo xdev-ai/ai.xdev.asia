@@ -142,6 +142,42 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ai.xdev.asia/blog/ai-software-supply-chain-security</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/ai-generated-code-vulnerabilities</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/secure-ai-development-lifecycle-enterprise</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/security-chat-luong-code-ai</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/enterprise-ai-security-framework</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/tools/maturity-assessment</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ai.xdev.asia/privacy</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>

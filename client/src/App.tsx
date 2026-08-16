@@ -15,6 +15,7 @@ const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const Docs = lazy(() => import("./pages/Docs"));
 const Legal = lazy(() => import("./pages/Legal"));
+const MaturityTool = lazy(() => import("./pages/MaturityTool"));
 const PolicyRegistry = lazy(() => import("./pages/PolicyRegistry"));
 const PolicyDetail = lazy(() => import("./pages/PolicyDetail"));
 const Quickstart = lazy(() => import("./pages/Quickstart"));
@@ -39,23 +40,46 @@ function LazyPage({ cmp, extraProps }: { cmp: React.LazyExoticComponent<any>; ex
 
 function Router() {
   useSpaRestore();
-  return <Switch>
-    <Route path="/">{() => <LazyPage cmp={Umbrella} />}</Route>
-    <Route path="/ai-sdlc">{() => <LazyPage cmp={AiSdlc} />}</Route>
-    <Route path="/trace-ledger">{() => <LazyPage cmp={TraceLedger} />}</Route>
-    <Route path="/blog">{() => <LazyPage cmp={Blog} />}</Route>
-    <Route path="/blog/:slug">{() => <LazyPage cmp={BlogPost} />}</Route>
-    <Route path="/privacy">{() => <LazyPage cmp={Legal} extraProps={{ page: "privacy" }} />}</Route>
-    <Route path="/terms">{() => <LazyPage cmp={Legal} extraProps={{ page: "terms" }} />}</Route>
-    <Route path="/docs">{() => <LazyPage cmp={Docs} />}</Route>
-    <Route path="/quickstart">{() => <LazyPage cmp={Quickstart} />}</Route>
-    <Route path="/releases">{() => <LazyPage cmp={Releases} />}</Route>
-    <Route path="/policies/:slug">{() => <LazyPage cmp={PolicyDetail} />}</Route>
-    <Route path="/policies">{() => <LazyPage cmp={PolicyRegistry} />}</Route>
-    <Route path="/404" component={NotFound} />
-    <Route component={NotFound} />
-  </Switch>;
+  return (
+    <Switch>
+      <Route path={"/"}>{() => <LazyPage cmp={Umbrella} />}</Route>
+      <Route path={"/ai-sdlc"}>{() => <LazyPage cmp={AiSdlc} />}</Route>
+      <Route path={"/trace-ledger"}>{() => <LazyPage cmp={TraceLedger} />}</Route>
+      <Route path={"/blog"}>{() => <LazyPage cmp={Blog} />}</Route>
+      <Route path={"/blog/:slug"}>{() => <LazyPage cmp={BlogPost} />}</Route>
+      <Route path={"/tools/maturity-assessment"}>{() => <LazyPage cmp={MaturityTool} />}</Route>
+      <Route path={"/privacy"}>{() => <LazyPage cmp={Legal} extraProps={{ page: "privacy" }} />}</Route>
+      <Route path={"/terms"}>{() => <LazyPage cmp={Legal} extraProps={{ page: "terms" }} />}</Route>
+      <Route path={"/docs"}>{() => <LazyPage cmp={Docs} />}</Route>
+      <Route path={"/quickstart"}>{() => <LazyPage cmp={Quickstart} />}</Route>
+      <Route path={"/releases"}>{() => <LazyPage cmp={Releases} />}</Route>
+      <Route path={"/policies/:slug"}>{() => <LazyPage cmp={PolicyDetail} />}</Route>
+      <Route path={"/policies"}>{() => <LazyPage cmp={PolicyRegistry} />}</Route>
+      <Route path={"/404"} component={NotFound} />
+      {/* Final fallback route */}
+      <Route component={NotFound} />
+    </Switch>
+  );
 }
 
-function App() { return <ErrorBoundary><ThemeProvider defaultTheme="light"><LanguageProvider><TooltipProvider><Toaster /><Router /></TooltipProvider></LanguageProvider></ThemeProvider></ErrorBoundary>; }
+// NOTE: About Theme
+// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
+//   to keep consistent foreground/background color across pages
+// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <ThemeProvider defaultTheme="light">
+        <LanguageProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Router />
+          </TooltipProvider>
+        </LanguageProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
+  );
+}
+
 export default App;

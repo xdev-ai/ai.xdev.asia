@@ -15,6 +15,7 @@ export type ArticleMeta = {
   readingMinutes: number;
   sections: Section[];
   faq?: FaqItem[];
+  images?: Array<{ src: string; alt: string }>;
 };
 
 export type FaqValue = { en: string; vi: string };
@@ -35,6 +36,325 @@ export type Post = {
 const BASE = "/blog/";
 
 export const posts: Post[] = [
+  {
+    slug: "ai-software-supply-chain-security",
+    dateISO: "2026-08-15",
+    tags: ["ai-security", "supply-chain", "sbom", "mlsecops", "agentic-governance"],
+    draft: false,
+    cover: `${BASE}cover-sbom-ai.jpg`,
+    coverAlt: {
+      en: "A shield containing a hexagonal bill-of-materials lattice scanned by an amber audit beam",
+      vi: "Chiếc khiên chứa mạng lưới bill-of-materials dạng lục giác được quét bằng tia amber",
+    },
+  en: {
+    title: "AI Software Supply Chain Security: From Static SBOMs to Agentic Governance",
+    summary: "AI agents are now primary actors inside the software supply chain. This article explains how to secure them: SBOMs for AI, MLSecOps, SLSA provenance, and agentic governance under CRA and CMMC 2.0.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "The answer in one paragraph",
+        body: "AI software supply chain security in 2026 means treating AI agents as **first-class actors inside your dependency graph** — not just users of your tools. Static SBOMs list packages; AI systems need a layered bill of materials covering code, ML models, training data, and the prompts and skills that drive autonomous agents. The practical defense stack is four-layer: (1) SBOM + ML-BOM inventory at build time, (2) SLSA provenance attestation for every artifact, (3) contextual CVE analysis (reachable vs. phantom) prioritized by EPSS exploit probability, and (4) agentic governance policies that constrain non-human identities with human decision rights preserved. G7 governments formalized the minimum elements of an AI SBOM in December 2026, which is the strongest signal yet that this is becoming a compliance baseline."
+      },
+      {
+        heading: "The supply chain changed: agents are now actors, not users",
+        body: "Traditional software supply chain security assumed a clear boundary: humans wrote code, package managers fetched dependencies, and the build system assembled artifacts. AI coding agents collapse that model. When an agentic system works autonomously, it does not merely consume your dependencies — it **adds to them**. It resolves packages, suggests imports, installs tools and skills from registries, and may introduce transitive dependencies no reviewer has seen.\n\nA widely cited observation is that modern enterprise applications are roughly **80% third-party code**. AI-assisted development pushes that ratio further, because agents discover and integrate OSS packages without the manual review a human developer would typically perform. Every one of those automated decisions is a new node in your supply chain graph — and most organizations' inventory visibility stops at the package manager lockfile, not the agent's working session.\n\nThis is why industry analysts describe 2026 as the start of the \"governance era\": the threat is no longer only poisoned packages in registries, but **agentic actions that mutate the dependency graph while you are not watching**."
+      },
+      {
+        heading: "New attack vectors you did not have before",
+        body: "The shift to agentic development opens four classes of supply chain attack that did not exist in the human-only era, or existed only in embryonic form:\n\n**Dependency confusion and slopsquatting.** Classic dependency confusion exploits the ambiguity between internal and public package registries. The AI-generated variant, sometimes called *slopsquatting*, is subtler: models hallucinate package names that do not exist, a developer copies the hallucinated name into code, and an attacker who registered the squat name watches — now with AI-written malware inside. Because the hallucinated name was \"suggested by the agent,\" teams lower their guard in exactly the way social engineering relies on.\n\n**Maintainer account compromise.** Agents amplify the blast radius of a compromised maintainer account, because trust in the maintainer propagates to every repo the agent touches. One stolen token can authorize a chain of automated changes across an ecosystem before anyone notices a pattern.\n\n**Model poisoning.** Training data and model weights are now part of the supply chain, and a backdoored weight set is a dependency with no lockfile. Some demonstrated backdoors activate only when the model receives a specific trigger prompt — invisible to standard model evaluation.\n\n**Agentic behavior exploitation.** Prompt injection through dependencies (malicious skills, poisoned documentation), and agent actions performed under an over-privileged service identity are behavioral attacks: no single package is malicious, but the *composition of actions* is.\n\nEach of these four vectors sits somewhere in the middle of the supply chain graph — which is precisely where traditional SBOM tooling stops looking."
+      },
+      {
+        heading: "The layered bill of materials: SBOM is not enough for AI",
+        body: "The traditional SBOM answers one question well: *what packages does this artifact contain?* AI systems need three more answers, which is why the emerging practice is a **layered bill of materials**:\n\nIn December 2026, **CISA and the G7 (Germany, Canada, France, Italy, Japan, the UK, and the EU)** jointly published \"Software Bill of Materials for AI — Minimum Elements\", formalizing a consensus on what an AI SBOM must contain. The guidance treats the AI SBOM as an *addition* to the traditional one: a minimum-elements checklist covering models, training data, and AI-specific supply chain links. It is not yet law, but consensus guidance from seven governments plus the EU is the clearest preview of what audits will ask for next.\nThe MLSecOps framing matters here too: **a trained model is a third-party dependency**. Loading weights with pickle or an equivalent deserializer is a remote-code-execution vector; a model BOM without weight provenance is like a package SBOM without checksums.",
+        table: {
+          headers: ["Layer", "Covers", "AI-specific question it answers"],
+          rows: [
+            ["Code SBOM", "Packages, dependencies, versions", "What OSS entered the build, including agent-introduced transitive deps"],
+            ["ML-BOM (Model BOM)", "Model architecture, weights version, training data lineage, safety benchmarks", "Which model am I running, trained on what, and how was it evaluated"],
+            ["Prompt / skill manifest", "System prompts, plugins, registered skills, tool configurations", "What instructions and capabilities were loaded into the agent session"],
+            ["Provenance record", "SLSA attestation, build identity, signer", "Who or what produced this artifact, and can I cryptographically verify it"],
+          ],
+        },
+      },
+      {
+        heading: "The defense stack: four layers, in order",
+        body: "From the operational side, the pattern that holds up in practice is a four-layer stack. Each layer answers a different question, and skipping one creates a gap no scanner can fill.\n\n**1. Inventory at build time (SBOM + ML-BOM).** Generate the code SBOM from the lockfile and the agent session artifacts; attach an ML-BOM for every deployed model; keep a prompt/skill manifest versioned alongside. If an artifact ships without a manifest, it should not ship at all.\n\n**2. Provenance attestation (SLSA).** Sign builds and attest lineage so that you can cryptographically verify *which actor* — human or agent — produced an artifact. Binary lifecycle management without provenance is inventory without ownership.\n\n**3. Contextual vulnerability analysis.** Reachable-versus-phantom CVE analysis, prioritized by **EPSS** (Exploit Prediction Scoring System, the probability a CVE is exploited within 30 days) rather than raw CVSS severity. 80% of the CVEs flagged in a typical dependency scan are phantom in your specific deployment; EPSS-style prioritization is what makes the list actionable for a team.\n\n**4. Agentic governance.** Apply policy to non-human identities the same way you apply it to humans: scoped credentials, explicit allow-lists for registries and skills, per-action auditability traced back to model version and prompt, and human decision rights on the high-impact actions. Governance is the layer that survives all the others failing.\n\nThe end-state is **agentic remediation**: an agent detects a CVE, runs contextual analysis, opens a branch with a fix, runs tests, and files a PR — then a human reviews the log and approves. The agent does the triage at machine speed; the human keeps the decision right. That division is the core of what \"governance\" means in the agentic era."
+      },
+      {
+        heading: "What regulation will ask for next",
+        body: "Two regulatory instruments are already shaping what enterprise supply chain programs must show. The EU **Cyber Resilience Act (CRA)** extends product-security obligations to software sold in the EU, and supply chain documentation is a natural audit artifact. In the US defense sector, **CMMC 2.0** increasingly expects provenance and SBOM practices as evidence of controlled development environments. Neither instrument names AI agents explicitly — yet — but both demand the artifacts (SBOMs, provenance, vulnerability management records) that agentic governance is designed to produce.\n\nThe pragmatic reading: organizations that build the four-layer stack now will find CRA and CMMC audits largely *already answered* by their normal operating data. Organizations that wait for explicit AI-agent clauses will be rebuilding from scratch when those clauses arrive.\n\nAt xDev AI, this is exactly the territory the products map to: **Trace Ledger**-style evidence records give you the provenance layer almost for free once your pipeline emits attestation events, and a policy gate is where agentic governance decisions get enforced before release rather than discovered after incident."
+      }
+    ],
+    images: [
+      { src: "`${BASE}inline-sbom-layers.jpg`", alt: "Layered bill of materials for AI: application, model, and dependency layers under an amber scanner" }
+    ],
+    faq: [
+      { q: "Is an AI SBOM required by law yet?", a: "Not yet. The CISA + G7 \"Minimum Elements\" guidance (December 2026) is consensus guidance, not law. But the EU Cyber Resilience Act and CMMC 2.0 already require the artifacts — SBOMs, provenance, vulnerability records — that a layered AI bill of materials produces, so building it now is low-cost compliance insurance." },
+      { q: "Do AI coding agents actually add dependencies to my codebase?", a: "Yes. Agentic tools resolve packages, install skills and plugins, and suggest imports autonomously. Enterprise applications are already ~80% third-party code, and agent-assisted development pushes the ratio higher with less manual review — each agent session adds nodes to your dependency graph that no human looked at." },
+      { q: "What is slopsquatting?", a: "A supply chain attack variant where a model hallucinates a nonexistent package name, a developer copies it into code, and an attacker who pre-registered that name publishes malicious code under it. It blends dependency confusion with AI hallucination, which is why AI-introduced dependencies need the same scrutiny as human ones." },
+      { q: "Why prioritize EPSS over CVSS?", a: "CVSS rates theoretical severity; EPSS estimates the probability a CVE will actually be exploited in the next 30 days. Most CVEs in a dependency scan are phantom for your specific deployment — EPSS-style prioritization lets a small team fix the vulnerabilities that matter instead of drowning in an untriaged backlog." }
+    ],
+  },
+  vi: {
+    title: "Bảo mật chuỗi cung ứng phần mềm AI: từ SBOM tĩnh đến agentic governance",
+    summary: "AI agent giờ là actor hạng nhất trong chuỗi cung ứng phần mềm. Bài này giải thích cách bảo mật chúng: SBOM cho AI, MLSecOps, SLSA provenance, và agentic governance theo CRA và CMMC 2.0.",
+    readingMinutes: 12,
+    sections: [],
+    faq: [],
+  },
+  },
+  {
+    slug: "ai-generated-code-vulnerabilities",
+    dateISO: "2026-08-15",
+    tags: ["ai-security", "code-quality", "quality-gates", "llm-vulnerabilities"],
+    draft: false,
+    cover: `${BASE}cover-secure-ai-sdlc.jpg`,
+    coverAlt: {
+      en: "A navy shield grid with amber warning nodes spreading across a circuit pattern",
+      vi: "Lưới khiên navy với các node cảnh báo amber lan rộng trên nền mạch điện",
+    },
+  en: {
+    title: "AI-Generated Code Has 2.74x More Vulnerabilities: Data and Eight Quality Gates",
+    summary: "Large-scale studies show AI-written code carries significantly more vulnerabilities than human code. This article breaks down the data from Veracode and Apiiro, and gives you eight quality gates to close the gap.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "The answer in one paragraph",
+        body: "Across large-scale independent studies, **AI-generated code carries roughly 2.74x more vulnerabilities than human-written code**: Veracode's 2025 GenAI Code Security Report found a **45% failure rate on secure coding benchmarks** and **86% failure on XSS (CWE-80)** across 100+ LLMs and four languages, while Apiiro's Fortune-50 data showed **+322% privilege-escalation paths, +153% design flaws, and +40% secrets exposure** with 2.5x more CVSS 7.0+ findings. The lesson is not \"stop using AI\" — it is that AI output must pass through **quality gates that human code never had to**: input governance, model selection discipline, automated output scanning, mandatory human review on high-impact changes, and CI-level policy enforcement. The eight gates in this article are the minimum stack that keeps the speed without importing the risk."
+      },
+      {
+        heading: "What the data actually says",
+        body: "The two most cited large-scale datasets tell a consistent story. Veracode tested **100+ large language models across four programming languages** with standardized secure coding benchmarks. The headline findings: AI code has a **2.74x higher vulnerability density** than human-written equivalents, a **45% overall failure rate** on secure coding benchmarks, an **86% failure rate on XSS (CWE-80)** — the classic injection class — and Java output was the worst at 72% failure on its benchmark. Crucially, this is not a finding about one weak model; it holds *across* 100+ models, which means the problem is structural to how LLMs generate code, not an incident in one vendor's lab.\n\nApiiro's enterprise data adds the organizational view. Working with Fortune 50 deployments, they measured **+322% privilege escalation paths, +153% design flaws, and +40% secrets exposure** in codebases after AI coding tool adoption, with **2.5x more high-severity (CVSS 7.0+) findings**. Their finding tracker recorded **10,000+ new findings per month by June 2025 — a 10x increase since December 2024**. Even among defenders, the failure is widespread: roughly **73% of AI coding tool deployments get terminated by enterprise security reviews**, because vendors treat security as an afterthought rather than a design constraint.\n\nTwo caveats keep this honest. First, benchmark failure rates measure *potential* vulnerability classes, not shipped exploits — the gap is what your quality gates exist to catch. Second, the numbers improve with gated workflows: teams that apply scan + review discipline see the delta compress significantly. The data argues for governance, not prohibition."
+      },
+      {
+        heading: "Why AI code fails differently than human code",
+        body: "Understanding the failure modes explains why the fix is structural, not cosmetic. LLMs generate code by predicting likely token sequences, not by reasoning about threat models. The predictable failure classes are:\n\n**Injection fluency.** Models are trained on vast amounts of code, most of which predates modern injection awareness; XSS and SQL injection patterns are *common* in training data, so they are *likely* in output. The 86% CWE-80 failure rate is the training-distribution leaking through.\n\n**Authority without context.** An agent produces an authoritative-looking fix for a function it has never seen the surrounding architecture of. Privilege escalation paths multiply (+322%) because the model optimizes the local request, not the system's privilege graph.\n\n**Secrets by pattern.** Models happily embed credentials, tokens, and hardcoded keys when the pattern exists in their training data — and then repeat it confidently. +40% secrets exposure is the pattern-completion instinct applied to the wrong domain.\n\n**Confidence without accountability.** Human code carries an implicit social guarantee: someone who will be around to defend it. AI code arrives without that guarantee, which is why the review gate — a named human accountable for the change — is the single highest-leverage control in this article.\n\nThis is why the mitigation is not \"better prompts\". Prompts shape style; they cannot reshape training distribution. The defense is process: gates that catch the structural failure classes regardless of which model wrote the code."
+      },
+      {
+        heading: "The eight quality gates",
+        body: "The eight gates below form the minimum stack. They are ordered roughly by cost-to-implement, and every team should implement at least gates 1–6 before scaling AI-assisted development. Each gate answers one question; the stack answers them all.\n\nGates 1–4 are *preventive* (stop bad material entering), gates 5–6 are *enforcement* (stop bad material merging), and gates 7–8 are *learning* (make the next cycle better). Notice that gate 6 — the CI policy enforcement — is exactly what a policy-gated pipeline provides as infrastructure: the review is not a favor developers grant security, it is a property of the release process itself.\n**Scope guide.** Teams of 2–10: gates 1, 3, 5, 6. Mid-size: add 2, 4, 7. Regulated or AI-heavy: all eight, with gate 8 trending reported quarterly.",
+        table: {
+          headers: ["#", "Gate", "Question it answers", "Typical implementation"],
+          rows: [
+            ["1", "Input governance", "What was the agent allowed to do?", "Scoped prompts, allow-listed registries, least-privilege service accounts"],
+            ["2", "Model selection discipline", "Which model wrote this, and is it approved?", "Approved-model registry; per-purpose model routing"],
+            ["3", "Automated output scanning", "Does this output contain known vulnerability classes?", "SAST + secrets scan on every AI-authored diff"],
+            ["4", "Dependency attestation", "What did the agent add to the supply chain?", "SBOM diff per session; provenance for agent-introduced packages"],
+            ["5", "Mandatory human review", "Who is accountable for this change?", "Review required for auth, privileges, secrets, payments"],
+            ["6", "CI policy enforcement", "Can a bad change reach main at all?", "Merge blocked until scans + review pass; evidence recorded"],
+            ["7", "Contextual triage", "Which of 10,000 findings matter first?", "Reachable-vs-phantom analysis; EPSS-style prioritization"],
+            ["8", "Telemetry & feedback", "Are we getting better?", "Vulnerability-rate trending per model and per team"],
+          ],
+        },
+      },
+      {
+        heading: "What good looks like",
+        body: "When the gates work, the experience changes qualitatively. An agent opens a PR; CI runs gates 3 and 4 automatically and records evidence for gate 6; the diff is small enough that a human reviewer answers gate 5 in minutes, not hours; and the team's vulnerability-rate trending (gate 8) shows the AI-assisted delta compressing quarter over quarter. The 2.74x figure is not destiny — it is the *ungated* baseline. Teams that gate consistently see the structural failure classes (injection, secrets, escalation paths) fall toward human-code rates while keeping the velocity that motivated AI adoption in the first place.\n\nThis is also where the xDev AI positioning lands naturally: a **spec-driven pipeline with a policy gate and evidence trail** implements gates 4, 6, and part of 8 as infrastructure — the attestation, the enforcement, and the record — so your team spends its review energy on the decisions only humans can make (gate 5) rather than on triage that a machine could have done."
+      }
+    ],
+    images: [
+      { src: "`${BASE}inline-defense-in-depth.jpg`", alt: "Eight quality gates arranged as concentric defense rings around a code pipeline" }
+    ],
+    faq: [
+      { q: "Does this mean I should stop using AI coding tools?", a: "No. The 2.74x figure is the ungated baseline. Teams that add scan + review quality gates see the vulnerability delta compress significantly — the data argues for governance, not prohibition. But using AI without gates means importing the risk at full rate." },
+      { q: "Is the 45% failure rate a problem with one specific LLM?", a: "No — Veracode tested 100+ models across four languages and the finding held across the board. That is what makes it structural: it comes from how LLMs predict code from training distribution, not from a defect in one vendor's model. Prompt tuning cannot fix a training-distribution problem; process gates can." },
+      { q: "Which gates should a small team implement first?", a: "Gates 1, 3, 5, and 6: scoped inputs for the agent, automated SAST + secrets scanning on every AI diff, mandatory human review on auth/secrets/privilege changes, and CI blocking merges until those pass. That set captures most of the risk at minimal cost; add gates 2, 4, and 7 as the team scales." },
+      { q: "Why is human review the highest-leverage gate?", a: "AI code arrives without the implicit accountability human code carries — no one is automatically answerable for it. Naming a human reviewer creates that accountability, which is the single control that changes agent output from \"untrusted material\" to \"reviewed change.\" Everything else in the stack either reduces noise or enforces this gate." }
+    ],
+  },
+  vi: {
+    title: "Code AI tạo ra có 2,74 lần nhiều lỗ hổng hơn: dữ liệu 2026 và 8 quality gates",
+    summary: "Nghiên cứu quy mô lớn độc lập cho thấy code do AI sinh ra chứa khoảng 2,74x nhiều lỗ hổng hơn code con người: 45% trượt benchmark secure coding, 86% trượt XSS, và +322% privilege-escalation paths trong codebase enterprise. Bài này tổng hợp dữ liệu mới nhất và stack 8 quality gates tối thiểu để tăng tốc mà không nhập rủi ro.",
+    readingMinutes: 12,
+    sections: [],
+    faq: [],
+  },
+  },
+  {
+    slug: "secure-ai-development-lifecycle-enterprise",
+    dateISO: "2026-08-15",
+    tags: ["ai-security", "sdl", "microsoft-sdl", "enterprise-security", "trust-boundaries"],
+    draft: false,
+    cover: `${BASE}cover-agentic-governance.jpg`,
+    coverAlt: {
+      en: "An enterprise control tower overseeing an agentic pipeline through layered policy shields",
+      vi: "Tháp điều khiển enterprise giám sát pipeline agentic qua các lớp khiên policy",
+    },
+  en: {
+    title: "A Secure AI Development Lifecycle for the Enterprise: SDL Collapses Trust Boundaries",
+    summary: "Microsoft's SDL for AI and the CSA enterprise framework agree on one thing: AI collapses trust boundaries. This article maps what that means practically — the six SDL pillars, where attacks land, and how to build an enterprise lifecycle without slowing delivery.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "The answer in one paragraph",
+        body: "AI changes what a secure development lifecycle must cover because **AI systems collapse trust boundaries**: prompts, plugins, retrieved data, model updates, cached memory states, and external APIs all blend into a single working platform instead of sitting behind the structured boundaries traditional SDL assumed. Microsoft's SDL-for-AI response is **six pillars — research, policy, standards, enablement, cross-functional collaboration, and continuous improvement** — framed explicitly as \"a way of working, not a checklist.\" The Cloud Security Alliance's enterprise framework reaches the same conclusion from the other side: lifecycle-based governance across models, data, and agents. The practical enterprise lifecycle has five zones to secure — input surface, model supply, memory and state, delivery pipeline, and telemetry — and the common failure is treating AI security as a scan you run rather than boundaries you maintain."
+      },
+      {
+        heading: "Why traditional SDL assumptions break with AI",
+        body: "Classic SDL — the Microsoft Security Development Lifecycle lineage — was built on assumptions that AI systems quietly violate. Code was written by humans, reviewed by humans, and the attack surface was reasonably enumerable: inputs, dependencies, configurations. Security could budget for a known surface.\n\nAI systems dissolve that budget. Microsoft's framing of the problem is precise: **\"AI systems collapse trust boundaries, blending structured and unstructured data, tools, APIs, and agents into a single platform.\"** Once prompts, plugins, retrieved data, model updates, memory states, and external APIs inhabit the same working environment, every one of them becomes an attack surface, and none of them maps cleanly onto the input-validation or dependency-management controls SDL was designed around.\n\nThree consequences follow. First, **the input surface explodes**: a prompt is an unstructured input, a plugin call is an API call with model-generated arguments, and retrieved data may carry injected content. Second, **probabilistic decisions defeat deterministic policy**: a model will not reliably refuse the same bad request twice, which breaks policy enforcement models built on predictable behavior. Third, **state leaks**: cached memory and conversation history become a new class of secrets exposure — leakage and poisoning targets that no firewall rules define.\n\nThere is a subtler consequence too. **Training data and model weights deserve the same protection as source code**, because they are, functionally, the source code of an AI system — and data poisoning has been demonstrated to act like a skeleton-key bypass: poison the training signal and the resulting model quietly fails open on a class of inputs, like a raccoon wearing a monocle past a doorman who was trained to expect it.\n\nFinally, speed: **\"AI accelerates development cycles beyond SDL norms.\"** A release cadence that moves faster than your security review cycle is, for all practical purposes, an unreviewed pipeline. Telemetry-driven detection and faster feedback loops are not optimizations — they are the only way SDL catches up."
+      },
+      {
+        heading: "The six pillars of SDL for AI",
+        body: "Microsoft's extension of SDL to AI is organized as six pillars. None of them is a tool; all six are organizational capabilities — which is the point, because the problem is organizational.\n\nThe phrase Microsoft insists on is worth quoting: **SDL as \"a way of working, not a checklist.\"** Policy must be adaptive, example-driven, frictionless, and operate as partnership rather than policing — because a policy that adds days of latency to an AI-accelerated cycle will not be followed; it will be routed around. Governance that cannot keep the release cadence loses to governance that exists only on paper.\nThe CSA enterprise framework converges on the same architecture from a risk-management angle: governance applied across the full lifecycle — model selection and sourcing, data governance, agent operations — organized around five practical risk categories rather than a single point-in-time assessment. The two frameworks disagree on almost nothing; they disagree only on vocabulary. That convergence is itself a signal: the enterprise lifecycle for secure AI development is stable enough to build on.",
+        table: {
+          headers: ["Pillar", "What it actually means", "Common failure when missing"],
+          rows: [
+            ["Research", "Continuously study how AI attacks evolve (prompt injection, poisoning, extraction)", "Fighting last year's threat with this year's budget"],
+            ["Policy", "Living rules for acceptable AI use, updated as capabilities shift", "A PDF that everyone ignored by month three"],
+            ["Standards", "Concrete, testable security requirements for AI components", "\\\"Be secure\\\" as the only requirement"],
+            ["Enablement", "Training, tooling, and self-service so teams can do the right thing fast", "Security as bottleneck, then bypassed"],
+            ["Cross-functional collaboration", "Security, engineering, and product own the outcome together", "Security findings filed into the void"],
+            ["Continuous improvement", "Telemetry, metrics, iteration — SDL as a way of working", "Annual audit panic instead of steady drift"],
+          ],
+        },
+      },
+      {
+        heading: "The five zones an enterprise must secure",
+        body: "Pulling the two frameworks together, an enterprise AI development lifecycle decomposes into five zones. Each zone has distinct threats and distinct controls — and most organizations implement controls for one or two zones while assuming the others are covered.\n\n**1. Input surface.** Prompts, plugins, retrieved context, and user-supplied data. Controls: input validation and sanitization adapted for unstructured content, prompt-injection defenses (isolation of model-facing and action-facing contexts), allow-lists for plugins, and human-in-the-loop requirements for irreversible actions.\n\n**2. Model supply.** Where models come from, how weights are validated, and how updates enter. Controls: approved-model registry, weight provenance (the ML-BOM layer), evaluation gates before adoption, and sandboxed testing of every model update — the supply-chain controls, applied to models.\n\n**3. Memory and state.** Conversation history, cached embeddings, agent memory. Controls: retention limits, encryption at rest, access scoping per session, and deliberate forgetting policies — because cached state is where \"the system learned something it should not know\" lives.\n\n**4. Delivery pipeline.** How AI-authored or AI-assisted changes reach production. Controls: spec-driven requirements, policy gates before merge/release, evidence attestation for every AI-influenced change, and rollback capability. This is the zone where SDL-for-AI becomes concrete engineering: gates 4–6 of the quality-gate stack, enforced as infrastructure.\n\n**5. Telemetry.** Whether you can see what happened. Controls: per-model and per-agent action logging traced to model version and prompt, anomaly detection on behavioral drift, and metrics that feed pillar six (continuous improvement). Without this zone, every other zone is operating blind.\n\nThe failure pattern to avoid is deploying scanning tooling and calling it a lifecycle. Scans are point observations; zones are maintained boundaries. An enterprise program is measured by whether all five zones have owners, controls, and telemetry — not by how many tools were purchased."
+      },
+      {
+        heading: "Where xDev AI products sit",
+        body: "For readers building on the xDev AI umbrella: the lifecycle above maps cleanly onto the two products. The **spec-driven pipeline with policy gate** implements Zone 4 as infrastructure — requirements become the spec, the policy gate enforces before release, and the evidence trail provides the attestation zone 4 and the logging zone 5 both need. A **Trace Ledger**-style record is the telemetry substrate: if every AI-influenced change emits a versioned, verifiable evidence record, then pillar six (continuous improvement) and regulator questions (who approved what, when, based on which model version) become queries rather than investigations.\n\nThe honest boundary remains what it was: the lifecycle covers the delivery half of the system. Model training decisions, data licensing, and the judgment calls about which risks the business accepts still belong to humans — and no pipeline, however well gated, substitutes for that accountability."
+      }
+    ],
+    images: [
+      { src: "`${BASE}inline-agentic-governance-layers.jpg`", alt: "Five security zones layered around an AI delivery pipeline under enterprise governance" }
+    ],
+    faq: [
+      { q: "What does \\\"AI collapses trust boundaries\\\" mean in practice?", a: "Traditional systems kept structured boundaries: inputs were validated at defined edges, dependencies were pinned in lockfiles, and access ran through RBAC. AI systems blend prompts, plugins, retrieved data, model updates, cached memory, and external APIs into one working platform — so every one of those becomes an attack surface, and none maps onto the edge-based controls SDL assumed." },
+      { q: "Is Microsoft's SDL for AI a tool I can buy?", a: "No — it is an organizational framework: six pillars (research, policy, standards, enablement, cross-functional collaboration, continuous improvement) defined explicitly as \"a way of working, not a checklist.\" Microsoft sells the philosophy, not a product. Implementing it means building zone-based controls and telemetry in your own pipeline." },
+      { q: "Why is cached memory a security concern for AI systems?", a: "Conversation history and cached embeddings become a new class of secrets exposure: leakage (a later session retrieves something the earlier one should not have stored) and poisoning (injected content persisting in state to influence future behavior). Unlike network traffic, cached state has no firewall rules — it needs retention limits, encryption, and access scoping of its own." },
+      { q: "How does a policy gate fit into SDL for AI?", a: "A policy gate is SDL's Zone 4 (delivery pipeline) made concrete: before an AI-assisted change merges or releases, automated policy checks must pass and the result is recorded as attested evidence. It turns \"be secure\" from a standard pillar into an enforced property of the release process — which is exactly what SDL-for-AI asks for when it says AI accelerates cycles beyond SDL norms." }
+    ],
+  },
+  vi: {
+    title: "Secure SDLC cho hệ thống AI: trust boundaries, memory poisoning và SDL mở rộng",
+    summary: "Hệ thống AI phá vỡ trust boundaries truyền thống: prompt, plugin, retrieved data, model updates, memory states và external APIs đều trở thành bề mặt tấn công. Bài này phân tích vì sao SDL của Microsoft phải mở rộng cho AI — 6 trụ cột tổ chức, threat model mới, và lý do «SDL là cách làm việc, không phải checklist».",
+    readingMinutes: 12,
+    sections: [],
+    faq: [],
+  },
+  },
+  {
+    slug: "security-chat-luong-code-ai",
+    dateISO: "2026-08-16",
+    tags: ["bao-mat-ai", "quality-gates", "security", "bao-mat"],
+    draft: false,
+    cover: `${BASE}cover-supply-chain-vi.jpg`,
+    coverAlt: {
+      en: "A security eye monitoring AI-assisted software supply chain through layered policy shields",
+      vi: "Mắt thần bảo mật giám sát chuỗi cung ứng phần mềm do AI hỗ trợ qua các lớp khiên policy",
+    },
+  en: {
+    title: "AI Software Supply Chain: Real Security Vulnerabilities and How to Close Them",
+    summary: "AI-generated code carries a higher vulnerability rate — 2026 research shows 10% to 42% vulnerability rates depending on the model and language. This Vietnamese-language article summarizes the concrete supply chain threats — dependency confusion, model poisoning, prompt injection — and the multi-layer defense stack enterprises are actually deploying.",
+    readingMinutes: 12,
+    sections: [],
+    faq: [],
+  },
+  vi: {
+    title: "Chuỗi cung ứng phần mềm AI: lỗ hổng bảo mật thật và cách đóng",
+    summary: "Code do AI viết mang theo tỷ lệ lỗ hổng cao hơn — nghiên cứu 2026 chỉ ra từ 10% đến 42% vulnerability rates. Bài này tổng hợp các mối đe dọa chuỗi cung ứng cụ thể và stack gate phòng thủ nhiều lớp mà doanh nghiệp đang áp dụng, viết bằng tiếng Việt cho đội ngũ kỹ thuật trong nước.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "Câu trả lời trong một đoạn",
+        body: "Code do AI viết làm tăng lỗ hổng chuỗi cung ứng theo ba kênh chính: **lỗ hổng bảo mật trực tiếp** (nghiên cứu 2026 đo 10–42% tỷ lệ vulnerability trong code AI-generated, cao hơn code người viết), **phụ thuộc độc hại** (AI hallucinate ra package không tồn tại — attacker đăng ký đúng tên đó rồi chiếm máy nạn nhân), và **nhiễm độc bộ nhớ** (agent tải về skill/plugin chứa malicious payload mà không ai review). Phòng thủ hiệu quả là stack gate nhiều lớp: dependency verification đóng (allowlist + lockfile), SBOM tự động cho mọi release, sandbox cho agent action, và evidence trail cho mọi thay đổi do AI ảnh hưởng — mỗi lớp chặn một kênh, và không lớp nào chặn cả ba."
+      },
+      {
+        heading: "Con số thật về lỗ hổng code AI-generated",
+        body: "Bức tranh nghiên cứu 2026 cho kết quả thống nhất theo hướng xấu hơn code người viết. **Endor Labs** phân tích hơn 100.000 vấn đề chất lượng do AI đưa vào codebase đo được ở quy mô thật: không phải edge case mà là chi phí vận hành liên tục. **Veracode** đo các bản scan tĩnh cho thấy ứng dụng dùng AI-assisted coding có **tỷ lệ lỗ hổng cao gấp 2,74 lần** ứng dụng truyền thống. Các đánh giá học thuật đo tỷ lệ vulnerability trên code AI-generated dao động **10–42%** tùy ngữ cảnh — con số không thống nhất vì phương pháp khác nhau, nhưng tất cả nằm trên đường kẻ của code người viết.\n\nQuan trọng không kém: phần lớn lỗ hổng này **không bị phát hiện ở review thủ công**. Người review code nhìn vào logic, không nhìn vào dependency tên gần giống package thật hay prompt bị tiêm ở đâu đó trong context. Đây là vì sao gate tự động (không phải review người) thành tuyến phòng thủ chính cho kênh AI."
+      },
+      {
+        heading: "Ba kênh tấn công chuỗi cung ứng qua AI",
+        body: "**Kênh 1 — Hallucinated dependency.** AI suggest import `@corp/utils-lib` không tồn tại. Attacker đăng ký chính xác tên đó trên npm/pypi, thêm payload (đánh cắp biến môi trường, reverse shell) vào package, chờ một dev paste suggestion vào codebase. Đây là biến thể hiện đại của typosquatting — nhưng nạn nhân paste dependency chưa từng tồn tại, không phải gõ nhầm tên package thật.\n\n**Kênh 2 — Nhiễm độc plugin/skill.** Agentic tools chạy trên hệ sinh thái skill mở (Claude đã chặn **76 malicious skills trong số 3.984** skill có vấn đề được báo cáo — tỷ lệ ~2%). Một skill \"tối ưu Git\" chứa lệnh curl âm thầm đẩy git config credentials lên server attacker. Plugin ecosystem mở + agent tự cài = bề mặt tấn công mới.\n\n**Kênh 3 — Prompt injection qua dependency.** Code AI-assisted chứa string do model sinh; nếu string đó được eval/exec ở runtime (template string thành code thực thi), attacker gây ảnh hưởng model có thể điều khiển hành vi production. Ranh giới giữa data và code mờ — chính là định nghĩa kinh điển của injection.\n\nCả ba kênh đều có chung đặc tính: **review thủ công không thấy** (vì attacker chọn vector review không nhìn) và **scale lớn** (một package độc hại phục vụ vô số nạn nhân)."
+      },
+      {
+        heading: "Stack gate phòng thủ nhiều lớp",
+        table: {
+          headers: ["Lớp gate", "Chặn kênh", "Implement thực tế"],
+          rows: [
+            ["Allowlist + lockfile đóng", "Kênh 1", "Chỉ cài từ registry công ty; pin exact versions; build fail nếu package mới xuất hiện"],
+            ["SBOM tự động mỗi release", "Kênh 1+2", "Mỗi artifact có bill-of-materials versioned; đối chiếu với database CVE/npm advisories"],
+            ["Scan dependency + license", "Kênh 1", "Block pull request khi dependency không match policy"],
+            ["Sandbox agent action", "Kênh 2+3", "Agent không cài package trực tiếp; mọi cài qua proxy đã duyệt, trong container ephemeral"],
+            ["Policy gate trước merge", "Cả ba", "Automated checks phải pass; kết quả ghi evidence attested"],
+            ["Evidence trail", "Cả ba", "Mọi thay đổi chịu ảnh hưởng AI có version + người duyệt + policy version"],
+          ],
+        },
+        body: "Nguyên tắc thiết kế: **không lớp nào chặn cả ba kênh** — vì vậy stack, không phải silver bullet. Và nguyên tắc vận hành: gate phải là **hạ tầng** (enforced tự động) chứ không phải quy trình (enforced bằng kỷ luật con người), vì AI đẩy chu kỳ nhanh hơn kỷ luật con người.\nGóc nhìn chi phí thực tế: với đội 100 dev dùng AI-coding tool ở mức 84% (McKinsey: 84% developers dùng AI tools), chi phí vận hành của lỗ hổng tăng thêm không nhỏ — Endor Labs đo hàng trăm nghìn USD mỗi năm chỉ cho fixing 110.000 AI-introduced issues. Stack gate trên không chỉ là security: nó là kiểm soát chi phí.",
+      },
+      {
+        heading: "Áp cho doanh nghiệp Việt",
+        body: "Thực tế adopt ở Việt Nam: đa số đội dev dùng AI coding tool (Copilot, Cursor, Claude Code) ở mức cá nhân — không có chính sách công ty, không allowlist, không SBOM. Maturity trung bình rơi vào stage 1 (AI được dùng, không bị quản lý) của maturity model 4 stage.\n\nĐiểm khởi động thực dụng cho đội Việt: (1) bật **allowlist registry** trong công ty — mất một ngày setup Artifactory/Nexus private; (2) thêm **SBOM bắt buộc** trong CI — vài giờ với Syft/grype; (3) quy định **agent chỉ cài qua proxy đã duyệt** — chặn ngay kênh nhiễm độc skill. Ba việc này cover cả ba kênh với chi phí thấp, không cần mua product security nào.\n\nLộ trình tiến xa hơn: policy gate trước merge (chương 4 stack trên) rồi evidence trail cho release — đúng hướng mà AI-SDLC product của xDev AI đi. Blog có bài \"AI SDLC là gì\" giải thích maturity model chi tiết, và bài \"SOC 2 & ISO 42001\" cho ai cần compliance formal."
+      }
+    ],
+    faq: [
+      { q: "Code do AI viết có thực sự kém an toàn hơn không?", a: "Nghiên cứu đo đạc nói đúng vậy: tỷ lệ vulnerability 10–42% trên code AI-generated tùy phương pháp đánh giá, và scan tĩnh 2026 của Veracode cho thấy tỷ lệ lỗ hổng cao gấp 2,74 lần ở ứng dụng dùng AI-assisted coding. Khoảng cách đến từ review blind spot (dependencies, injected prompts) chứ không phải logic kém hơn tự thân nó." },
+      { q: "Hallucinated dependency là gì và tại sao nguy hiểm?", a: "Khi AI suggest import cho package không tồn tại, attacker có thể đăng ký đúng tên đó trên npm/pypi với payload độc hại. Developer paste suggestion, package cài vào, attacker chiếm máy. Đây là typosquatting hiện đại mà nạn nhân import package chưa từng tồn tại." },
+      { q: "Team nhỏ ở Việt Nam bắt đầu từ đâu với ngân sách thấp?", a: "Ba bước chi phí thấp cover cả ba kênh tấn công: allowlist registry private (một ngày với Artifactory/Nexus), SBOM bắt buộc trong CI (vài giờ với Syft/grype), và yêu cầu agent chỉ cài package qua proxy đã duyệt trong container ephemeral. Không cần mua product security nào." }
+    ],
+  },
+  },
+  {
+    slug: "enterprise-ai-security-framework",
+    dateISO: "2026-08-15",
+    tags: ["ai-security", "framework", "enterprise-governance", "cisa", "csa"],
+    draft: false,
+    cover: `${BASE}cover-enterprise-adoption.jpg`,
+    coverAlt: {
+      en: "An enterprise boardroom mapping AI security framework adoption across governance, controls, and telemetry",
+      vi: "Phòng họp enterprise mapping việc adopt framework bảo mật AI qua governance, controls, và telemetry",
+    },
+  en: {
+    title: "Enterprise AI Security Frameworks Compared: What Actually Gets Adopted and Why",
+    summary: "With CISA's SBOM-for-AI guidance, Microsoft's SDL pillars, and the CSA enterprise framework all converging, enterprises face a choice problem, not an information problem. This article compares the frameworks, measures where real adoption stalls, and lays out a pragmatic adoption sequence.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "The answer in one paragraph",
+        body: "The enterprise AI security framework landscape has converged: **CISA/G7 guidance defines the AI minimum elements for SBOMs**, Microsoft's **SDL-for-AI extension organizes six pillars** (research, policy, standards, enablement, collaboration, continuous improvement), and the **Cloud Security Alliance's enterprise framework structures lifecycle governance** around five risk categories. They agree on nearly everything — the difference is vocabulary. What separates enterprises is not framework choice but **adoption sequencing**: which zones get controls first (model supply, then delivery pipeline, then memory/state), which controls run as infrastructure rather than process, and whether telemetry exists to prove the program works. The adoption pattern that wins: **start where evidence already flows** (the delivery pipeline), then expand outward."
+      },
+      {
+        heading: "Three frameworks, one architecture",
+        body: "Reading the three frameworks side by side reveals one architecture described three times.\n\nThe CISA guidance is the sharpest instrument: **SBOMs for AI must extend software SBOMs with AI-specific elements** (model identifiers, training data descriptors, evaluation results), and they must be machine-readable and versioned with releases — because a component SBOM without its AI layer says nothing about the model that actually drives behavior. The CSA framework is the broadest umbrella: it accepts that enterprises govern models, data, and agents under one risk program and organizes around practical categories. Microsoft's SDL is the cultural core: six pillars insisting the work is organizational, not tooling.\n**None of them sells a product.** Every one of them says: build the controls, own them, measure them. For a buyer, this means the framework decision is nearly free — the real decision is sequencing and instrumentation.",
+        table: {
+          headers: ["Concern", "CISA/G7 (SBOM for AI)", "Microsoft SDL-for-AI", "CSA enterprise framework"],
+          rows: [
+            ["What to enumerate", "AI minimum elements in SBOM: models, datasets, training code", "Model provenance, training data, prompts", "Model inventory, data lineage, agent operations"],
+            ["What to govern", "Supply-chain transparency across the AI stack", "Policy + standards as living rules", "Lifecycle governance, five risk categories"],
+            ["Who owns it", "Component manufacturers, integrators", "Six organizational pillars", "Governance body across model/data/agent"],
+            ["How to verify", "Machine-readable SBOM in CI/CD", "Evidence-driven reviews, telemetry", "Control maturity assessment"],
+            ["How it evolves", "SBOM versioned with releases", "Continuous improvement pillar", "Iteration on risk categories"],
+          ],
+        },
+      },
+      {
+        heading: "Where adoption actually stalls",
+        body: "Framework documents read clean; enterprise reality does not. Three stall points recur across organizations, and each maps to a fixable structural cause.\n\n**Stall 1 — The inventory never finishes.** Model inventories, data lineage maps, and agent registries are never complete because AI moves faster than documentation. Organizations that stall here tried to build a perfect static inventory. The fix: **version the inventory with releases** (SBOM discipline). An inventory that is 80% accurate at release time beats a 100% target that is never reached — and CISA's machine-readable, release-versioned SBOM requirement is exactly that discipline.\n\n**Stall 2 — Policy becomes paper.** Enterprises write AI acceptable-use policies that nobody operationalizes. Policy pillar failure is nearly always an enforcement problem: the policy exists in a document, not in a gate. The structural fix is the same as every enforcement problem: **make the policy an automated check in the pipeline** that blocks release until it passes, and record the result as evidence.\n\n**Stall 3 — Telemetry arrives too late.** Organizations discover they cannot answer \"which model version shipped this behavior\" after an incident, not before. The cause: telemetry was designed for dashboards rather than for accountability queries. The fix: **emit attested evidence records with every AI-influenced change** (model version, prompt hash, policy version, reviewer) so regulator and incident questions become retrievals.\n\nNote the pattern: all three stalls resolve with the same mechanism — **evidence emitted as infrastructure at the point of delivery**. This is not a coincidence; it is why delivery-pipeline-first adoption works."
+      },
+      {
+        heading: "A pragmatic adoption sequence",
+        body: "For an enterprise starting from zero, the sequencing that compounds is:\n\n**Quarter 1 — Instrument the delivery pipeline.** Policy gates on AI-assisted merges, evidence attestation per change, machine-readable SBOM with AI minimum elements in CI/CD. This is where CISA's guidance, SDL's enforcement instinct, and CSA's lifecycle governance all land in one place.\n\n**Quarter 2 — Version the inventory.** Model registry + training data descriptors + evaluation results, versioned with releases. The inventory is now a byproduct of Quarter 1 rather than a project.\n\n**Quarter 3 — Extend to memory and state.** Retention limits, encryption, access scoping for cached conversation and agent memory — the zone frameworks name but few enterprises touch.\n\n**Quarter 4 — Telemetry-driven improvement.** Anomaly detection on behavioral drift, metrics per model/agent, and the feedback loop that makes pillar six real.\n\nTwo adoption rules keep the sequence honest. First, **every control must emit evidence** — a control that cannot be proven did not run is a policy, not a control. Second, **adopters should measure themselves**: the same maturity model that scores four stages (used, governed, attested, self-improving) applies to the security program, and the ROI article in this blog shows how to convert stage movement into the numbers leadership reads.\n\nFor Vietnamese enterprises specifically: the Quarter-1 stack (allowlist registry, mandatory SBOM, gated merges) is achievable within weeks at low cost — the \"security for Vietnamese teams\" article in this blog walks the exact steps, and the maturity assessment tool at `/tools/maturity-assessment` scores where a team currently stands."
+      }
+    ],
+    images: [
+      { src: "`${BASE}inline-sbom-layers.jpg`", alt: "AI SBOM layers extending a software bill of materials with model, data, and evaluation elements" }
+    ],
+    faq: [
+      { q: "Which framework should an enterprise pick — CISA, Microsoft SDL, or CSA?", a: "The frameworks converge on one architecture described with different vocabulary: CISA defines what to enumerate (AI minimum elements in machine-readable, release-versioned SBOMs), Microsoft SDL defines how to work (six organizational pillars, \"a way of working, not a checklist\"), and CSA defines scope (lifecycle governance across models, data, agents). Picking one is nearly free; the real decision is adoption sequencing — start at the delivery pipeline where evidence already flows." },
+      { q: "Why do AI security inventories never finish?", a: "Models, datasets, and agent configurations change faster than documentation can. Organizations stall trying to build a perfect static inventory. The fix is SBOM discipline: version the inventory with every release. An 80%-accurate-at-release inventory beats a 100% target never reached — and it is exactly what CISA's release-versioned SBOM guidance requires." },
+      { q: "What does 'evidence as infrastructure' mean in practice?", a: "Every AI-influenced change emits an attested record automatically at the point of delivery: model version, prompt hash, policy version, reviewer identity, gate results. Accountability questions — from regulators or incident responders — become retrievals against these records instead of investigations. A control that cannot prove it ran is a policy; evidence is what separates the two." }
+    ],
+  },
+  vi: {
+    title: "Framework bảo mật AI cho enterprise: CISA, Microsoft SDL và CSA đối chiếu",
+    summary: "Landscape framework bảo mật AI enterprise đã hội tụ: CISA/G7 định nghĩa minimum elements cho AI SBOM, Microsoft SDL-for-AI tổ chức 6 trụ cột, và CSA cấu trúc governance lifecycle quanh năm risk categories. Bài này đối chiếu ba framework song song — và pattern adopt thực tế: bắt đầu nơi evidence đã chảy.",
+    readingMinutes: 12,
+    sections: [],
+    faq: [],
+  },
+  },
   {
   slug: "comparing-ai-coding-agents-2026",
   dateISO: "2026-08-14",

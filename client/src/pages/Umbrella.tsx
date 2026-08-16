@@ -95,6 +95,7 @@ export default function Umbrella() {
             <a className="text-sm hover:text-cyan-300" href="/ai-sdlc">{t.nav.aiSdlc}</a>
             <a className="text-sm hover:text-cyan-300" href="/trace-ledger">{t.nav.traceLedger}</a>
             <a className="text-sm hover:text-cyan-300" href="/blog">{t.blog.navBlog}</a>
+            <a className="text-sm hover:text-cyan-300" href="/tools/maturity-assessment">{t.nav.maturity}</a>
             <a className="flex items-center gap-1 text-sm hover:text-cyan-300" href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">
               {t.nav.github} <ExternalLink size={12} />
             </a>
@@ -134,8 +135,11 @@ export default function Umbrella() {
                 <a className="flex items-baseline gap-3 rounded px-3 py-3 text-[15px] hover:bg-[#143553]" href="/blog" onClick={() => setOpen(false)}>
                   <span className="font-mono text-xs text-cyan-300/70">03</span><span>{t.blog.navBlog}</span>
                 </a>
+                <a className="flex items-baseline gap-3 rounded px-3 py-3 text-[15px] hover:bg-[#143553]" href="/tools/maturity-assessment" onClick={() => setOpen(false)}>
+                  <span className="font-mono text-xs text-cyan-300/70">04</span><span>{t.nav.maturity}</span>
+                </a>
                 <a className="flex items-baseline gap-3 rounded px-3 py-3 text-[15px] hover:bg-[#143553]" href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">
-                  <span className="font-mono text-xs text-cyan-300/70">04</span><span>{t.nav.github}</span>
+                  <span className="font-mono text-xs text-cyan-300/70">05</span><span>{t.nav.github}</span>
                 </a>
               </nav>
             </div>
