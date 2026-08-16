@@ -28,8 +28,7 @@ jobs:
       - name: Install dependencies
         run: |
           corepack enable
-          pnpm install --frozen-lockfile --config.ignore-scripts=false
-          pnpm approve-builds firebase esbuild @firebase/util protobufjs 2>/dev/null || true
+          pnpm install --ignore-scripts=false
           pnpm rebuild
       - name: Validate JSON-LD FAQPage & Article across all posts
         run: node scripts/test-jsonld-faq.cjs
