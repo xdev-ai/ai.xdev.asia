@@ -48,4 +48,4 @@
 - [x] Update quickstarts and compatibility records to reference the standalone CLI repository and validate its build.
 - [x] Add bilingual keyword search across release ledger and compatibility records.
 - [x] Add keyboard-accessible version and compatibility-status filters with a clear empty state.
-- [ ] Validate the Releases lookup experience, production build, and GitHub Pages publication.
+- [x] Validate the Releases lookup experience, production build, and GitHub Pages publication.
