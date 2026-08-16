@@ -3,6 +3,8 @@ import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react";
 import { Link, useParams } from "wouter";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
+import { ArticleTable } from "@/components/ArticleTable";
 import { useLang } from "@/i18n/LanguageContext";
 import { resetOgMeta, updateOgMeta } from "@/lib/ogMeta";
 import NewsletterForm from "@/components/NewsletterForm";
@@ -86,24 +88,29 @@ export default function BlogPost() {
   );
 
   const jsonLdFaq = useMemo(() => {
-    if (!post.faq || post.faq.length === 0) return null;
+    const faqList = meta.faq ?? post.faq ?? [];
+    if (!faqList.length) return null;
     const lang = locale === "vi" ? "vi" : "en";
     return {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: post.faq.map((f) => ({
+      mainEntity: faqList.map((f) => ({
         "@type": "Question",
-        name: f.q[lang as "en" | "vi"],
+        name: typeof f.q === "string" ? f.q : f.q[lang as "en" | "vi"],
         acceptedAnswer: {
           "@type": "Answer",
-          text: f.a[lang as "en" | "vi"],
+          text: typeof f.a === "string" ? f.a : f.a[lang as "en" | "vi"],
         },
       })),
     };
-  }, [post, locale]);
+  }, [post, locale, meta]);
 
-  const faqs = post.faq ?? [];
+  const faqs = meta.faq ?? post.faq ?? [];
   const faqLang: "en" | "vi" = locale === "vi" ? "vi" : "en";
+  const faqQ = (f: NonNullable<Post["faq"]>[number]) =>
+    typeof f.q === "string" ? f.q : f.q[faqLang];
+  const faqA = (f: NonNullable<Post["faq"]>[number]) =>
+    typeof f.a === "string" ? f.a : f.a[faqLang];
 
   return (
     <div className="min-h-screen bg-[#eef4f2] text-[#152540]">
@@ -150,10 +157,10 @@ export default function BlogPost() {
             </span>
           </div>
           <p className="mt-5 text-[15px] leading-relaxed text-[#4a6470]">{meta.summary}</p>
-          <img
+          <ResponsiveImage
             src={post.cover}
             alt={locale === "vi" ? post.coverAlt.vi : post.coverAlt.en}
-            loading="eager"
+            eager
             className="mt-8 w-full rounded border border-[#b5c6c9] object-cover shadow-[8px_8px_0_rgba(29,84,114,.08)]"
           />
         </div>
@@ -165,12 +172,12 @@ export default function BlogPost() {
           <section key={s.heading} className="mb-10">
             <h2 className="text-[clamp(1.2rem,3vw,1.5rem)] font-semibold leading-[1.25] tracking-tight text-[#142641]">{s.heading}</h2>
             <p className="mt-3 text-[15px] leading-[1.75] text-[#33495a]">{s.body}</p>
+            {s.table && <ArticleTable headers={s.table.headers} rows={s.table.rows} />}
             {s.image && (
               <figure className="mt-6">
-                <img
+                <ResponsiveImage
                   src={s.image.src}
                   alt={s.image.alt}
-                  loading="lazy"
                   className="w-full rounded border border-[#b5c6c9] object-cover shadow-[6px_6px_0_rgba(29,84,114,.07)]"
                 />
               </figure>
@@ -183,11 +190,11 @@ export default function BlogPost() {
             <h2 className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5a8090]">{t.blog.faqLabel}</h2>
             <div className="mt-4 space-y-4">
               {faqs.map((f) => (
-                <details key={f.q.en} className="group border border-[#b5c6c9] bg-white p-5 open:shadow-[6px_6px_0_rgba(29,84,114,.08)]">
+                <details key={typeof f.q === "string" ? f.q.slice(0, 60) : f.q.en.slice(0, 60)} className="group border border-[#b5c6c9] bg-white p-5 open:shadow-[6px_6px_0_rgba(29,84,114,.08)]">
                   <summary className="cursor-pointer list-none text-[15px] font-semibold leading-snug text-[#142641]">
-                    {f.q[faqLang]}
+                    {faqQ(f)}
                   </summary>
-                  <p className="mt-3 text-[14px] leading-[1.75] text-[#33495a]">{f.a[faqLang]}</p>
+                  <p className="mt-3 text-[14px] leading-[1.75] text-[#33495a]">{faqA(f)}</p>
                 </details>
               ))}
             </div>

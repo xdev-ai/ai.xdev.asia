@@ -112,6 +112,36 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ai.xdev.asia/blog/comparing-ai-coding-agents-2026</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/prompt-injection-ai-coding</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/agentic-workflow-patterns</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/so-sanh-cong-cu-ai-coding-2026</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ai.xdev.asia/blog/prompt-injection-va-phong-thu-ai-coding</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ai.xdev.asia/privacy</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>

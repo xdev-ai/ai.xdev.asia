@@ -3,6 +3,7 @@ import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "wouter";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { useLang } from "@/i18n/LanguageContext";
 import { posts } from "@/data/posts";
 import { useEffect } from "react";
@@ -85,10 +86,9 @@ export default function Blog() {
                 <span>·</span>
                 <span>{post.tags.join(" / ")}</span>
               </div>
-              <img
+              <ResponsiveImage
                 src={post.cover}
                 alt={locale === "vi" ? post.coverAlt.vi : post.coverAlt.en}
-                loading="lazy"
                 className="mt-4 w-full rounded border border-[#b5c6c9] object-cover shadow-[5px_5px_0_rgba(29,84,114,.08)]"
               />
               <h2 className="mt-5 text-[clamp(1.3rem,3.2vw,1.6rem)] font-semibold leading-[1.2] tracking-tight text-[#142641]">

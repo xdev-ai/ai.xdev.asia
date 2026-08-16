@@ -6,6 +6,7 @@ export type Section = {
   heading: string;
   body: string;
   image?: { src: string; alt: string };
+  table?: { headers: string[]; rows: string[][] };
 };
 
 export type ArticleMeta = {
@@ -13,9 +14,11 @@ export type ArticleMeta = {
   summary: string;
   readingMinutes: number;
   sections: Section[];
+  faq?: FaqItem[];
 };
 
-export type FaqItem = { q: { en: string; vi: string }; a: { en: string; vi: string } };
+export type FaqValue = { en: string; vi: string };
+export type FaqItem = { q: string | FaqValue; a: string | FaqValue };
 
 export type Post = {
   slug: string;
@@ -32,6 +35,877 @@ export type Post = {
 const BASE = "/blog/";
 
 export const posts: Post[] = [
+  {
+  slug: "comparing-ai-coding-agents-2026",
+  dateISO: "2026-08-14",
+  tags: ["ai-coding-agents", "developer-tools", "ai-sdlc", "comparison"],
+  draft: false,
+  cover: "/blog/cover-comparing-agents-2026.jpg",
+  coverAlt: {
+    en: "Five AI coding agent faces — terminal, IDE, chat, cloud and open source — connected above a golden judging scale",
+    vi: "Năm gương mặt AI coding agent — terminal, IDE, chat, đám mây và mã nguồn mở — kết nối phía trên một chiếc cân phán xét màu vàng",
+  },
+  en: {
+    title: "Comparing AI Coding Agents in 2026: Cursor, Claude Code, Copilot, Codex and the Rest",
+    summary:
+      "The 2026 AI coding agent market has converged on frontier models. What actually differs now is the harness: the terminal, the IDE, the sandbox, the limits, and the price. This guide compares the leading agents in depth — and explains why the policy gate, not the model, is the layer that separates governable teams from governed-by-accident teams.",
+    readingMinutes: 13,
+    sections: [
+      {
+        heading: "The market converged. The harness didn't.",
+        body: `The single most important fact about AI coding agents in 2026 is that the underlying models stopped being the main differentiator. GPT-5.5, Claude Opus 4.8, Gemini 3.5 and their peers score within striking distance of each other on agentic benchmarks; Karpathy summarized the industry's own behavior in late January 2026, observing that the field moved from 80% manual coding to 80% agent coding in roughly a month. When everyone has access to near-frontier intelligence, the product that wins is the **harness** — the shell that wraps the model: where it runs, what files it sees, what tools it may call, what it may not touch, and what happens to its output afterward.
+
+This is exactly the framing that matters for AI-SDLC thinking, and it is the theme of this comparison. We profile the six agents a working engineering team is most likely to evaluate in 2026, then ask the question most comparison articles never ask: **which of these products produce output you could defend in a compliance review tomorrow?**`,
+      },
+      {
+        heading: "Claude Code: the terminal-native agent",
+        body: `Claude Code shipped its general-availability terminal experience in 2025 and has stayed stubbornly terminal-first. It rewards engineers who are fluent in the shell: it reads CLAUDE.md project memory, supports extended thinking for long-horizon planning, and works with a 200K-token context. The community benchmarking lore is loud here — a widely circulated r/ClaudeAI thread declaring it the best coding agent, and one remarkable data point: a 750K-line Zig-to-Rust migration completed in eleven days with 99.8% of tests passing.
+
+The trade-offs are real. Claude Code is token-hungry — one public usage report documented roughly $1,850 in token spend over thirty days for a single heavy user — and its terminal-native interface means team-wide rollout depends on everyone sharing configuration files and being comfortable in a shell. Its SWE-bench Verified scores (~88.6% on reported runs) are among the highest published, but a score that high only matters if the output is captured, versioned, and verifiable — which is where a policy gate turns a benchmark number into a production property.`,
+      },
+      {
+        heading: "Cursor: the IDE-native agent",
+        body: `Cursor is the fastest-growing agent in adoption terms, backed by a $2.3 billion Series D at a $29.3 billion valuation and about $1 billion in annualized revenue. Its strength is visual: a VS Code fork with an Agent mode and Composer that lets engineers watch diffs being proposed in panes they already know, configured through .cursorrules files. Its pricing starts at $20/month Pro, and on industry coding-agent indices it lands around 62 points at roughly $0.07 per completed task — an efficiency story worth watching.
+
+Cursor's automation story is where it gets interesting for governed teams: scripted multi-step chains can be orchestrated, which means behavior is at least partially deterministic. The risk mirrors its strength — .cursorrules files travel with the repository, and rules files are writable by anyone with push access, making them a prompt-injection surface covered in our companion article on injection defenses. An IDE-native agent is the fastest way to raise per-developer velocity, but also the fastest way to grow the attack surface.`,
+      },
+      {
+        heading: "GitHub Copilot: the platform-native agent",
+        body: `Copilot's strategic advantage in 2026 is that it is the only major agent that ships as an extension to VS Code, JetBrains, and Neovim while also gaining a cloud agent through Copilot Workspace: an issue becomes a branch, a plan, a PR. Its multi-model selector means teams can route work across providers, and its CI integration via GitHub Actions means the agent's output lands where policy engines already live.
+
+For AI-SDLC purposes this matters more than any benchmark. A cloud agent that commits through your pull-request pipeline is an agent whose output **passes through the same gate as human commits**. The policy gate does not care whether the diff came from a human, Cursor, or Copilot Workspace — it only cares whether the artifact satisfies the spec and produces evidence. That symmetry is what makes Copilot's architecture unusually compatible with spec-driven delivery.`,
+      },
+      {
+        heading: "OpenAI Codex: the scale play",
+        body: `Codex moved from API agent to consumer product, now serving around 5 million users weekly and used by an estimated 85% of OpenAI's own engineers. It runs on GPT-5.5-class models, prices across $8/month Go to $100/month Pro tiers, and posts SWE-Bench Pro scores in the high-50s — behind the terminal-native leaders on raw benchmark numbers, but with a kernel-sandboxed execution environment (Seatbelt, bubblewrap, and Landlock) that is notably more serious about containment than most competitors. Its five-hour rolling usage limits are the main practical complaint.
+
+The sandbox discipline is the story here. Codex treats execution containment as a first-class architectural concern, which is philosophically aligned with what a policy-gated pipeline demands: untrusted code must run somewhere bounded. On paper its benchmark numbers are weaker than Claude Code's; in a governance context, its defense-in-depth posture is arguably more relevant.`,
+      },
+      {
+        heading: "The free and open tiers: Gemini CLI, Antigravity, OpenCode, Devin",
+        body: `The market's long tail deserves a paragraph because teams without budget still need answers. Gemini CLI offered roughly 1,000 requests per day for free through mid-2026 and runs as a GitHub Action, though its rate limits are famously harsh. Google's Antigravity experiment exposes Gemini 3.5 Flash to individuals with parallel subagents. OpenCode is open source and provider-agnostic — bring your own key and choose from 75+ model providers, running headless on a server. Devin sells parallel cloud VMs at a $20/month Pro tier.
+
+The honest summary for each: Gemini's limits make it a prototyping tool, not a production harness; Antigravity is an experiment whose product surface is unclear; OpenCode's flexibility makes it attractive precisely for teams who want to route through their own policy layer; and Devin's VM model places your work in third-party infrastructure, which raises the same evidence-capture questions every cloud agent raises.`,
+      },
+      {
+        heading: "Side-by-side: the 2026 comparison table",
+        body: `Below is the consolidated view. Treat every number as a snapshot — this market revises benchmarks and pricing monthly.`,
+        table: {
+          headers: ["Agent", "Model class", "Starting price", "Architecture", "Benchmark highlight", "Governance posture"],
+          rows: [
+            ["Claude Code", "Opus 4.8", "$20 Pro / $100 Max", "Terminal + CLAUDE.md memory", "~88.6% SWE-bench Verified", "File-based memory; no enforced policy layer"],
+            ["Cursor", "Multi (Composer 2.5)", "$20 Pro", "VS Code fork, visual diffs", "~62 coding-agent index @ $0.07/task", ".cursorrules travel with repo — injection surface"],
+            ["GitHub Copilot", "Multi-model selector", "GitHub plan add-on", "Extension + cloud agent via PRs", "N/A (platform-integrated)", "Native fit: output already flows through CI gates"],
+            ["OpenAI Codex", "GPT-5.5-class", "$8 Go – $100 Pro", "Cloud agent, kernel sandbox", "~58.6% SWE-Bench Pro", "Strongest execution containment design"],
+            ["Gemini CLI / Antigravity", "Gemini 3.5 Flash", "Free (harsh limits)", "CLI + GitHub Action", "N/A", "Prototyping tier only"],
+            ["OpenCode", "75+ BYO providers", "Free (bring key)", "Open source, headless", "N/A", "Most flexible routing into a policy layer"],
+            ["Devin", "Frontier via cloud VMs", "$20 Pro", "Parallel cloud VMs", "N/A", "Third-party infra; evidence capture unclear"],
+          ],
+        },
+      },
+      {
+        heading: "The question no comparison article asks",
+        body: `Every comparison ends with "choose by your workflow": terminal-fluent engineers reach for Claude Code, visual-diff engineers reach for Cursor, GitHub-heavy shops reach for Copilot. That advice is correct but incomplete. The incomplete part is this: **none of these products guarantee what their output did, whether it honored a policy, or that a reviewer three months from now can reconstruct the decision.**
+
+An agent that writes a pull request is only half of a delivery system. The other half is the harness-level discipline your pipeline enforces: a versioned spec the agent must satisfy, a policy gate that checks the change deterministically before merge, and an evidence record that links the intent, the spec version, the policy check result, and the released artifact. AI-SDLC exists to supply that other half — on top of whichever agent your team actually likes. The policy gate is the layer that turns "we tried every agent" into "we can show what any agent did, and prove it was allowed."`,
+        image: {
+          src: "/blog/inline-harness-vs-model.jpg",
+          alt: "Three stacked layers: the human and harness on top, the versioned policy layer in the middle, the model at the bottom, with controlled flow arrows passing through the policy layer",
+        },
+      },
+      {
+        heading: "Recommendations by team profile",
+        body: `If you are a solo engineer or a small startup optimizing for raw velocity, the market has no single wrong answer — pick the interface you live in: terminal → Claude Code, IDE → Cursor, GitHub-first → Copilot. If you are a regulated team, an agency that must hand evidence to clients, or a product org that ships to customers under compliance commitments, start with the policy layer decision first and pick the agent second. The agent changes quarterly; the governance architecture is the asset you keep.`,
+      },
+    ],
+    faq: [
+      {
+        q: "Which AI coding agent is the best in 2026?",
+        a: "On raw agentic benchmarks, terminal-native agents like Claude Code lead; on adoption and ARR, Cursor leads; on platform integration, GitHub Copilot leads. But the honest 2026 answer is that frontier models have converged, and the differentiator is the harness — so the best agent is the one whose output your pipeline can govern.",
+      },
+      {
+        q: "Is GitHub Copilot good for regulated teams?",
+        a: "Copilot is the most naturally compatible major agent with a governed pipeline, because its cloud agent produces pull requests that flow through the same CI gates as human commits. A policy gate checks the artifact, not the author, so Copilot output passes the same deterministic checks.",
+      },
+      {
+        q: "Do free AI coding tools work for production?",
+        a: "Free tiers (Gemini CLI, open-source harnesses with your own keys) are realistic for prototyping and personal tooling, but their rate limits and lack of vendor-managed infrastructure make them unsuitable as the primary production harness. What matters for production is evidence capture, and that decision is independent of price tier.",
+      },
+      {
+        q: "How does AI-SDLC relate to these agents?",
+        a: "AI-SDLC treats the agent as a plug-in component inside a governed pipeline: intent captured as a versioned spec, development assisted by any agent, a deterministic policy gate validating the change, and an evidence trail linking everything. The agents listed here are the plug-ins; the pipeline is the product.",
+      },
+    ],
+  },
+  vi: {
+    title: "So sánh các AI Coding Agent năm 2026: Cursor, Claude Code, Copilot, Codex và các công cụ khác",
+    summary:
+      "Thị trường AI coding agent 2026 đã hội tụ về các model tiên phong. Thứ thực sự khác biệt bây giờ là harness: terminal, IDE, sandbox, giới hạn và giá. Bài này so sánh sâu các agent hàng đầu — và giải thích vì sao policy gate, chứ không phải model, mới là lớp phân biệt những đội kiểm soát được AI với những đội bị AI kiểm soát.",
+    readingMinutes: 13,
+    sections: [
+      {
+        heading: "Thị trường đã hội tụ. Harness thì chưa.",
+        body: `Sự thật quan trọng nhất về AI coding agent năm 2026 là các model nền đã ngừng là yếu tố khác biệt chính. GPT-5.5, Claude Opus 4.8, Gemini 3.5 và các model cùng thế hệ có điểm số trên benchmark agentic ở mức gần nhau; Karpathy tổng kết hành vi của chính ngành công nghiệp vào cuối tháng 1/2026, khi lĩnh vực này chuyển từ 80% code thủ công sang 80% code bằng agent chỉ trong khoảng một tháng. Khi ai cũng tiếp cận trí thông minh cận tiên phong, sản phẩm chiến thắng là **harness** — lớp vỏ bọc quanh model: nó chạy ở đâu, thấy file nào, được gọi tool gì, không được chạm vào gì, và điều gì xảy ra với output của nó sau đó.
+
+Đây chính xác là khung tư duy của AI-SDLC, và là chủ đề của bài so sánh này. Chúng tôi khảo sát sáu agent mà một team engineering thực tế nhiều khả năng đánh giá nhất trong 2026, rồi đặt câu hỏi mà hầu hết các bài so sánh không bao giờ hỏi: **agent nào trong số này tạo ra output mà bạn có thể bào chữa trước một cuộc review compliance ngay ngày mai?**`,
+      },
+      {
+        heading: "Claude Code: agent terminal-native",
+        body: `Claude Code ra mắt trải nghiệm terminal general-availability năm 2025 và vẫn giữ lập trường terminal-first. Nó thưởng cho kỹ sư thông thạo shell: đọc project memory qua CLAUDE.md, hỗ trợ extended thinking cho lập kế hoạch tầm xa, và làm việc với ngữ cảnh 200K token. Dư luận benchmark trong cộng đồng rất ồn ào — một thread r/ClaudeAI được cộng đồng bình chọn tuyên bố nó là coding agent tốt nhất, và một dữ kiện đáng chú ý: bản dịch Zig-sang-Rust 750K dòng hoàn tất trong 11 ngày với 99,8% test pass.
+
+Đánh đổi là có thật. Claude Code tốn token khủng — một báo cáo usage công khai ghi nhận khoảng $1.850 tiền token trong 30 ngày cho một người dùng nặng duy nhất — và giao diện terminal-native nghĩa là triển khai toàn team phụ thuộc vào việc mọi người chia sẻ file cấu hình và thoải mái với shell. Điểm SWE-bench Verified (~88,6% trên các lần chạy công bố) thuộc hàng cao nhất, nhưng điểm cao như vậy chỉ có ý nghĩa khi output được **capture, version và verify** — đúng lúc đó policy gate biến một con số benchmark thành thuộc tính production.`,
+      },
+      {
+        heading: "Cursor: agent IDE-native",
+        body: `Cursor là agent tăng trưởng nhanh nhất về adoption, được Series D $2,3 tỷ ở định giá $29,3 tỷ và doanh thu annualized khoảng $1 tỷ. Sức mạnh của nó là visual: fork của VS Code với Agent mode và Composer cho phép kỹ sư quan sát diff được đề xuất ngay trong pane họ đã quen, cấu hình qua file .cursorrules. Giá từ $20/tháng Pro, và trên các coding-agent index của ngành nó đứng quanh mốc 62 điểm với chi phí khoảng $0,07/tác vụ — một câu chuyện hiệu suất đáng theo dõi.
+
+Câu chuyện automation của Cursor là chỗ thú vị với team governed: các chain nhiều bước được script hóa, nghĩa là hành vi ít nhất có phần deterministic. Rủi ro lại nằm ngay ở điểm mạnh — file .cursorrules di chuyển cùng repository, và ai có quyền push cũng sửa được rules, biến chúng thành bề mặt prompt injection (đã phân tích trong bài bạn đọc về phòng thủ injection). Agent IDE-native là cách nhanh nhất để nâng velocity từng developer, nhưng cũng là cách nhanh nhất để mở rộng attack surface.`,
+      },
+      {
+        heading: "GitHub Copilot: agent platform-native",
+        body: `Lợi thế chiến lược của Copilot trong 2026 là nó là agent lớn duy nhất vừa là extension trên VS Code, JetBrains, Neovim, vừa có cloud agent qua Copilot Workspace: một issue trở thành branch, plan, PR. Bộ chọn multi-model nghĩa là team có thể định tuyến công việc qua nhiều provider, và tích hợp CI qua GitHub Actions nghĩa là output của agent đi vào đúng nơi các policy engine đã tồn tại.
+
+Cho mục đích AI-SDLC, điều này quan trọng hơn bất kỳ benchmark nào. Cloud agent tạo commit qua pipeline pull-request của bạn là một agent có output **đi qua cùng một gate như commit của con người**. Policy gate không quan tâm diff đến từ con người, Cursor hay Copilot Workspace — nó chỉ quan tâm artifact có thỏa mãn spec và tạo evidence hay không. Tính đối xứng đó khiến kiến trúc Copilot tương thích bất thường với delivery spec-driven.`,
+      },
+      {
+        heading: "OpenAI Codex: ván bài quy mô",
+        body: `Codex chuyển từ API agent sang sản phẩm consumer, giờ phục vụ khoảng 5 triệu user mỗi tuần và được ước tính 85% kỹ sư của OpenAI tự dùng. Nó chạy trên model lớp GPT-5.5, giá từ $8/tháng Go đến $100/tháng Pro, và có điểm SWE-Bench Pro ở vùng cao-50s — thấp hơn các leader terminal-native về benchmark thuần, nhưng có môi trường thực thi sandbox kernel (Seatbelt, bubblewrap và Landlock) nghiêm túc về containment hơn hầu hết đối thủ. Giới hạn rolling 5 giờ là phàn nàn thực dụng chính.
+
+Kỷ luật sandbox mới là câu chuyện ở đây. Codex đối xử containment khi thực thi như một mối quan tâm kiến trúc hạng nhất — đúng triết lý mà một pipeline policy-gated đòi hỏi: code không tin cậy phải chạy ở một nơi bị chặn. Về điểm số benchmark nó yếu hơn Claude Code; nhưng trong ngữ cảnh governance, tư thế defense-in-depth của nó có lẽ liên quan hơn.`,
+      },
+      {
+        heading: "Tầng miễn phí và mã nguồn mở: Gemini CLI, Antigravity, OpenCode, Devin",
+        body: `Đuôi dài của thị trường đáng một đoạn văn vì các team không có ngân sách vẫn cần câu trả lời. Gemini CLI cho khoảng 1.000 request/ngày miễn phí đến giữa 2026 và chạy như một GitHub Action, dù giới hạn rate nổi tiếng khắc nghiệt. Thí nghiệm Antigravity của Google đưa Gemini 3.5 Flash tới cá nhân với parallel subagents. OpenCode là mã nguồn mở, provider-agnostic — tự mang key và chọn từ 75+ provider, chạy headless trên server. Devin bán parallel cloud VMs ở tier Pro $20/tháng.
+
+Tóm tắt trung thực cho từng cái: giới hạn Gemini biến nó thành công cụ prototyping, không phải harness production; Antigravity là thí nghiệm mà product surface còn mờ; tính linh hoạt của OpenCode hấp dẫn đúng vì team muốn định tuyến qua policy layer của chính họ; và mô hình VM của Devin đặt công việc của bạn trên hạ tầng bên thứ ba, đặt ra cùng câu hỏi evidence-capture mà mọi cloud agent đều đặt.`,
+      },
+      {
+        heading: "So sánh ngang hàng: bảng tổng hợp 2026",
+        body: `Dưới đây là bức tranh tổng hợp. Hãy coi mọi con số là một snapshot — thị trường này revise benchmark và giá hàng tháng.`,
+        table: {
+          headers: ["Agent", "Lớp model", "Giá khởi điểm", "Kiến trúc", "Điểm benchmark nổi bật", "Tư thế governance"],
+          rows: [
+            ["Claude Code", "Opus 4.8", "$20 Pro / $100 Max", "Terminal + memory CLAUDE.md", "~88,6% SWE-bench Verified", "Memory dạng file; không có lớp policy cưỡng chế"],
+            ["Cursor", "Multi (Composer 2.5)", "$20 Pro", "Fork VS Code, diff visual", "~62 coding-agent index @ $0,07/tác vụ", ".cursorrules đi cùng repo — bề mặt injection"],
+            ["GitHub Copilot", "Chọn multi-model", "Add-on GitHub plan", "Extension + cloud agent qua PR", "N/A (tích hợp nền tảng)", "Khớp tự nhiên nhất: output vốn đã qua gate CI"],
+            ["OpenAI Codex", "Lớp GPT-5.5", "$8 Go – $100 Pro", "Cloud agent, sandbox kernel", "~58,6% SWE-Bench Pro", "Thiết kế containment thực thi mạnh nhất"],
+            ["Gemini CLI / Antigravity", "Gemini 3.5 Flash", "Miễn phí (hạn chế gắt)", "CLI + GitHub Action", "N/A", "Chỉ ở mức prototyping"],
+            ["OpenCode", "75+ provider BYO", "Miễn phí (tự mang key)", "Mã nguồn mở, headless", "N/A", "Định tuyến vào policy layer linh hoạt nhất"],
+            ["Devin", "Frontier qua cloud VM", "$20 Pro", "Parallel cloud VMs", "N/A", "Hạ tầng bên thứ 3; evidence capture chưa rõ"],
+          ],
+        },
+      },
+      {
+        heading: "Câu hỏi không bài so sánh nào đặt ra",
+        body: `Mọi bài so sánh kết thúc bằng "chọn theo workflow của bạn": kỹ sư thạo terminal chọn Claude Code, kỹ sư visual-diff chọn Cursor, shop nặng GitHub chọn Copilot. Lời khuyên đó đúng nhưng chưa trọn. Phần chưa trọn là: **không sản phẩm nào trong số này bảo đảm output của chúng đã làm gì, có tôn trọng policy hay không, hay một reviewer ba tháng sau có thể dựng lại quyết định đó.**
+
+Một agent tạo pull request chỉ là một nửa của hệ thống delivery. Nửa còn lại là kỷ luật harness-level mà pipeline của bạn cưỡng chế: spec có version mà agent phải thỏa mãn, policy gate kiểm tra change một cách deterministic trước merge, và evidence record liên kết intent, version spec, kết quả policy check và artifact được release. AI-SDLC tồn tại để cung cấp nửa còn lại đó — trên nền bất kỳ agent nào team bạn thực sự thích. Policy gate là lớp biến "chúng tôi đã thử mọi agent" thành "chúng tôi có thể cho thấy bất kỳ agent nào đã làm gì, và chứng minh nó được phép".`,
+        image: {
+          src: "/blog/inline-harness-vs-model.jpg",
+          alt: "Ba lớp xếp chồng: con người và harness ở trên, lớp policy có version ở giữa, model ở dưới, với mũi tên luồng được kiểm soát đi qua lớp policy",
+        },
+      },
+      {
+        heading: "Khuyến nghị theo hồ sơ team",
+        body: `Nếu bạn là kỹ sư độc lập hay startup nhỏ tối ưu raw velocity, thị trường không có câu trả lời sai duy nhất — chọn interface bạn sống trong đó: terminal → Claude Code, IDE → Cursor, GitHub-first → Copilot. Nếu bạn là team chịu quy định, agency phải bàn giao evidence cho khách, hay product org release cho khách dưới cam kết compliance, hãy quyết định policy layer trước rồi mới chọn agent. Agent thay đổi hàng quý; kiến trúc governance mới là tài sản bạn giữ lại.`,
+      },
+    ],
+    faq: [
+      {
+        q: "AI coding agent nào tốt nhất năm 2026?",
+        a: "Về benchmark agentic thuần, các agent terminal-native như Claude Code dẫn đầu; về adoption và ARR, Cursor dẫn đầu; về tích hợp nền tảng, GitHub Copilot dẫn đầu. Nhưng câu trả lời trung thực của 2026 là các frontier model đã hội tụ, và yếu tố khác biệt là harness — nên agent tốt nhất là agent có output mà pipeline của bạn quản trị được.",
+      },
+      {
+        q: "GitHub Copilot có tốt cho team chịu quy định không?",
+        a: "Copilot là agent lớn tương thích tự nhiên nhất với pipeline governed, vì cloud agent của nó tạo pull request đi qua cùng các CI gate như commit của con người. Policy gate kiểm tra artifact chứ không kiểm tra tác giả, nên output của Copilot qua cùng các kiểm tra deterministic.",
+      },
+      {
+        q: "Công cụ AI coding miễn phí có dùng được cho production không?",
+        a: "Các tier miễn phí (Gemini CLI, harness mã nguồn mở tự mang key) thực tế cho prototyping và tooling cá nhân, nhưng giới hạn rate và thiếu hạ tầng vendor-managed khiến chúng không phù hợp làm harness production chính. Điều quan trọng cho production là evidence capture, và quyết định đó độc lập với tier giá.",
+      },
+      {
+        q: "AI-SDLC liên hệ thế nào với các agent này?",
+        a: "AI-SDLC coi agent là component plug-in trong pipeline governed: intent được capture thành spec có version, development được hỗ trợ bởi bất kỳ agent nào, policy gate deterministic kiểm tra change, và evidence trail liên kết tất cả. Các agent trong bài là plug-in; pipeline mới là sản phẩm.",
+      },
+    ],
+  },
+},
+  {
+  slug: "prompt-injection-ai-coding",
+  dateISO: "2026-08-12",
+  tags: ["prompt-injection", "security", "ai-coding-agents", "ai-sdlc"],
+  draft: false,
+  cover: "/blog/cover-prompt-injection.jpg",
+  coverAlt: {
+    en: "A dark shield cracked by thin red injected code threads seeping through code comments, config files, and network arrows toward a central model core",
+    vi: "Một chiếc khiên tối màu bị các sợi mã đỏ mảnh tiêm vào xuyên qua comment, file cấu hình và các mũi tên mạng hướng về lõi model trung tâm",
+  },
+  en: {
+    title: "Prompt Injection in AI Coding: Attack Vectors, Real Data, and the Defense That Actually Holds",
+    summary:
+      "Injected instructions hidden in code comments, config files, and third-party repos are now the top AI risk per OWASP. The AIShellJack study weaponized this with a 84% success rate. This article maps the real attack surface of AI coding tools and explains the three-layer defense — where the policy gate is the layer that does not depend on any model's good behavior.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "The attack has a name, and it is number one",
+        body: `Prompt injection is the deliberate insertion of instructions into an AI system's input — context the system trusts — in order to hijack its behavior. In 2026 it is no longer a theoretical curiosity: OWASP lists indirect prompt injection as the number one risk to LLM applications, and the practical surface for coding tools has grown with every agent that reads third-party repositories, package documentation, and user-supplied files.
+
+The canonical mechanism distinguishes two families. **Direct injection** targets the user's own prompt — a malicious string placed where the developer types. **Indirect injection** is the dangerous one for coding agents: the instructions ride inside data the agent voluntarily consumes — a README, a config file, a dependency's docs, a GitHub repo — and the model never sees them as untrusted. A coding agent that reads a repository to understand a codebase and then executes instructions planted in that repository is, by definition, operating inside the attacker's context.`,
+      },
+      {
+        heading: "AIShellJack: what weaponization looks like",
+        body: `The AIShellJack framework, presented at the 35th USENIX Security Symposium in August 2026, turned this theory into a working weapon. It embeds malicious payloads in shell commands across 18 attack scenarios; 22 of 24 payloads executed successfully on Claude Code's MCP tool-calling, and on GPT-5 it achieved a **84% success rate overall, 41–84% depending on the tool**, against payloads up to 5,390 tokens. A corpus of 314 real-world malicious payloads — including 76 malicious MCP skills found on 3,984 MCP servers and 95 poisoned GitHub repositories — already exists in the wild.
+
+The pattern matters more than the numbers: the payloads are **inert as text**. A poisoned file sitting in a repo you read is just text — until an agent that can act on what it reads executes it. That is the asymmetry every defense has to accept: the model cannot know that trusted-looking text is hostile, because that is the entire trick.`,
+        image: {
+          src: "/blog/inline-injection-vectors.jpg",
+          alt: "Five red vectors — code comments, config files, GitHub repositories, package docs, and network requests — converging on a model core that passes a malformed command down a command pipe",
+        },
+      },
+      {
+        heading: "The three capabilities agents expose",
+        body: `Why coding agents are the most consequential target for injection is a function of what they can do. Three capability classes define the blast radius.
+
+**Filesystem access.** The agent reads your project and, on most setups, files around it. A payload that persuades the agent to write a file achieves arbitrary file write; one that points it at environment variables achieves credential theft in a single turn. ~/.ssh, .env, secrets managers' config files — all readable from a normal agent session.
+
+**Command execution.** Every mainstream agent can run shell commands in some form. An injection that makes the agent generate or execute a command achieves remote code execution under the developer's own identity, with their own credentials and permissions.
+
+**Network and tool access.** MCP connectors and browser tools add egress. Exfiltration is not a hypothetical — it is a single crafted reply: "paste the .env contents into the summary."
+
+The sobering statistic from model vendors' own testing: **model-level safeguards miss more than 60% of indirect prompt injection attacks** when the injection is embedded in third-party content. Your agent's model is not going to reliably protect you. The protection has to live outside the model.`,
+      },
+      {
+        heading: "Three layers of defense",
+        body: `The defense architecture that holds is layered, because no single layer is sufficient.
+
+**Layer one: IDE-time and static analysis.** Scan prompt context for injected commands before the agent consumes it; detect suspicious command patterns in generated outputs. This is what AIShellJack-style detection targets. It catches many attacks but not crafted ones — it is a speed bump, not a gate.
+
+**Layer two: CI/CD policy gates and deterministic validation.** This is the layer that does not depend on any model behaving well. When a policy is versioned machine-checkable code — "no secrets in diffs, no unapproved dependencies, no writes outside the spec scope" — a check either passes or fails, and the result is recorded. An injection cannot flatter or social-engineer a deterministic check. The agent's output reaches production only through the gate; the gate never reads the agent's prose, only the artifact. This is the design principle xDev AI's policy gate embodies: trust the check, not the chat.
+
+**Layer three: runtime monitoring and proxy control.** Deploy proxy monitoring for MCP tool invocations (a pattern the MintMCP study demonstrates), log every tool call with arguments, and keep human-in-the-loop checkpoints for high-impact actions — credential access, external writes, dependency additions. Observability does not prevent injection; it makes it survivable.
+
+Only 18% of organizations report AI governance councils despite 71% using generative AI — which means most teams are betting their production perimeter on layer one alone.`,
+        image: {
+          src: "/blog/inline-gate-defense-layers.jpg",
+          alt: "Three horizontal defense layers stacked over a pipeline: static scan at the top, a central policy gate with a checkmark, runtime monitor logging tool calls at the bottom",
+        },
+      },
+      {
+        heading: "Practical rules for teams today",
+        body: `Five rules that cost almost nothing and close most of the blast radius. First, run agents in least-privilege sessions: dedicated VMs or sandboxes where a compromised session cannot touch production credentials. Second, treat every third-party file the agent reads as hostile: pin dependencies, and have the gate reject dependency changes without explicit human approval. Third, put secrets out of agent reach: no .env at the agent's working root; credential access should be a gated, logged, human-approved action. Fourth, log every tool call — agent identity, timestamp, command, exit code — because "we can reconstruct what the agent did" is the only defensible posture after an incident. Fifth, make the gate the only road to production: no emergency commits that bypass checks, because the bypass is the injection's favorite exit.`,
+      },
+      {
+        heading: "What governance looks like on this problem",
+        body: `Prompt injection is the sharpest illustration of the argument running through this blog. The failure mode does not care which model you use, which vendor's agent you run, or how many tokens you spend. It cares whether the agent's output is governed by something the agent cannot talk its way around. A deterministic policy gate with an evidence trail is not a feature addition to AI coding — on the injection problem, it is the difference between exposure and containment. When one of your agents eventually reads a poisoned README (not if), the question that matters is whether the attack could reach production. With a gate, it cannot: the payload dies in the artifact, logged, quarantined, and visible.`,
+      },
+    ],
+    faq: [
+      {
+        q: "What is prompt injection in AI coding tools?",
+        a: "Prompt injection is the insertion of hidden instructions into an AI system's input context to hijack its behavior. In coding tools, indirect injection is the dangerous form: instructions ride inside data the agent trusts, such as code comments, config files, package docs, or third-party repositories, and execute when the agent acts on that data.",
+      },
+      {
+        q: "How successful are real prompt injection attacks on coding agents?",
+        a: "The AIShellJack study (USENIX Security 2026) reported 84% overall success on GPT-5 and 22 of 24 payloads executing on Claude Code's tool-calling, with 314 documented malicious payloads already in circulation. Model vendors' own tests show built-in safeguards miss more than 60% of indirect injections.",
+      },
+      {
+        q: "Can AI models protect themselves from prompt injection?",
+        a: "Not reliably. Safeguards embedded in the model miss over 60% of indirect injections, and better models do not fundamentally close the gap because the attack exploits the trust relationship with context. Effective defense requires layers outside the model: static detection, deterministic policy gates, and runtime monitoring.",
+      },
+      {
+        q: "How does a policy gate stop prompt injection?",
+        a: "A policy gate validates the agent's output artifact with deterministic, machine-checkable rules — it never evaluates the agent's chat. An injection cannot persuade a deterministic check, so malicious output fails the gate regardless of how convincingly the agent produced it. Every check result is recorded as evidence.",
+      },
+    ],
+  },
+  vi: {
+    title: "Prompt Injection trong AI coding: vector tấn công, dữ liệu thật và lớp phòng thủ thực sự đứng vững",
+    summary:
+      "Lệnh tiêm ẩn trong comment code, file cấu hình và repo bên thứ ba đã trở thành rủi ro AI số một theo OWASP. Nghiên cứu AIShellJack vũ khí hóa nó với tỷ lệ thành công 84%. Bài này map bề mặt tấn công thật của các công cụ AI coding và giải thích phòng thủ ba lớp — trong đó policy gate là lớp không phụ thuộc vào hành vi tốt của bất kỳ model nào.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "Cuộc tấn công có tên, và nó đứng hạng nhất",
+        body: `Prompt injection là việc cố ý chèn lệnh vào ngữ cảnh đầu vào mà hệ AI tin cậy, nhằm chiếm quyền hành vi của nó. Năm 2026 đây không còn là tò mò lý thuyết: OWASP xếp indirect prompt injection vào rủi ro số một của LLM application, và bề mặt thực tế cho công cụ coding đã lớn theo từng agent đọc repo bên thứ ba, tài liệu package và file do user cung cấp.
+
+Cơ chế kinh điển phân hai họ. **Direct injection** nhắm vào prompt của chính user — chuỗi độc hại đặt ngay chỗ developer gõ. **Indirect injection** mới là loại nguy hiểm với coding agent: lệnh cưỡi trên dữ liệu agent tự nguyện tiêu thụ — README, file cấu hình, docs dependency, repo GitHub — và model không bao giờ thấy chúng như dữ liệu không tin cậy. Coding agent đọc một repository để hiểu codebase rồi thực thi lệnh cấy trong repository đó, về định nghĩa, đang vận hành trong ngữ cảnh của kẻ tấn công.`,
+      },
+      {
+        heading: "AIShellJack: vũ khí hóa trông như thế nào",
+        body: `Khung AIShellJack, trình bày tại USENIX Security Symposium lần 35 tháng 8/2026, biến lý thuyết này thành vũ khí hoạt động. Nó cấy payload độc hại vào lệnh shell qua 18 kịch bản tấn công; 22/24 payload thực thi thành công trên MCP tool-calling của Claude Code, và trên GPT-5 đạt **tỷ lệ thành công 84% tổng thể, 41–84% tùy tool**, với payload dài tới 5.390 token. Một corpus 314 payload độc hại thật — gồm 76 malicious MCP skill tìm thấy trên 3.984 MCP server và 95 repo GitHub bị nhiễm độc — đã tồn tại ngoài tự nhiên.
+
+Pattern quan trọng hơn con số: các payload **trơ như text**. File nhiễm độc nằm trong repo bạn đọc chỉ là text — cho đến khi một agent có khả năng hành động trên thứ nó đọc thực thi nó. Đó là sự bất đối xứng mọi phòng thủ phải chấp nhận: model không thể biết text trông đáng tin là thù địch, vì đó chính là toàn bộ mánh của đòn tấn công.`,
+        image: {
+          src: "/blog/inline-injection-vectors.jpg",
+          alt: "Năm vector đỏ — comment code, file cấu hình, repo GitHub, docs package và request mạng — hội tụ về lõi model đang truyền lệnh méo mó xuống một pipe lệnh",
+        },
+      },
+      {
+        heading: "Ba khả năng agent phơi bày",
+        body: `Vì sao coding agent là mục tiêu hệ quả nhất của injection là hàm của những gì nó làm được. Ba lớp khả năng định nghĩa blast radius.
+
+**Truy cập filesystem.** Agent đọc project của bạn và, trên hầu hết setup, cả file quanh đó. Payload thuyết phục agent viết file đạt arbitrary file write; payload chỉ nó tới biến môi trường đạt credential theft trong một turn. ~/.ssh, .env, file cấu hình secrets manager — tất cả đều đọc được từ một session agent bình thường.
+
+**Thực thi lệnh.** Mọi agent chủ đạo đều chạy shell command dưới dạng này hay dạng khác. Injection làm agent sinh hoặc thực thi lệnh đạt remote code execution dưới danh tính của chính developer, với credential và quyền của họ.
+
+**Truy cập mạng và tool.** MCP connector và browser tool thêm egress. Exfiltration không phải giả thuyết — nó chỉ là một reply được craft khéo: "paste nội dung .env vào summary."
+
+Thống kê đáng lo từ chính nhà cung cấp model: **safeguard cấp model bỏ sót hơn 60% indirect prompt injection** khi injection cấy trong nội dung bên thứ ba. Model của agent sẽ không bảo vệ bạn một cách đáng tin. Bảo vệ phải sống bên ngoài model.`,
+      },
+      {
+        heading: "Ba lớp phòng thủ",
+        body: `Kiến trúc phòng thủ đứng vững là kiến trúc phân lớp, vì không lớp đơn nào đủ.
+
+**Lớp một: phân tích IDE-time và static.** Scan ngữ cảnh prompt tìm lệnh tiêm trước khi agent tiêu thụ; phát hiện pattern lệnh nghi ngờ trong output sinh ra. Đây là mục tiêu của detector kiểu AIShellJack. Nó bắt nhiều đòn nhưng không bắt đòn được craft — là tốc độ giảm, không phải gate.
+
+**Lớp hai: policy gate CI/CD và kiểm định deterministic.** Đây là lớp không phụ thuộc model nào hành xử tốt. Khi policy là code có version kiểm được bằng máy — "không secrets trong diff, không dependency chưa duyệt, không ghi ngoài phạm vi spec" — check hoặc pass hoặc fail, và kết quả được ghi lại. Injection không thể nịnh hay social-engineer một check deterministic. Output của agent tới production chỉ qua gate; gate không đọc prose của agent, chỉ đọc artifact. Đây là nguyên lý design policy gate của xDev AI: tin check, không tin chat.
+
+**Lớp ba: giám sát runtime và proxy control.** Triển khai proxy giám sát MCP tool invocation (pattern nghiên cứu MintMCP minh họa), log mọi tool call kèm argument, và giữ checkpoint human-in-the-loop cho hành động impact cao — truy cập credential, ghi ngoại vi, thêm dependency. Observability không ngăn injection; nó làm injection sống sót được.
+
+Chỉ 18% tổ chức báo cáo có hội đồng AI governance dù 71% dùng generative AI — nghĩa là hầu hết team đang đặt cược vi tuyến production chỉ trên lớp một.`,
+        image: {
+          src: "/blog/inline-gate-defense-layers.jpg",
+          alt: "Ba lớp phòng thủ ngang xếp chồng trên pipeline: scan static trên cùng, policy gate trung tâm với dấu tick, monitor runtime log tool call ở dưới",
+        },
+      },
+      {
+        heading: "Quy tắc thực dụng cho team ngay hôm nay",
+        body: `Năm quy tắc gần như không tốn gì và đóng hầu hết blast radius. Thứ nhất, chạy agent ở session least-privilege: VM hoặc sandbox chuyên dụng nơi session bị chiếm không chạm được production credential. Thứ hai, coi mọi file bên thứ ba agent đọc là thù địch: pin dependencies, và để gate từ chối thay đổi dependency nếu không có approval con người tường minh. Thứ ba, đưa secrets ra khỏi tầm agent: không .env ở working root của agent; truy cập credential phải là hành động được gate, log và con người duyệt. Thứ tư, log mọi tool call — danh tính agent, timestamp, lệnh, exit code — vì "chúng tôi dựng lại được agent đã làm gì" là tư thế duy nhất tự bào chữa được sau incident. Thứ năm, biến gate thành con đường duy nhất tới production: không commit khẩn cấp vượt qua check, vì bypass là lối thoát ưa thích của injection.`,
+      },
+      {
+        heading: "Governance trông như thế nào trên bài toán này",
+        body: `Prompt injection là minh họa sắc nhất cho luận điểm xuyên suốt blog này. Failure mode không quan tâm bạn dùng model nào, agent của vendor nào, hay chi bao nhiêu token. Nó quan tâm output của agent có được govern bởi thứ agent không thể đàm phán qua được hay không. Policy gate deterministic với evidence trail không phải feature thêm vào AI coding — trên bài toán injection, nó là khác biệt giữa exposure và containment. Khi một agent của bạn cuối cùng đọc một README nhiễm độc (không phải nếu), câu hỏi quan trọng là đòn tấn công có tới production được không. Với gate, nó không thể: payload chết trong artifact, bị log, cách ly và nhìn thấy được.`,
+      },
+    ],
+    faq: [
+      {
+        q: "Prompt injection trong công cụ AI coding là gì?",
+        a: "Prompt injection là chèn lệnh ẩn vào ngữ cảnh đầu vào hệ AI để chiếm quyền hành vi. Trong công cụ coding, indirect injection là dạng nguy hiểm: lệnh cưỡi trên dữ liệu agent tin cậy như comment code, file cấu hình, docs package hoặc repo bên thứ ba, và thực thi khi agent hành động trên dữ liệu đó.",
+      },
+      {
+        q: "Tấn công prompt injection thật trên coding agent thành công bao nhiêu?",
+        a: "Nghiên cứu AIShellJack (USENIX Security 2026) báo cáo thành công 84% tổng thể trên GPT-5 và 22/24 payload thực thi trên tool-calling của Claude Code, với 314 payload độc hại đã được ghi nhận lưu hành. Test của chính nhà cung cấp model cho thấy safeguard tích hợp bỏ sót hơn 60% indirect injection.",
+      },
+      {
+        q: "Model AI có tự bảo vệ khỏi prompt injection không?",
+        a: "Không đáng tin. Safeguard nhúng trong model bỏ sót hơn 60% indirect injection, và model tốt hơn không đóng được gap về căn bản vì đòn tấn công khai thác quan hệ tin cậy với ngữ cảnh. Phòng thủ hiệu quả đòi hỏi các lớp ngoài model: phát hiện static, policy gate deterministic và giám sát runtime.",
+      },
+      {
+        q: "Policy gate chặn prompt injection thế nào?",
+        a: "Policy gate kiểm định artifact output của agent bằng quy tắc deterministic kiểm được bằng máy — nó không bao giờ đánh giá chat của agent. Injection không thể thuyết phục một check deterministic, nên output độc hại fail gate bất kể agent sinh ra nó thuyết phục đến đâu. Mọi kết quả check được ghi làm evidence.",
+      },
+    ],
+  },
+},
+  {
+  slug: "agentic-workflow-patterns",
+  dateISO: "2026-08-10",
+  tags: ["agentic-ai", "workflows", "ai-sdlc", "engineering-patterns"],
+  draft: false,
+  cover: "/blog/cover-agentic-workflows.jpg",
+  coverAlt: {
+    en: "A luminous orchestration diagram of connected agent nodes with memory cores and tool icons, flowing through a golden checkpoint ring",
+    vi: "Sơ đồ điều phối phát sáng các node agent kết nối với lõi memory và biểu tượng tool, chảy qua một vòng checkpoint màu vàng",
+  },
+  en: {
+    title: "Agentic Workflow Patterns: How Production AI Systems Actually Work in 2026",
+    summary:
+      "Production AI systems in 2026 are not prompt loops — they are structured orchestration: plan-act-reflect cycles, memory-driven agents, tool schemas with safe execution, and first-class observability. This article profiles the eight workflow patterns that define the space and shows how a governed pipeline maps onto each one.",
+    readingMinutes: 11,
+    sections: [
+      {
+        heading: "From prompt loops to structured orchestration",
+        body: `The early picture of agentic AI was a model in a loop: ask, act, ask again. Production systems in 2026 have largely abandoned naive loops. The dominant framing is **structured orchestration** — a pipeline with defined stages, bounded autonomy at each stage, explicit memory, typed tool contracts, and hard checkpoints. The difference matters because a loop is governed only by the model's judgment at every step, while an orchestrated pipeline carries its own governance: structure is policy, and checkpoints are the human-in-the-loop.
+
+This is the same architectural move xDev AI makes in software delivery: the pipeline is not "ask the agent, hope it stops." It is Intent → Spec → Draft → Verify → Evidence → Release, where each arrow is a contract. The workflow patterns below are general; the mapping is deliberate.`,
+      },
+      {
+        heading: "Pattern 1: plan-act-reflect",
+        body: `The plan-act-reflect loop is the backbone of modern agents. The agent builds a plan before acting, executes steps against the plan, and reflects on outcomes before the next cycle — correcting course when a step fails rather than plowing ahead. Anthropic's agent design guidance and OpenAI's orchestration guidance both elevate this pattern to the default architecture, and the reason is error propagation: an unchecked loop amplifies every early mistake, while reflection at step boundaries bounds it.
+
+The delivery-system analogue is spec-before-code: planning against a written spec makes reflection checkable, because "does the draft satisfy the spec" is a question with an answer rather than a vibe. A loop that plans against an unwritten goal can only reflect against feelings.`,
+      },
+      {
+        heading: "Pattern 2: memory-driven agents",
+        body: `Production agents separate memory into short-term working context, long-term persistent stores, and episodic experience — summaries of what happened that inform what happens next. Short-term memory keeps the current task coherent; long-term memory lets the system remember preferences and facts across sessions; episodic memory compresses history into retrievable lessons.
+
+The delivery-system analogue is versioned artifacts. Every memory worth keeping in a governed pipeline — the intent, the spec, the policy, the evidence — exists as a versioned artifact rather than as conversation state. Conversation is ephemeral; artifacts are the durable memory of the system, and they are the only memory an auditor can reconstruct from.`,
+      },
+      {
+        heading: "Pattern 3: tool schemas and safe execution",
+        body: `Agentic tools in 2026 are defined by schemas — typed descriptions of inputs and outputs — and executed inside boundaries: sandboxes, rate limits, least-privilege credentials. A tool schema is a contract; safe execution is the enforcement of that contract. The industry's direction is unambiguous: agents call tools described by schemas, never tools described by vibes.
+
+The delivery-system analogue is the closed-set check vocabulary: the policy gate's checks are a finite, typed vocabulary (version pin, secret absence, dependency approval), executed by machine, never by prompt. An open-ended tool-calling agent asked to "make sure the release is safe" will improvise; a schema-gated agent checks against the vocabulary, and the check either passes or fails.`,
+      },
+      {
+        heading: "Patterns 4-5: human-in-the-loop and retrieval-augmented planning",
+        body: `**Human-in-the-loop checkpoints** are where autonomy yields to judgment. The operating principle of the pattern is that autonomy scales but trust sustains: the system runs autonomously up to a checkpoint, then pauses for a human decision on high-stakes moves — approval to write credentials, approval to ship, approval to touch production. The loop is not a concession to slowness; it is the mechanism by which autonomy stays survivable.
+
+**Retrieval-augmented planning** grounds the agent's decisions in external evidence: it fetches relevant context — docs, prior incidents, policy documents — and plans against what it retrieved rather than what it memorized. The delivery analogue is obvious: a policy gate that checks against the pinned policy version is retrieval-augmented planning where the retrieval is deterministic and the ground truth is versioned.`,
+      },
+      {
+        heading: "Patterns 6-8: self-evaluation, multi-agent specialization, event-driven flow",
+        body: `**Self-evaluation** agents grade their own outputs against criteria before surfacing them — a built-in quality filter that cuts the number of bad artifacts reaching humans. **Multi-agent specialization** splits work across specialist agents with defined handoff protocols: one plans, one codes, one reviews, one tests — each bounded to its role. **Event-driven flow** wires agents to triggers: a commit, an issue, an alert starts a defined response path instead of polling.
+
+The delivery analogue of multi-agent specialization is the strongest fit: the AI-SDLC pipeline is a multi-agent system where each stage is a specialist — the specifier captures intent, the agent drafts, the gate reviews, the ledger records — and handoffs are versioned artifacts. Specialization without handoff contracts is chaos with good branding; the contract is what makes five specialists one system.`,
+        image: {
+          src: "/blog/inline-workflow-patterns.jpg",
+          alt: "Eight workflow pattern nodes — plan-act-reflect, memory, tool schemas, HITL, retrieval, self-evaluation, multi-agent, event-driven — connected in a lattice around a central orchestration core",
+        },
+      },
+      {
+        heading: "The eighth requirement: observability first-class",
+        body: `Every credible treatment of agentic systems in 2026 ends the same way: observability is not an afterthought — it is the design constraint. Traces of what each agent did, with which inputs, tools, and outcomes, must be recorded as a primary artifact of the system, because debugging, auditing, and trust all consume the same stream. An agent system without observability is not a system you can operate; it is a system that operates you.
+
+The delivery-system version is the evidence trail: every spec version, every check result, every release record is part of the trace. "What did the system do, and was it allowed to?" is one query across the whole pipeline — and that query is the product.`,
+      },
+      {
+        heading: "Where this leaves a governed pipeline",
+        body: `Read the eight patterns as a checklist and notice what holds together. Plan-act-reflect wants a written plan to reflect against. Memory wants artifacts, not conversation. Tool schemas want closed vocabularies. HITL wants checkpoints with defined authority. Retrieval wants versioned ground truth. Multi-agent wants handoff contracts. Observability wants traces. Every one of them is exactly the shape of a spec-driven, policy-gated, evidence-based pipeline. That is not a coincidence of one vendor's architecture — it is what production agentic systems converge to when autonomy must coexist with accountability. The patterns and the pipeline agree on the structure; the pipeline adds what the patterns demand: that every boundary be checkable, versioned, and recorded.`,
+      },
+    ],
+    faq: [
+      {
+        q: "What is an agentic workflow in 2026?",
+        a: "An agentic workflow is structured orchestration rather than a naive prompt loop: a pipeline with defined stages, plan-act-reflect cycles, explicit memory, typed tool schemas with safe execution, human-in-the-loop checkpoints, and first-class observability.",
+      },
+      {
+        q: "Why is human-in-the-loop still needed for AI agents?",
+        a: "Because autonomy scales but trust sustains. Agents run autonomously up to defined checkpoints, then pause for human decisions on high-stakes actions. HITL checkpoints are not a concession to slowness — they are what keep autonomous systems survivable and accountable.",
+      },
+      {
+        q: "How does multi-agent specialization relate to software delivery?",
+        a: "A governed delivery pipeline is a multi-agent system with role-bounded specialists: a specifier captures intent, an agent drafts, a deterministic gate reviews, and a ledger records releases. Handoffs are versioned artifacts — and handoff contracts are what turn five specialists into one system.",
+      },
+      {
+        q: "What makes agentic workflows governable?",
+        a: "Governability comes from boundaries being checkable: written plans to reflect against, versioned artifacts as memory, closed tool vocabularies, checkpoints with defined authority, versioned ground truth for retrieval, and traces of every action. AI-SDLC applies exactly these boundaries to software delivery.",
+      },
+    ],
+  },
+  vi: {
+    title: "Các pattern agentic workflow: hệ thống AI production thực sự hoạt động thế nào năm 2026",
+    summary:
+      "Hệ thống AI production 2026 không phải prompt loop — chúng là điều phối có cấu trúc: chu trình plan-act-reflect, agent memory-driven, tool schema với thực thi an toàn, observability hạng nhất. Bài này khảo sát tám pattern workflow định hình không gian này và cho thấy một pipeline governed map lên từng pattern thế nào.",
+    readingMinutes: 11,
+    sections: [
+      {
+        heading: "Từ prompt loop sang điều phối có cấu trúc",
+        body: `Bức tranh ban đầu của AI agentic là một model trong loop: hỏi, hành động, hỏi lại. Hệ production 2026 phần lớn đã bỏ loop ngây thơ. Khung chiếm lĩnh là **điều phối có cấu trúc** — pipeline với stage định nghĩa, autonomy bị chặn ở từng stage, memory tường minh, tool contract có kiểu, và checkpoint cứng. Khác biệt quan trọng vì loop chỉ được govern bởi phán xét của model ở mọi bước, trong khi pipeline được điều phối mang governance của chính nó: cấu trúc là policy, checkpoint là human-in-the-loop.
+
+Đây là chính cú dịch chuyển kiến trúc xDev AI thực hiện trong software delivery: pipeline không phải "hỏi agent, hy vọng nó dừng." Nó là Intent → Spec → Draft → Verify → Evidence → Release, mỗi mũi tên là một contract. Các workflow pattern dưới đây là tổng quát; mapping là cố ý.`,
+      },
+      {
+        heading: "Pattern 1: plan-act-reflect",
+        body: `Loop plan-act-reflect là xương sống của agent hiện đại. Agent xây plan trước khi hành động, thực thi bước theo plan, và phản tỉnh trên outcome trước chu trình tiếp theo — sửa hướng khi bước fail thay vì lao tiếp. Guidance agent của Anthropic và orchestration guidance của OpenAI đều nâng pattern này thành kiến trúc mặc định, và lý do là error propagation: loop không check khuếch đại mọi sai lầm sớm, trong khi phản tỉnh ở biên bước chặn nó lại.
+
+Bản tương đồng trong delivery-system là spec-trước-code: lập kế hoạch trên spec viết làm reflection kiểm được, vì "draft có thỏa mãn spec không" là câu hỏi có đáp án chứ không phải vibe. Loop lập kế hoạch trên goal không viết chỉ có thể phản tỉnh bằng cảm giác.`,
+      },
+      {
+        heading: "Pattern 2: agent memory-driven",
+        body: `Agent production tách memory thành ngữ cảnh làm việc ngắn hạn, store persistent dài hạn, và kinh nghiệm episodic — tóm tắt những gì đã xảy ra thông báo những gì xảy ra tiếp. Short-term memory giữ task hiện tại mạch lạc; long-term memory giúp hệ nhớ preference và facts qua session; episodic memory nén lịch sử thành lesson truy xuất được.
+
+Bản tương đồng trong delivery-system là artifact có version. Mọi memory đáng giữ trong pipeline governed — intent, spec, policy, evidence — tồn tại như artifact có version chứ không phải conversation state. Conversation là phù du; artifact là memory bền của hệ thống, và là memory duy nhất auditor dựng lại được.`,
+      },
+      {
+        heading: "Pattern 3: tool schema và thực thi an toàn",
+        body: `Tool agentic 2026 được định nghĩa bằng schema — mô tả có kiểu của input và output — và thực thi trong biên: sandbox, rate limit, credential least-privilege. Tool schema là contract; thực thi an toàn là cưỡng chế contract đó. Hướng của ngành rõ ràng: agent gọi tool mô tả bằng schema, không bao giờ tool mô tả bằng vibe.
+
+Bản tương đồng delivery-system là từ vựng check closed-set: check của policy gate là từ vựng hữu hạn có kiểu (pin version, vắng secrets, duyệt dependency), thực thi bằng máy, không bằng prompt. Agent gọi tool open-ended được bảo "đảm bảo release an toàn" sẽ ứng biến; agent bị gate schema check theo từ vựng, và check hoặc pass hoặc fail.`,
+      },
+      {
+        heading: "Pattern 4-5: human-in-the-loop và retrieval-augmented planning",
+        body: `**Checkpoint human-in-the-loop** là nơi autonomy nhường cho judgment. Nguyên lý vận hành của pattern là autonomy scales but trust sustains: hệ chạy autonomous đến checkpoint, rồi dừng chờ quyết định con người cho động tác impact cao — duyệt viết credential, duyệt ship, duyệt chạm production. Loop không phải nhượng bộ chậm; nó là cơ chế giữ autonomy sống sót được.
+
+**Retrieval-augmented planning** neo quyết định của agent vào evidence ngoại vi: nó fetch ngữ cảnh liên quan — docs, incident trước, policy document — và lập kế hoạch trên thứ nó retrieve chứ không thứ nó nhớ. Bản tương đồng delivery hiển nhiên: policy gate check theo policy version được pin là retrieval-augmented planning mà retrieval deterministic và ground truth có version.`,
+      },
+      {
+        heading: "Pattern 6-8: self-evaluation, multi-agent specialization, event-driven flow",
+        body: `**Self-evaluation**: agent tự chấm output của mình theo tiêu chí trước khi surfacing — filter chất lượng tích hợp cắt số artifact xấu tới tay người. **Multi-agent specialization**: chia việc qua agent chuyên gia với giao thức handoff định nghĩa: một lập plan, một code, một review, một test — mỗi agent chặn trong vai của mình. **Event-driven flow**: nối agent với trigger: commit, issue, alert khởi động path phản ứng định nghĩa thay vì polling.
+
+Bản tương đồng delivery của multi-agent specialization là khớp mạnh nhất: pipeline AI-SDLC là hệ multi-agent mà mỗi stage là chuyên gia — specifier capture intent, agent draft, gate review, ledger record — và handoff là artifact có version. Specialization không có contract handoff là hỗn loạn mang thương hiệu đẹp; contract mới làm năm chuyên gia thành một hệ.`,
+        image: {
+          src: "/blog/inline-workflow-patterns.jpg",
+          alt: "Tám node pattern workflow — plan-act-reflect, memory, tool schema, HITL, retrieval, self-evaluation, multi-agent, event-driven — kết nối dạng lưới quanh lõi điều phối trung tâm",
+        },
+      },
+      {
+        heading: "Yêu cầu thứ tám: observability hạng nhất",
+        body: `Mọi treatment đáng tin về hệ agentic năm 2026 kết thúc cùng cách: observability không phải afterthought — nó là design constraint. Trace của mỗi agent đã làm gì, với input, tool, outcome nào, phải được ghi như artifact chính của hệ, vì debug, audit và trust cùng tiêu thụ một stream. Hệ agent không có observability không phải hệ bạn vận hành được; nó là hệ vận hành bạn.
+
+Phiên bản delivery-system là evidence trail: mọi spec version, mọi kết quả check, mọi release record là phần của trace. "Hệ đã làm gì, và có được phép không?" là một query xuyên toàn pipeline — và query đó là sản phẩm.`,
+      },
+      {
+        heading: "Pipeline governed còn lại ở đâu",
+        body: `Đọc tám pattern như checklist và để ý cái gì khớp nhau. Plan-act-reflect muốn plan viết để phản tỉnh. Memory muốn artifact, không conversation. Tool schema muốn từ vựng closed. HITL muốn checkpoint có thẩm quyền định nghĩa. Retrieval muốn ground truth có version. Multi-agent muốn contract handoff. Observability muốn trace. Mọi cái đều đúng hình dạng của pipeline spec-driven, policy-gated, evidence-based. Đó không phải trùng hợp của kiến trúc một vendor — đó là thứ hệ agentic production hội tụ tới khi autonomy phải đồng tồn tại với accountability. Pattern và pipeline đồng thuận về cấu trúc; pipeline thêm thứ pattern đòi: mọi biên phải kiểm được, có version, và được ghi.`,
+      },
+    ],
+    faq: [
+      {
+        q: "Agentic workflow năm 2026 là gì?",
+        a: "Agentic workflow là điều phối có cấu trúc thay vì prompt loop ngây thơ: pipeline với stage định nghĩa, chu trình plan-act-reflect, memory tường minh, tool schema có kiểu với thực thi an toàn, checkpoint human-in-the-loop và observability hạng nhất.",
+      },
+      {
+        q: "Vì sao human-in-the-loop vẫn cần cho AI agent?",
+        a: "Vì autonomy scales but trust sustains. Agent chạy autonomous đến checkpoint định nghĩa, rồi dừng chờ quyết định con người cho động tác impact cao. Checkpoint HITL không phải nhượng bộ chậm — nó là thứ giữ hệ autonomous sống sót và accountable.",
+      },
+      {
+        q: "Multi-agent specialization liên hệ thế nào với software delivery?",
+        a: "Pipeline delivery governed là hệ multi-agent với chuyên gia chặn trong vai: specifier capture intent, agent draft, gate deterministic review, ledger record release. Handoff là artifact có version — và contract handoff là thứ biến năm chuyên gia thành một hệ.",
+      },
+      {
+        q: "Thứ gì làm agentic workflow governable?",
+        a: "Governability đến từ biên kiểm được: plan viết để phản tỉnh, artifact có version làm memory, tool vocabulary closed, checkpoint có thẩm quyền định nghĩa, ground truth có version cho retrieval, và trace mọi hành động. AI-SDLC áp đúng các biên này lên software delivery.",
+      },
+    ],
+  },
+},
+  {
+  slug: "so-sanh-cong-cu-ai-coding-2026",
+  dateISO: "2026-08-08",
+  tags: ["ai-coding", "so-sanh", "cong-cu-lap-trinh", "ai-sdlc"],
+  draft: false,
+  cover: "/blog/cover-so-sanh-ai-coding-2026.jpg",
+  coverAlt: {
+    en: "Vietnamese-labeled comparison of AI coding tools on a split dashboard showing terminal, IDE, cloud agent, and sandbox modes",
+    vi: "Bảng so sánh các công cụ AI coding có nhãn tiếng Việt trên dashboard chia ô: chế độ terminal, IDE, cloud agent và sandbox",
+  },
+  en: {
+    title: "So Sánh Công Cụ AI Coding Năm 2026: Chọn Đúng Harness Cho Team Của Bạn",
+    summary:
+      "Bản tiếng Việt của bài so sánh lớn: năm nhóm công cụ AI coding (terminal-native, IDE-native, platform-native, cloud sandbox, mã nguồn mở) được phân tích theo bốn tiêu chí — velocity, chi phí, security và khả năng govern. Kèm bảng tổng hợp và khuyến nghị theo quy mô team.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "Vì sao bài so sánh này cần một bản riêng bằng tiếng Việt",
+        body: `Thị trường công cụ AI coding năm 2026 đã hội tụ: GPT-5.5, Claude Opus 4.8, Gemini 3.5 và các model cùng thế hệ có điểm benchmark gần nhau, và ngành chuyển từ 80% code thủ công sang 80% code bằng agent chỉ trong khoảng một tháng theo quan sát của Karpathy. Khi model không còn là yếu tố khác biệt, câu hỏi đúng là **harness**: công cụ đó chạy ở đâu, thấy file nào, được gọi tool gì, và output của nó được quản trị thế nào.
+
+Hầu hết tài liệu so sánh đều bằng tiếng Anh và nhắm thị trường Mỹ. Bài này viết riêng cho kỹ sư và team Việt Nam: cùng dữ liệu 2026, nhưng kết luận được tổ chức theo tiêu chí mà team Việt thực tế quan tâm — chi phí tính bằng đồng, khả năng tự-host, và khả năng đưa vào quy trình review có kiểm soát.`,
+      },
+      {
+        heading: "Nhóm terminal-native: Claude Code",
+        body: `Claude Code là đại diện tiêu biểu nhất của nhóm terminal-native. Điểm mạnh: memory project qua CLAUDE.md, extended thinking cho task dài hơi, ngữ cảnh 200K token, và điểm SWE-bench Verified ~88,6% — hàng cao nhất thị trường. Một benchmark cộng đồng đáng chú ý: bản dịch Zig-sang-Rust 750K dòng hoàn tất trong 11 ngày với 99,8% test pass.
+
+Nhược điểm cho team Việt: tốn token khủng ($1.850/30 ngày cho một người dùng nặng theo báo cáo công khai), giao diện shell thuần khiến onboarding cả team chậm, và file cấu hình CLAUDE.md cần quản lý riêng ngoài repo chính. Đây là lựa chọn tối ưu cho cá nhân kỹ sư giỏi terminal, chưa phải cho team cần governance tập trung.`,
+      },
+      {
+        heading: "Nhóm IDE-native: Cursor và VS Code extensions",
+        body: `Cursor là công cụ tăng trưởng nhanh nhất: Series D $2,3 tỷ, định giá $29,3 tỷ, doanh thu annualized ~$1 tỷ, giá từ $20/tháng. Sức mạnh là visual — diff hiển thị ngay trong IDE quen thuộc, cấu hình qua .cursorrules, và Composer orchestrate chain nhiều bước. Trên coding-agent index ngành nó đạt ~62 điểm với $0,07/tác vụ.
+
+Lưu ý quan trọng: .cursorrules đi cùng repository, nghĩa là ai có quyền push cũng sửa được rules — bề mặt prompt injection. Team Việt dùng Cursor nên áp quy tắc: rules review qua PR như code, và không push rules từ branch ngoài. Nhóm IDE-native là cách nhanh nhất tăng velocity từng người, nhưng phải đi kèm kỷ luật config.`,
+      },
+      {
+        heading: "Nhóm platform-native: GitHub Copilot",
+        body: `Copilot có lợi thế duy nhất: vừa là extension trên VS Code, JetBrains, Neovim, vừa có cloud agent qua Copilot Workspace (issue → branch → plan → PR). Bộ chọn multi-model cho phép định tuyến qua nhiều provider, và quan trọng nhất với team có quy trình: output của cloud agent đi qua chính pipeline CI/CD của bạn — pull request của agent bị chặn bởi cùng gate mà pull request của người bị chặn.
+
+Với team Việt vận hành trên GitHub (phổ biến trong cộng đồng dev Việt), Copilot là lựa chọn ít ma sát nhất để đưa AI vào pipeline hiện có mà không xây thêm tầng quản trị riêng. Đây là kiến trúc gần nhất với triết lý AI-SDLC: gate kiểm tra artifact, không kiểm tra tác giả.`,
+      },
+      {
+        heading: "Nhóm cloud sandbox: OpenAI Codex và Devin",
+        body: `Codex phục vụ ~5 triệu user/tuần, giá $8–100/tháng, điểm SWE-Bench Pro ~58,6% — thấp hơn leader benchmark, nhưng kiến trúc sandbox kernel (Seatbelt, bubblewrap, Landlock) nghiêm túc nhất về containment thực thi. Devin bán parallel cloud VMs từ $20/tháng: thuận tiện nhưng đặt công việc trên hạ tầng bên thứ ba.
+
+Góc nhìn cho team Việt: nếu dữ liệu dự án nhạy cảm (đây là mối quan tâm thật của nhiều công ty outsource Việt phải tuân thủ NDA khách hàng), nhóm này đòi hỏi câu hỏi pháp lý trước câu hỏi kỹ thuật: data residency ở đâu, ai truy cập VM. Câu trả lời vendor thường nằm trong DPA — hãy đọc nó.`,
+      },
+      {
+        heading: "Nhóm mã nguồn mở và miễn phí: OpenCode, Gemini CLI, Antigravity",
+        body: `OpenCode là lựa chọn thú vị nhất trong nhóm: mã nguồn mở, provider-agnostic (75+ provider, tự mang key), chạy headless trên server riêng. Điều này có hai ý nghĩa cho team Việt: không vendor lock-in, và có thể tự-host toàn bộ — phù hợp với công ty bắt buộc giữ code trên hạ tầng của mình. Gemini CLI cho ~1.000 request/ngày miễn phí nhưng rate limit khắc nghiệt — chỉ hợp prototyping. Antigravity của Google là thí nghiệm cá nhân với parallel subagents, chưa phải sản phẩm production.`,
+      },
+      {
+        heading: "Bảng tổng hợp theo tiêu chí team Việt quan tâm",
+        body: `Bốn tiêu chí được xếp: velocity (tốc độ từng developer), chi phí (bao gồm token — yếu tố hay bị bỏ qua), security (khả năng tự chứa breach), govern (mức độ output có thể đưa vào quy trình review/compliance).`,
+        table: {
+          headers: ["Công cụ", "Velocity", "Chi phí", "Security", "Khả năng govern", "Hợp với"],
+          rows: [
+            ["Claude Code", "Rất cao", "Cao ($20–100 + token)", "Trung bình", "Thấp (memory dạng file)", "Kỹ sư terminal cá nhân"],
+            ["Cursor", "Cao", "Trung bình ($20)", "Trung bình (.cursorrules)", "Trung bình", "Team ưu tiên velocity"],
+            ["GitHub Copilot", "Cao", "Theo gói GitHub", "Khá", "Cao (output qua PR gate)", "Team GitHub, có quy trình CI"],
+            ["Codex", "Trung bình", "Thấp–Trung bình", "Cao (sandbox kernel)", "Trung bình", "Team cần containment mạnh"],
+            ["Devin", "Trung bình", "Trung bình ($20+)", "Thấp (VM bên thứ 3)", "Thấp (chưa rõ evidence)", "Task độc lập nhỏ"],
+            ["OpenCode", "Trung bình", "Thấp (tự mang key)", "Tùy setup", "Cao (tự-host, tự gate)", "Team tự-host, không lock-in"],
+            ["Gemini CLI", "Thấp", "Miễn phí (hạn chế gắt)", "Thấp", "Rất thấp", "Prototyping cá nhân"],
+          ],
+        },
+      },
+      {
+        heading: "Khuyến nghị theo quy mô team",
+        body: `Cá nhân hoặc startup dưới 5 người: chọn theo interface bạn sống — terminal chọn Claude Code, IDE chọn Cursor, GitHub chọn Copilot. Team 5–50 người có quy trình CI: GitHub Copilot là ít ma sát nhất, hoặc Cursor + quy tắc review rules. Công ty outsource chịu NDA khách hàng hoặc có yêu cầu tự-host: OpenCode tự-host với key riêng, hoặc Copilot với cấu hình data-residency đúng. Tổ chức cần compliance (SOC 2, ISO 42001, hợp đồng government): bắt đầu từ policy layer — spec có version, gate deterministic, evidence trail — rồi chọn agent bên trên. Agent thay mỗi quý; kiến trúc governance là thứ giữ lại được.`,
+      },
+      {
+        heading: "Câu hỏi ít người hỏi: output có defend được không",
+        body: `Mọi so sánh trên kết thúc ở "chọn theo nhu cầu." Nhưng có một câu hỏi đứng trên hết: khi khách hàng, auditor, hay chính bạn ba tháng sau hỏi "AI đã làm gì trong release này và có được phép không" — bạn có trả lời được không? Không sản phẩm nào trong bảng trên tự động trả lời câu đó. Đó không phải khiếm khuyết của từng sản phẩm — đó là lớp pipeline: spec có version, gate kiểm artifact, evidence record. AI-SDLC cung cấp lớp đó, và lớp đó chạy trên bất kỳ công cụ nào trong bảng.`,
+      },
+    ],
+    faq: [
+      {
+        q: "Công cụ AI coding nào đáng tiền nhất năm 2026?",
+        a: "Theo giá trị velocity/chi phí: Cursor (~$0,07/tác vụ trên coding-agent index) và Copilot (theo gói GitHub hiện có) là hai lựa chọn cân bằng nhất. Claude Code mạnh nhất về benchmark thuần nhưng chi phí token cao. Quyết định nên theo kiến trúc team hơn theo benchmark.",
+      },
+      {
+        q: "Công ty outsource Việt dùng AI coding thế nào cho an toàn với NDA?",
+        a: "Ưu tiên hai hướng: (1) tự-host harness mã nguồn mở như OpenCode trên hạ tầng riêng với key tự mang, hoặc (2) dùng giải pháp cloud có DPA rõ ràng về data residency. Luôn đọc DPA trước khi dùng cloud VM. Thêm policy gate để mọi output AI đi qua review như code người viết.",
+      },
+      {
+        q: "Team nhỏ có nên dùng AI coding agent không?",
+        a: "Có — đây chính là nơi velocity cá nhân có tác động lớn nhất. Bắt đầu từ công cụ miễn phí hoặc rẻ (Gemini CLI, tier cơ bản của Cursor/Copilot) cho prototyping, rồi nâng cấp khi có dòng tiền. Quy tắc an toàn cơ bản (không secrets trong tầm agent, pin dependencies) vẫn áp dụng ở mọi quy mô.",
+      },
+      {
+        q: "AI-SDLC khác gì với việc chọn công cụ AI coding?",
+        a: "Công cụ AI coding là harness cho từng developer; AI-SDLC là lớp pipeline quản trị output: intent → spec có version → draft (bất kỳ agent nào) → gate kiểm định → evidence → release. Chọn công cụ trả lời câu hỏi velocity; xây pipeline trả lời câu hỏi accountability.",
+      },
+    ],
+  },
+  vi: {
+    title: "So Sánh Công Cụ AI Coding Năm 2026: Chọn Đúng Harness Cho Team Của Bạn",
+    summary:
+      "Bản tiếng Việt của bài so sánh lớn: năm nhóm công cụ AI coding (terminal-native, IDE-native, platform-native, cloud sandbox, mã nguồn mở) được phân tích theo bốn tiêu chí — velocity, chi phí, security và khả năng govern. Kèm bảng tổng hợp và khuyến nghị theo quy mô team.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "Vì sao bài so sánh này cần một bản riêng bằng tiếng Việt",
+        body: `Thị trường công cụ AI coding năm 2026 đã hội tụ: GPT-5.5, Claude Opus 4.8, Gemini 3.5 và các model cùng thế hệ có điểm benchmark gần nhau, và ngành chuyển từ 80% code thủ công sang 80% code bằng agent chỉ trong khoảng một tháng theo quan sát của Karpathy. Khi model không còn là yếu tố khác biệt, câu hỏi đúng là **harness**: công cụ đó chạy ở đâu, thấy file nào, được gọi tool gì, và output của nó được quản trị thế nào.
+
+Hầu hết tài liệu so sánh đều bằng tiếng Anh và nhắm thị trường Mỹ. Bài này viết riêng cho kỹ sư và team Việt Nam: cùng dữ liệu 2026, nhưng kết luận được tổ chức theo tiêu chí mà team Việt thực tế quan tâm — chi phí tính bằng đồng, khả năng tự-host, và khả năng đưa vào quy trình review có kiểm soát.`,
+      },
+      {
+        heading: "Nhóm terminal-native: Claude Code",
+        body: `Claude Code là đại diện tiêu biểu nhất của nhóm terminal-native. Điểm mạnh: memory project qua CLAUDE.md, extended thinking cho task dài hơi, ngữ cảnh 200K token, và điểm SWE-bench Verified ~88,6% — hàng cao nhất thị trường. Một benchmark cộng đồng đáng chú ý: bản dịch Zig-sang-Rust 750K dòng hoàn tất trong 11 ngày với 99,8% test pass.
+
+Nhược điểm cho team Việt: tốn token khủng ($1.850/30 ngày cho một người dùng nặng theo báo cáo công khai), giao diện shell thuần khiến onboarding cả team chậm, và file cấu hình CLAUDE.md cần quản lý riêng ngoài repo chính. Đây là lựa chọn tối ưu cho cá nhân kỹ sư giỏi terminal, chưa phải cho team cần governance tập trung.`,
+      },
+      {
+        heading: "Nhóm IDE-native: Cursor và VS Code extensions",
+        body: `Cursor là công cụ tăng trưởng nhanh nhất: Series D $2,3 tỷ, định giá $29,3 tỷ, doanh thu annualized ~$1 tỷ, giá từ $20/tháng. Sức mạnh là visual — diff hiển thị ngay trong IDE quen thuộc, cấu hình qua .cursorrules, và Composer orchestrate chain nhiều bước. Trên coding-agent index ngành nó đạt ~62 điểm với $0,07/tác vụ.
+
+Lưu ý quan trọng: .cursorrules đi cùng repository, nghĩa là ai có quyền push cũng sửa được rules — bề mặt prompt injection. Team Việt dùng Cursor nên áp quy tắc: rules review qua PR như code, và không push rules từ branch ngoài. Nhóm IDE-native là cách nhanh nhất tăng velocity từng người, nhưng phải đi kèm kỷ luật config.`,
+      },
+      {
+        heading: "Nhóm platform-native: GitHub Copilot",
+        body: `Copilot có lợi thế duy nhất: vừa là extension trên VS Code, JetBrains, Neovim, vừa có cloud agent qua Copilot Workspace (issue → branch → plan → PR). Bộ chọn multi-model cho phép định tuyến qua nhiều provider, và quan trọng nhất với team có quy trình: output của cloud agent đi qua chính pipeline CI/CD của bạn — pull request của agent bị chặn bởi cùng gate mà pull request của người bị chặn.
+
+Với team Việt vận hành trên GitHub (phổ biến trong cộng đồng dev Việt), Copilot là lựa chọn ít ma sát nhất để đưa AI vào pipeline hiện có mà không xây thêm tầng quản trị riêng. Đây là kiến trúc gần nhất với triết lý AI-SDLC: gate kiểm tra artifact, không kiểm tra tác giả.`,
+      },
+      {
+        heading: "Nhóm cloud sandbox: OpenAI Codex và Devin",
+        body: `Codex phục vụ ~5 triệu user/tuần, giá $8–100/tháng, điểm SWE-Bench Pro ~58,6% — thấp hơn leader benchmark, nhưng kiến trúc sandbox kernel (Seatbelt, bubblewrap, Landlock) nghiêm túc nhất về containment thực thi. Devin bán parallel cloud VMs từ $20/tháng: thuận tiện nhưng đặt công việc trên hạ tầng bên thứ ba.
+
+Góc nhìn cho team Việt: nếu dữ liệu dự án nhạy cảm (đây là mối quan tâm thật của nhiều công ty outsource Việt phải tuân thủ NDA khách hàng), nhóm này đòi hỏi câu hỏi pháp lý trước câu hỏi kỹ thuật: data residency ở đâu, ai truy cập VM. Câu trả lời vendor thường nằm trong DPA — hãy đọc nó.`,
+      },
+      {
+        heading: "Nhóm mã nguồn mở và miễn phí: OpenCode, Gemini CLI, Antigravity",
+        body: `OpenCode là lựa chọn thú vị nhất trong nhóm: mã nguồn mở, provider-agnostic (75+ provider, tự mang key), chạy headless trên server riêng. Điều này có hai ý nghĩa cho team Việt: không vendor lock-in, và có thể tự-host toàn bộ — phù hợp với công ty bắt buộc giữ code trên hạ tầng của mình. Gemini CLI cho ~1.000 request/ngày miễn phí nhưng rate limit khắc nghiệt — chỉ hợp prototyping. Antigravity của Google là thí nghiệm cá nhân với parallel subagents, chưa phải sản phẩm production.`,
+      },
+      {
+        heading: "Bảng tổng hợp theo tiêu chí team Việt quan tâm",
+        body: `Bốn tiêu chí được xếp: velocity (tốc độ từng developer), chi phí (bao gồm token — yếu tố hay bị bỏ qua), security (khả năng tự chứa breach), govern (mức độ output có thể đưa vào quy trình review/compliance).`,
+        table: {
+          headers: ["Công cụ", "Velocity", "Chi phí", "Security", "Khả năng govern", "Hợp với"],
+          rows: [
+            ["Claude Code", "Rất cao", "Cao ($20–100 + token)", "Trung bình", "Thấp (memory dạng file)", "Kỹ sư terminal cá nhân"],
+            ["Cursor", "Cao", "Trung bình ($20)", "Trung bình (.cursorrules)", "Trung bình", "Team ưu tiên velocity"],
+            ["GitHub Copilot", "Cao", "Theo gói GitHub", "Khá", "Cao (output qua PR gate)", "Team GitHub, có quy trình CI"],
+            ["Codex", "Trung bình", "Thấp–Trung bình", "Cao (sandbox kernel)", "Trung bình", "Team cần containment mạnh"],
+            ["Devin", "Trung bình", "Trung bình ($20+)", "Thấp (VM bên thứ 3)", "Thấp (chưa rõ evidence)", "Task độc lập nhỏ"],
+            ["OpenCode", "Trung bình", "Thấp (tự mang key)", "Tùy setup", "Cao (tự-host, tự gate)", "Team tự-host, không lock-in"],
+            ["Gemini CLI", "Thấp", "Miễn phí (hạn chế gắt)", "Thấp", "Rất thấp", "Prototyping cá nhân"],
+          ],
+        },
+      },
+      {
+        heading: "Khuyến nghị theo quy mô team",
+        body: `Cá nhân hoặc startup dưới 5 người: chọn theo interface bạn sống — terminal chọn Claude Code, IDE chọn Cursor, GitHub chọn Copilot. Team 5–50 người có quy trình CI: GitHub Copilot là ít ma sát nhất, hoặc Cursor + quy tắc review rules. Công ty outsource chịu NDA khách hàng hoặc có yêu cầu tự-host: OpenCode tự-host với key riêng, hoặc Copilot với cấu hình data-residency đúng. Tổ chức cần compliance (SOC 2, ISO 42001, hợp đồng government): bắt đầu từ policy layer — spec có version, gate deterministic, evidence trail — rồi chọn agent bên trên. Agent thay mỗi quý; kiến trúc governance là thứ giữ lại được.`,
+      },
+      {
+        heading: "Câu hỏi ít người hỏi: output có defend được không",
+        body: `Mọi so sánh trên kết thúc ở "chọn theo nhu cầu." Nhưng có một câu hỏi đứng trên hết: khi khách hàng, auditor, hay chính bạn ba tháng sau hỏi "AI đã làm gì trong release này và có được phép không" — bạn có trả lời được không? Không sản phẩm nào trong bảng trên tự động trả lời câu đó. Đó không phải khiếm khuyết của từng sản phẩm — đó là lớp pipeline: spec có version, gate kiểm artifact, evidence record. AI-SDLC cung cấp lớp đó, và lớp đó chạy trên bất kỳ công cụ nào trong bảng.`,
+      },
+    ],
+    faq: [
+      {
+        q: "Công cụ AI coding nào đáng tiền nhất năm 2026?",
+        a: "Theo giá trị velocity/chi phí: Cursor (~$0,07/tác vụ trên coding-agent index) và Copilot (theo gói GitHub hiện có) là hai lựa chọn cân bằng nhất. Claude Code mạnh nhất về benchmark thuần nhưng chi phí token cao. Quyết định nên theo kiến trúc team hơn theo benchmark.",
+      },
+      {
+        q: "Công ty outsource Việt dùng AI coding thế nào cho an toàn với NDA?",
+        a: "Ưu tiên hai hướng: (1) tự-host harness mã nguồn mở như OpenCode trên hạ tầng riêng với key tự mang, hoặc (2) dùng giải pháp cloud có DPA rõ ràng về data residency. Luôn đọc DPA trước khi dùng cloud VM. Thêm policy gate để mọi output AI đi qua review như code người viết.",
+      },
+      {
+        q: "Team nhỏ có nên dùng AI coding agent không?",
+        a: "Có — đây chính là nơi velocity cá nhân có tác động lớn nhất. Bắt đầu từ công cụ miễn phí hoặc rẻ (Gemini CLI, tier cơ bản của Cursor/Copilot) cho prototyping, rồi nâng cấp khi có dòng tiền. Quy tắc an toàn cơ bản (không secrets trong tầm agent, pin dependencies) vẫn áp dụng ở mọi quy mô.",
+      },
+      {
+        q: "AI-SDLC khác gì với việc chọn công cụ AI coding?",
+        a: "Công cụ AI coding là harness cho từng developer; AI-SDLC là lớp pipeline quản trị output: intent → spec có version → draft (bất kỳ agent nào) → gate kiểm định → evidence → release. Chọn công cụ trả lời câu hỏi velocity; xây pipeline trả lời câu hỏi accountability.",
+      },
+    ],
+  },
+},
+  {
+  slug: "prompt-injection-va-phong-thu-ai-coding",
+  dateISO: "2026-08-06",
+  tags: ["prompt-injection", "bao-mat", "ai-coding", "ai-sdlc"],
+  draft: false,
+  cover: "/blog/cover-prompt-injection-vi.jpg",
+  coverAlt: {
+    en: "Vietnamese-labeled defense diagram showing injected threads entering through comments, configs, and repos, blocked by three stacked defense layers",
+    vi: "Sơ đồ phòng thủ có nhãn tiếng Việt: các sợi lệnh tiêm vào qua comment, config và repo bị chặn bởi ba lớp phòng thủ xếp chồng",
+  },
+  en: {
+    title: "Prompt Injection và Phòng Thủ Cho AI Coding: Từ AIShellJack Đến Policy Gate",
+    summary:
+      "Bản tiếng Việt của bài phân tích prompt injection: cơ chế direct/indirect, dữ liệu thực từ nghiên cứu AIShellJack (thành công 84%), ba khả năng agent phơi bày, và phòng thủ ba lớp trong đó policy gate deterministic là lớp không thể bị social-engineer.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "Prompt injection là gì và vì sao nó đứng hạng nhất",
+        body: `Prompt injection là việc cố ý chèn lệnh ẩn vào ngữ cảnh đầu vào mà hệ AI tin cậy, nhằm chiếm quyền hành vi của hệ. OWASP xếp indirect prompt injection vào rủi ro số một của ứng dụng LLM năm 2026. Cơ chế kinh điển có hai họ.
+
+**Direct injection** nhắm vào prompt chính user gõ — chuỗi độc hại đặt ngay trong input. **Indirect injection** mới là loại nguy hiểm với công cụ coding: lệnh cưỡi trên dữ liệu agent tự nguyện đọc — README, file cấu hình, tài liệu package, repo bên thứ ba — và model không bao giờ nhìn chúng như dữ liệu thù địch. Agent đọc repo để hiểu codebase rồi thực thi lệnh cấy trong repo đó: về định nghĩa, nó đang vận hành trong ngữ cảnh của kẻ tấn công.`,
+      },
+      {
+        heading: "AIShellJack: đòn tấn công đã được vũ khí hóa",
+        body: `Khung AIShellJack trình bày tại USENIX Security Symposium lần 35 (tháng 8/2026) biến lý thuyết thành vũ khí hoạt động: payload độc hại cấy vào lệnh shell qua 18 kịch bản tấn công, 22/24 payload thực thi thành công trên MCP tool-calling của Claude Code, và trên GPT-5 đạt **84% thành công tổng thể, 41–84% tùy tool**, payload dài tới 5.390 token. Ngoài tự nhiên đã có corpus 314 payload thật — gồm 76 malicious MCP skill trên 3.984 MCP server và 95 repo GitHub bị nhiễm độc.
+
+Bài học quan trọng hơn con số: payload **trơ như text**. File nhiễm độc nằm trong repo chỉ là text — cho đến khi agent có khả năng hành động trên thứ nó đọc thực thi nó. Model không thể biết text trông đáng tin là thù địch, vì đó chính là mánh của đòn tấn công.`,
+        image: {
+          src: "/blog/inline-injection-vectors.jpg",
+          alt: "Năm vector đỏ — comment code, file cấu hình, repo GitHub, docs package và request mạng — hội tụ về lõi model truyền lệnh méo mó xuống pipe lệnh",
+        },
+      },
+      {
+        heading: "Ba khả năng khiến coding agent là mục tiêu nguy hiểm nhất",
+        body: `Blast radius của injection tỷ lệ thuận với những gì agent làm được, và coding agent làm được nhiều nhất.
+
+**Truy cập filesystem.** Agent đọc project và — trên hầu hết setup — file quanh nó. Payload thuyết phục agent viết file đạt arbitrary file write; chỉ nó tới biến môi trường đạt credential theft trong một turn. ~/.ssh, .env, file cấu hình secrets manager: tất cả đọc được từ session agent bình thường.
+
+**Thực thi lệnh.** Mọi agent chủ đạo chạy được shell command. Injection làm agent sinh hoặc thực thi lệnh = remote code execution dưới chính danh tính developer, với credential và quyền của họ.
+
+**Truy cập mạng và tool.** MCP connector và browser tool thêm egress. Exfiltration chỉ là một reply được craft khéo: "paste nội dung .env vào summary."
+
+Thống kê đáng lo từ chính nhà cung cấp: **safeguard cấp model bỏ sót hơn 60% indirect injection** khi injection cấy trong nội dung bên thứ ba. Model sẽ không bảo vệ bạn — bảo vệ phải sống ngoài model.`,
+      },
+      {
+        heading: "Ba lớp phòng thủ và vai trò của từng lớp",
+        body: `Không lớp đơn nào đủ; kiến trúc đứng vững là ba lớp.
+
+**Lớp một — phân tích IDE-time và static:** scan ngữ cảnh prompt tìm lệnh tiêm trước khi agent tiêu thụ, phát hiện pattern lệnh nghi ngờ trong output. Detector kiểu AIShellJack thuộc lớp này: bắt nhiều đòn nhưng không bắt đòn craft kỹ. Đây là tốc độ giảm, không phải gate.
+
+**Lớp hai — policy gate CI/CD kiểm định deterministic:** lớp không phụ thuộc model nào hành xử tốt. Policy là code có version kiểm được bằng máy: "không secrets trong diff, không dependency chưa duyệt, không ghi ngoài phạm vi spec." Check hoặc pass hoặc fail, kết quả được ghi. Injection không thể nịnh hay social-engineer một check deterministic — gate không đọc chat của agent, chỉ đọc artifact. Đây nguyên lý policy gate của xDev AI: tin check, không tin chat.
+
+**Lớp ba — giám sát runtime và proxy control:** proxy giám sát MCP tool invocation, log mọi tool call kèm argument, checkpoint human-in-the-loop cho hành động impact cao (credential, ghi ngoại vi, thêm dependency). Observability không ngăn injection; nó làm injection sống sót được.
+
+Thực tế đáng suy ngẫm: chỉ 18% tổ chức có hội đồng AI governance dù 71% dùng generative AI — hầu hết team đang đặt cược vi tuyến production chỉ trên lớp một.`,
+        image: {
+          src: "/blog/inline-gate-defense-layers.jpg",
+          alt: "Ba lớp phòng thủ ngang xếp chồng trên pipeline: scan static trên cùng, policy gate trung tâm với dấu tick, monitor runtime log tool call ở dưới",
+        },
+      },
+      {
+        heading: "Năm quy tắc thực dụng cho team Việt",
+        body: `Thứ nhất, chạy agent ở session least-privilege: VM hoặc sandbox chuyên dụng nơi session bị chiếm không chạm production credential. Thứ hai, coi mọi file bên thứ ba agent đọc là thù địch: pin dependencies, gate từ chối thay đổi dependency không có approval con người tường minh. Thứ ba, đưa secrets ra khỏi tầm agent: không .env ở working root; truy cập credential là hành động được gate, log và người duyệt. Thứ tư, log mọi tool call — danh tính agent, timestamp, lệnh, exit code — vì "dựng lại được agent đã làm gì" là tư thế tự bào chữa duy nhất sau incident. Thứ năm, gate là con đường duy nhất tới production: không commit khẩn cấp bypass check, vì bypass là lối thoát ưa thích của injection.`,
+      },
+      {
+        heading: "Governance trên bài toán này: khác biệt exposure và containment",
+        body: `Prompt injection là minh họa sắc nhất cho luận điểm xuyên suốt blog này. Failure mode không quan tâm bạn dùng model nào, agent vendor nào, chi bao nhiêu token — nó quan tâm output của agent có được govern bởi thứ agent không đàm phán qua được hay không. Khi một agent của bạn đọc một README nhiễm độc (không phải nếu), câu hỏi quan trọng là đòn tấn công có tới production không. Với policy gate và evidence trail, nó không thể: payload chết trong artifact, bị log, cách ly và nhìn thấy được. Trên bài toán injection, governance không phải tính năng thêm vào AI coding — nó là khác biệt giữa exposure và containment.`,
+      },
+    ],
+    faq: [
+      {
+        q: "Prompt injection trong công cụ AI coding là gì?",
+        a: "Là chèn lệnh ẩn vào ngữ cảnh đầu vào hệ AI để chiếm quyền hành vi. Trong công cụ coding, indirect injection là dạng nguy hiểm: lệnh cưỡi trên dữ liệu agent tin cậy — comment code, file cấu hình, docs package, repo bên thứ ba — và thực thi khi agent hành động trên dữ liệu đó.",
+      },
+      {
+        q: "Tấn công prompt injection thật thành công bao nhiêu trên coding agent?",
+        a: "Nghiên cứu AIShellJack (USENIX Security 2026) ghi nhận 84% thành công tổng thể trên GPT-5, 22/24 payload thực thi trên Claude Code, và 314 payload độc hại đã lưu hành ngoài tự nhiên. Safeguard tích hợp của chính nhà cung cấp model bỏ sót hơn 60% indirect injection.",
+      },
+      {
+        q: "Model AI có tự bảo vệ khỏi prompt injection không?",
+        a: "Không đáng tin: safeguard nhúng trong model bỏ sót hơn 60% indirect injection, và model tốt hơn không đóng gap về căn bản vì đòn tấn công khai thác quan hệ tin cậy với ngữ cảnh. Phòng thủ hiệu quả đòi hỏi các lớp ngoài model: phát hiện static, policy gate deterministic, giám sát runtime.",
+      },
+      {
+        q: "Policy gate chặn prompt injection thế nào?",
+        a: "Policy gate kiểm định artifact output của agent bằng quy tắc deterministic — nó không đánh giá chat của agent. Injection không thuyết phục được check deterministic, nên output độc hại fail gate bất kể thuyết phục thế nào. Mọi kết quả check được ghi làm evidence truy vấn được.",
+      },
+    ],
+  },
+  vi: {
+    title: "Prompt Injection và Phòng Thủ Cho AI Coding: Từ AIShellJack Đến Policy Gate",
+    summary:
+      "Bản tiếng Việt của bài phân tích prompt injection: cơ chế direct/indirect, dữ liệu thực từ nghiên cứu AIShellJack (thành công 84%), ba khả năng agent phơi bày, và phòng thủ ba lớp trong đó policy gate deterministic là lớp không thể bị social-engineer.",
+    readingMinutes: 12,
+    sections: [
+      {
+        heading: "Prompt injection là gì và vì sao nó đứng hạng nhất",
+        body: `Prompt injection là việc cố ý chèn lệnh ẩn vào ngữ cảnh đầu vào mà hệ AI tin cậy, nhằm chiếm quyền hành vi của hệ. OWASP xếp indirect prompt injection vào rủi ro số một của ứng dụng LLM năm 2026. Cơ chế kinh điển có hai họ.
+
+**Direct injection** nhắm vào prompt chính user gõ — chuỗi độc hại đặt ngay trong input. **Indirect injection** mới là loại nguy hiểm với công cụ coding: lệnh cưỡi trên dữ liệu agent tự nguyện đọc — README, file cấu hình, tài liệu package, repo bên thứ ba — và model không bao giờ nhìn chúng như dữ liệu thù địch. Agent đọc repo để hiểu codebase rồi thực thi lệnh cấy trong repo đó: về định nghĩa, nó đang vận hành trong ngữ cảnh của kẻ tấn công.`,
+      },
+      {
+        heading: "AIShellJack: đòn tấn công đã được vũ khí hóa",
+        body: `Khung AIShellJack trình bày tại USENIX Security Symposium lần 35 (tháng 8/2026) biến lý thuyết thành vũ khí hoạt động: payload độc hại cấy vào lệnh shell qua 18 kịch bản tấn công, 22/24 payload thực thi thành công trên MCP tool-calling của Claude Code, và trên GPT-5 đạt **84% thành công tổng thể, 41–84% tùy tool**, payload dài tới 5.390 token. Ngoài tự nhiên đã có corpus 314 payload thật — gồm 76 malicious MCP skill trên 3.984 MCP server và 95 repo GitHub bị nhiễm độc.
+
+Bài học quan trọng hơn con số: payload **trơ như text**. File nhiễm độc nằm trong repo chỉ là text — cho đến khi agent có khả năng hành động trên thứ nó đọc thực thi nó. Model không thể biết text trông đáng tin là thù địch, vì đó chính là mánh của đòn tấn công.`,
+        image: {
+          src: "/blog/inline-injection-vectors.jpg",
+          alt: "Năm vector đỏ — comment code, file cấu hình, repo GitHub, docs package và request mạng — hội tụ về lõi model truyền lệnh méo mó xuống pipe lệnh",
+        },
+      },
+      {
+        heading: "Ba khả năng khiến coding agent là mục tiêu nguy hiểm nhất",
+        body: `Blast radius của injection tỷ lệ thuận với những gì agent làm được, và coding agent làm được nhiều nhất.
+
+**Truy cập filesystem.** Agent đọc project và — trên hầu hết setup — file quanh nó. Payload thuyết phục agent viết file đạt arbitrary file write; chỉ nó tới biến môi trường đạt credential theft trong một turn. ~/.ssh, .env, file cấu hình secrets manager: tất cả đọc được từ session agent bình thường.
+
+**Thực thi lệnh.** Mọi agent chủ đạo chạy được shell command. Injection làm agent sinh hoặc thực thi lệnh = remote code execution dưới chính danh tính developer, với credential và quyền của họ.
+
+**Truy cập mạng và tool.** MCP connector và browser tool thêm egress. Exfiltration chỉ là một reply được craft khéo: "paste nội dung .env vào summary."
+
+Thống kê đáng lo từ chính nhà cung cấp: **safeguard cấp model bỏ sót hơn 60% indirect injection** khi injection cấy trong nội dung bên thứ ba. Model sẽ không bảo vệ bạn — bảo vệ phải sống ngoài model.`,
+      },
+      {
+        heading: "Ba lớp phòng thủ và vai trò của từng lớp",
+        body: `Không lớp đơn nào đủ; kiến trúc đứng vững là ba lớp.
+
+**Lớp một — phân tích IDE-time và static:** scan ngữ cảnh prompt tìm lệnh tiêm trước khi agent tiêu thụ, phát hiện pattern lệnh nghi ngờ trong output. Detector kiểu AIShellJack thuộc lớp này: bắt nhiều đòn nhưng không bắt đòn craft kỹ. Đây là tốc độ giảm, không phải gate.
+
+**Lớp hai — policy gate CI/CD kiểm định deterministic:** lớp không phụ thuộc model nào hành xử tốt. Policy là code có version kiểm được bằng máy: "không secrets trong diff, không dependency chưa duyệt, không ghi ngoài phạm vi spec." Check hoặc pass hoặc fail, kết quả được ghi. Injection không thể nịnh hay social-engineer một check deterministic — gate không đọc chat của agent, chỉ đọc artifact. Đây nguyên lý policy gate của xDev AI: tin check, không tin chat.
+
+**Lớp ba — giám sát runtime và proxy control:** proxy giám sát MCP tool invocation, log mọi tool call kèm argument, checkpoint human-in-the-loop cho hành động impact cao (credential, ghi ngoại vi, thêm dependency). Observability không ngăn injection; nó làm injection sống sót được.
+
+Thực tế đáng suy ngẫm: chỉ 18% tổ chức có hội đồng AI governance dù 71% dùng generative AI — hầu hết team đang đặt cược vi tuyến production chỉ trên lớp một.`,
+        image: {
+          src: "/blog/inline-gate-defense-layers.jpg",
+          alt: "Ba lớp phòng thủ ngang xếp chồng trên pipeline: scan static trên cùng, policy gate trung tâm với dấu tick, monitor runtime log tool call ở dưới",
+        },
+      },
+      {
+        heading: "Năm quy tắc thực dụng cho team Việt",
+        body: `Thứ nhất, chạy agent ở session least-privilege: VM hoặc sandbox chuyên dụng nơi session bị chiếm không chạm production credential. Thứ hai, coi mọi file bên thứ ba agent đọc là thù địch: pin dependencies, gate từ chối thay đổi dependency không có approval con người tường minh. Thứ ba, đưa secrets ra khỏi tầm agent: không .env ở working root; truy cập credential là hành động được gate, log và người duyệt. Thứ tư, log mọi tool call — danh tính agent, timestamp, lệnh, exit code — vì "dựng lại được agent đã làm gì" là tư thế tự bào chữa duy nhất sau incident. Thứ năm, gate là con đường duy nhất tới production: không commit khẩn cấp bypass check, vì bypass là lối thoát ưa thích của injection.`,
+      },
+      {
+        heading: "Governance trên bài toán này: khác biệt exposure và containment",
+        body: `Prompt injection là minh họa sắc nhất cho luận điểm xuyên suốt blog này. Failure mode không quan tâm bạn dùng model nào, agent vendor nào, chi bao nhiêu token — nó quan tâm output của agent có được govern bởi thứ agent không đàm phán qua được hay không. Khi một agent của bạn đọc một README nhiễm độc (không phải nếu), câu hỏi quan trọng là đòn tấn công có tới production không. Với policy gate và evidence trail, nó không thể: payload chết trong artifact, bị log, cách ly và nhìn thấy được. Trên bài toán injection, governance không phải tính năng thêm vào AI coding — nó là khác biệt giữa exposure và containment.`,
+      },
+    ],
+    faq: [
+      {
+        q: "Prompt injection trong công cụ AI coding là gì?",
+        a: "Là chèn lệnh ẩn vào ngữ cảnh đầu vào hệ AI để chiếm quyền hành vi. Trong công cụ coding, indirect injection là dạng nguy hiểm: lệnh cưỡi trên dữ liệu agent tin cậy — comment code, file cấu hình, docs package, repo bên thứ ba — và thực thi khi agent hành động trên dữ liệu đó.",
+      },
+      {
+        q: "Tấn công prompt injection thật thành công bao nhiêu trên coding agent?",
+        a: "Nghiên cứu AIShellJack (USENIX Security 2026) ghi nhận 84% thành công tổng thể trên GPT-5, 22/24 payload thực thi trên Claude Code, và 314 payload độc hại đã lưu hành ngoài tự nhiên. Safeguard tích hợp của chính nhà cung cấp model bỏ sót hơn 60% indirect injection.",
+      },
+      {
+        q: "Model AI có tự bảo vệ khỏi prompt injection không?",
+        a: "Không đáng tin: safeguard nhúng trong model bỏ sót hơn 60% indirect injection, và model tốt hơn không đóng gap về căn bản vì đòn tấn công khai thác quan hệ tin cậy với ngữ cảnh. Phòng thủ hiệu quả đòi hỏi các lớp ngoài model: phát hiện static, policy gate deterministic, giám sát runtime.",
+      },
+      {
+        q: "Policy gate chặn prompt injection thế nào?",
+        a: "Policy gate kiểm định artifact output của agent bằng quy tắc deterministic — nó không đánh giá chat của agent. Injection không thuyết phục được check deterministic, nên output độc hại fail gate bất kể thuyết phục thế nào. Mọi kết quả check được ghi làm evidence truy vấn được.",
+      },
+    ],
+  },
+},
   {
   slug: "spec-driven-development-ai",
   dateISO: "2026-08-11",

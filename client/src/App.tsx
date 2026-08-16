@@ -1,23 +1,25 @@
-/* Route map: xDev AI umbrella landing at /, product sheets at /ai-sdlc and /trace-ledger, Docs and Policy Registry share the portal visual system. */
+/* Route map: xDev AI umbrella landing at /, product sheets at /ai-sdlc and /trace-ledger, Docs and Policy Registry share the portal visual system.
+   Routes are lazy-loaded (code-split per page) so the initial JS bundle stays small. */
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { useEffect } from "react";
-import { Route, Switch, useLocation } from "wouter";
+import { lazy, Suspense, useEffect } from "react";
+import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./i18n/LanguageContext";
-import AiSdlc from "./pages/AiSdlc";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import Docs from "./pages/Docs";
-import Legal from "./pages/Legal";
-import PolicyRegistry from "./pages/PolicyRegistry";
-import PolicyDetail from "./pages/PolicyDetail";
-import TraceLedger from "./pages/TraceLedger";
-import Umbrella from "./pages/Umbrella";
 
 const SPA_RESTORE_KEY = "xdev-ai:restore";
+
+const AiSdlc = lazy(() => import("./pages/AiSdlc"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const Docs = lazy(() => import("./pages/Docs"));
+const Legal = lazy(() => import("./pages/Legal"));
+const PolicyRegistry = lazy(() => import("./pages/PolicyRegistry"));
+const PolicyDetail = lazy(() => import("./pages/PolicyDetail"));
+const TraceLedger = lazy(() => import("./pages/TraceLedger"));
+const Umbrella = lazy(() => import("./pages/Umbrella"));
 
 function useSpaRestore() {
   useEffect(() => {
@@ -31,20 +33,37 @@ function useSpaRestore() {
   }, []);
 }
 
+function PageLoader() {
+  return (
+    <div className="mx-auto flex min-h-[50vh] max-w-3xl items-center justify-center px-4">
+      <span className="h-8 w-8 animate-spin rounded-full border-2 border-[#102440] border-t-transparent" aria-label="Loading" />
+    </div>
+  );
+}
+
+function LazyPage({ cmp, extraProps }: { cmp: React.LazyExoticComponent<any>; extraProps?: Record<string, any> }) {
+  const Component = cmp;
+  return (
+    <Suspense fallback={<PageLoader />}>
+      <Component {...(extraProps ?? {})} />
+    </Suspense>
+  );
+}
+
 function Router() {
   useSpaRestore();
   return (
     <Switch>
-      <Route path={"/"} component={Umbrella} />
-      <Route path={"/ai-sdlc"} component={AiSdlc} />
-      <Route path={"/trace-ledger"} component={TraceLedger} />
-      <Route path={"/blog"} component={Blog} />
-      <Route path={"/blog/:slug"} component={BlogPost} />
-      <Route path={"/privacy"}>{() => <Legal page="privacy" />}</Route>
-      <Route path={"/terms"}>{() => <Legal page="terms" />}</Route>
-      <Route path={"/docs"} component={Docs} />
-      <Route path={"/policies/:slug"} component={PolicyDetail} />
-      <Route path={"/policies"} component={PolicyRegistry} />
+      <Route path={"/"}>{() => <LazyPage cmp={Umbrella} />}</Route>
+      <Route path={"/ai-sdlc"}>{() => <LazyPage cmp={AiSdlc} />}</Route>
+      <Route path={"/trace-ledger"}>{() => <LazyPage cmp={TraceLedger} />}</Route>
+      <Route path={"/blog"}>{() => <LazyPage cmp={Blog} />}</Route>
+      <Route path={"/blog/:slug"}>{() => <LazyPage cmp={BlogPost} />}</Route>
+      <Route path={"/privacy"}>{() => <LazyPage cmp={Legal} extraProps={{ page: "privacy" }} />}</Route>
+      <Route path={"/terms"}>{() => <LazyPage cmp={Legal} extraProps={{ page: "terms" }} />}</Route>
+      <Route path={"/docs"}>{() => <LazyPage cmp={Docs} />}</Route>
+      <Route path={"/policies/:slug"}>{() => <LazyPage cmp={PolicyDetail} />}</Route>
+      <Route path={"/policies"}>{() => <LazyPage cmp={PolicyRegistry} />}</Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -54,15 +73,13 @@ function Router() {
 
 // NOTE: About Theme
 // - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
+//   to keep consistent foreground/background color across pages
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-      >
+      <ThemeProvider defaultTheme="light">
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
