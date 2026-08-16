@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: |
           corepack enable
-          pnpm install --frozen-lockfile --ignore-scripts=false
+          pnpm install --frozen-lockfile --config.ignore-scripts=false
           pnpm rebuild
       - name: Validate JSON-LD FAQPage & Article across all posts
         run: node scripts/test-jsonld-faq.cjs
