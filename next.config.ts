@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
   images: { unoptimized: true },
-  experimental: { serverComponentsExternalPackages: ["firebase"] },
+  serverExternalPackages: ["firebase"],
 };
 
 export default nextConfig;

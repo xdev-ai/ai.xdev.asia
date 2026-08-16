@@ -4,7 +4,7 @@
    AI-SDLC dimensions (spec, gate, evidence, review, deploy). Fully client-side: no
    database, results stay in the visitor's own localStorage.
    Layout: Tailwind CSS, mobile-first, matches the blog design system. */
-import { ArrowRight, RotateCcw, Share2 } from "lucide-react";
+import { ArrowRight, Menu, RotateCcw, Share2, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
@@ -51,6 +51,7 @@ export default function MaturityTool() {
   const [picks, setPicks] = useState<number[]>(() => Array(10).fill(-1));
   const [stored, setStored] = useState<Stored | null>(loadStored);
   const [shareCopied, setShareCopied] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const questions = m.questions as unknown as Question[];
   const stages = m.stages as unknown as string[];
@@ -148,12 +149,38 @@ export default function MaturityTool() {
             </span>
           </Link>
           <div className="flex items-center gap-3">
-            <LanguageSwitch />
             <Link className="hidden text-sm underline-offset-4 hover:underline sm:inline" href="/blog">
               {m.learnMore}
             </Link>
+            <button
+              type="button"
+              className="grid size-9 place-items-center rounded border border-[#0a6e7f]/30 text-[#0a6e7f] sm:hidden"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? <X size={19} /> : <Menu size={19} />}
+            </button>
+            <LanguageSwitch />
           </div>
         </div>
+        {menuOpen && (
+          <nav className="border-t border-[#b5c6c9] bg-[#eef4f2] px-4 py-3 sm:hidden" aria-label="Mobile navigation">
+            <div className="grid gap-1">
+              {[
+                ["/", locale === "vi" ? "Trang chủ" : "Home"],
+                ["/ai-sdlc", "AI-SDLC"],
+                ["/trace-ledger", "Trace Ledger"],
+                ["/blog", "Blog"],
+                ["/tools/maturity-assessment", locale === "vi" ? "Đánh giá Maturity" : "Maturity Assessment"],
+              ].map(([href, label]) => (
+                <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="flex items-center justify-between border-b border-[#b5c6c9] py-2.5 text-sm text-[#0f243f]">
+                  {label}<ArrowRight size={14} />
+                </Link>
+              ))}
+            </div>
+          </nav>
+        )}
       </header>
 
       <main className="mx-auto max-w-3xl px-4 py-12 md:px-8 md:py-16">

@@ -1,14 +1,14 @@
 "use client";
 
 /* Blog listing page — xDev AI engineering notes, bilingual (EN/VI). */
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, FileText, Menu, X } from "lucide-react";
 import Link from "next/link";;
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { useLang } from "@/i18n/LanguageContext";
 import { posts } from "@/data/posts-data";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function formatDate(iso: string, locale: "en" | "vi"): string {
   const d = new Date(iso + "T00:00:00Z");
@@ -22,6 +22,7 @@ function formatDate(iso: string, locale: "en" | "vi"): string {
 
 export default function Blog() {
   const { t, locale } = useLang();
+  const [menuOpen, setMenuOpen] = useState(false);
   const visible = posts.filter((p) => !p.draft);
 
   useEffect(() => {
@@ -53,9 +54,35 @@ export default function Blog() {
             >
               {t.nav.home}
             </Link>
+            <button
+              type="button"
+              className="grid size-9 place-items-center rounded border border-cyan-400/30 text-cyan-100 md:hidden"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? <X size={19} /> : <Menu size={19} />}
+            </button>
             <LanguageSwitch />
           </div>
         </div>
+        {menuOpen && (
+          <nav className="border-t border-cyan-400/20 bg-[#0d1e36] px-4 py-3 md:hidden" aria-label="Mobile navigation">
+            <div className="grid gap-1">
+              {[
+                ["/", locale === "vi" ? "Trang chủ" : "Home"],
+                ["/ai-sdlc", locale === "vi" ? "AI-SDLC" : "AI-SDLC"],
+                ["/trace-ledger", locale === "vi" ? "Trace Ledger" : "Trace Ledger"],
+                ["/tools/maturity-assessment", locale === "vi" ? "Đánh giá Maturity" : "Maturity Assessment"],
+                ["/blog", locale === "vi" ? "Blog" : "Blog"],
+              ].map(([href, label]) => (
+                <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="flex items-center justify-between border-b border-white/10 py-2.5 text-sm text-cyan-50">
+                  {label}<ArrowRight size={14} />
+                </Link>
+              ))}
+            </div>
+          </nav>
+        )}
       </header>
 
       {/* ============ HERO ============ */}

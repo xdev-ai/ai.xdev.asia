@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { posts } from "@/data/posts-data";
-import { ArrowLeft, ArrowUpRight, Calendar, Clock, Github, Linkedin, Mail, Tag } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Calendar, Clock, Github, Linkedin, Mail, Menu, Tag, X } from "lucide-react";
 import { ArticleTable } from "@/components/ArticleTable";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
@@ -20,6 +20,7 @@ function formatDate(iso: string, locale: string): string {
 
 export default function BlogPostClient({ post }: { post: Post }) {
     const { t, locale } = useLang();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -152,9 +153,35 @@ export default function BlogPostClient({ post }: { post: Post }) {
             <Link href="/blog" className="hidden items-center gap-1.5 rounded border border-cyan-400/30 px-3 py-1.5 text-[13px] text-cyan-100 hover:bg-[#143553] md:inline-flex">
               <ArrowLeft size={14} /> Blog
             </Link>
+            <button
+              type="button"
+              className="grid size-9 place-items-center rounded border border-cyan-400/30 text-cyan-100 md:hidden"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? <X size={19} /> : <Menu size={19} />}
+            </button>
             <LanguageSwitch />
           </div>
         </div>
+        {menuOpen && (
+          <nav className="border-t border-cyan-400/20 bg-[#0d1e36] px-4 py-3 md:hidden" aria-label="Mobile navigation">
+            <div className="grid gap-1">
+              {[
+                ["/", locale === "vi" ? "Trang chủ" : "Home"],
+                ["/ai-sdlc", "AI-SDLC"],
+                ["/trace-ledger", "Trace Ledger"],
+                ["/tools/maturity-assessment", locale === "vi" ? "Đánh giá Maturity" : "Maturity Assessment"],
+                ["/blog", "Blog"],
+              ].map(([href, label]) => (
+                <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="flex items-center justify-between border-b border-white/10 py-2.5 text-sm text-cyan-50">
+                  {label}<ArrowRight size={14} />
+                </Link>
+              ))}
+            </div>
+          </nav>
+        )}
       </header>
 
       {/* ============ ARTICLE HERO ============ */}
