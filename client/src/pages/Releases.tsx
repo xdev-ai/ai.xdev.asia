@@ -85,6 +85,34 @@ async function copyUrl(url: string) {
 export default function Releases() { return <PortalShell route="releases">{(locale) => <ReleaseContent locale={locale} />}</PortalShell>; }
 function ReleaseContent({ locale }: { locale: Locale }) {
   const initialLookup = useRef(lookupFromUrl()).current;
+
+  // Per-page SEO head for the Releases page (SPA runtime). Google's rendering
+  // pipeline executes JavaScript, so the JS-rendered title, description, and
+  // canonical are what get indexed for /releases and its ?state query variants.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const title = locale === "en"
+      ? "Releases — AI-SDLC release ledger & compatibility matrix | xDev AI"
+      : "Bản phát hành — Sổ cái release & ma trận tương thích AI-SDLC | xDev AI";
+    const description = locale === "en"
+      ? "Versioned release ledger for the AI-SDLC platform: validator, rule packs, registry sync, and a compatibility matrix you can inspect and share per record."
+      : "Sổ cái release có version của nền tảng AI-SDLC: validator, rule pack, registry sync và ma trận tương thích — kiểm tra và chia sẻ từng record.";
+    const url = `https://ai.xdev.asia/releases${window.location.search || ""}`;
+    document.title = title;
+    const desc = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    if (desc) desc.setAttribute("content", description);
+    const canon = document.querySelector<HTMLLinkElement>('link[rel="canonical"]') ?? (() => {
+      const el = document.createElement("link");
+      el.setAttribute("rel", "canonical");
+      document.head.appendChild(el);
+      return el;
+    })();
+    canon.setAttribute("href", url);
+    const og = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
+    if (og) og.setAttribute("content", title);
+    const ogDesc = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute("content", description);
+  }, [locale]);
   const [query, setQuery] = useState(initialLookup.query);
   const [version, setVersion] = useState<"all" | Version>(initialLookup.version);
   const [state, setState] = useState<"all" | State>(initialLookup.state);

@@ -36,6 +36,8 @@ jobs:
           pnpm install --frozen-lockfile
 
       - name: Build static portal
+        env:
+          VITE_PLAUSIBLE_DOMAIN: ${{ secrets.VITE_PLAUSIBLE_DOMAIN || 'ai.xdev.asia' }}
         run: pnpm build
 
       - name: Configure GitHub Pages
