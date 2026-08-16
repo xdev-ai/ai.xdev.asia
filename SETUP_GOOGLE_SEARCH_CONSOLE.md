@@ -71,11 +71,11 @@ Website hiện có sitemap hoàn chỉnh với 27 URL (3 landing + 15 bài blog 
 sitemap.xml
 ```
 
-Nhấn **Submit**. Trạng thái ban đầu là "Pending" — bình thường, Googlebot sẽ fetch trong vài giờ. Sau 24–48h, mục "Discovered URLs" trong sitemap report sẽ đếm số URL Google đã tìm thấy (mục tiêu: 27).
+Nhấn **Submit**. Trạng thái ban đầu là "Pending" — bình thường, Googlebot sẽ fetch trong vài giờ. Sau 24–48h, mục "Discovered URLs" trong sitemap report sẽ đếm số URL Google đã tìm thấy (mục tiêu: 36; kiểm tra lại mỗi lần publish batch bài mới vì sitemap tăng theo số bài).
 
 **Bước 3. (Khuyến nghị — buộc Googlecrawl nhanh hơn)** Mở **URL Inspection** (ô tìm kiếm trên cùng), dán `https://ai.xdev.asia/blog` → Enter. Nhấn **Request indexing**. Lặp lại với 2–3 URL pillar quan trọng nhất (ví dụ `/blog/what-is-ai-sdlc`, `/blog/ai-sdlc-la-gi`). Mỗi URL được Request indexing đưa vào hàng đợi crawl ưu tiên — không bắt buộc nhưng rút ngắn thời gian từ "submit" đến "index" từ vài ngày xuống vài giờ.
 
-**Bước 4.** Sau 1 tuần, vào **Pages** (mục Indexing) xem báo cáo: màu xanh lá = indexed, màu xám nhạt = crawled - currently not indexed (bình thường cho trang SPA trong giai đoạn đầu). Tỷ lệ indexed sau 2–4 tuần với content 15 bài chất lượng thường đạt >90%.
+**Bước 4.** Sau 1 tuần, vào **Pages** (mục Indexing) xem báo cáo: màu xanh lá = indexed, màu xám nhạt = crawled - currently not indexed (bình thường cho trang SPA trong giai đoạn đầu). Tỷ lệ indexed sau 2–4 tuần với content chất lượng thường đạt >90%.
 
 ---
 
@@ -114,7 +114,7 @@ GSC cung cấp nhiều báo cáo; bốn mục có giá trị nhất cho website 
 | **Enhancements** | Experience → Page experience | Theo dõi lỗi schema (FAQ, Article) — website đang dùng JSON-LD Article + FAQPage nên mục này quan trọng |
 | **URL Inspection** | Ô tìm kiếm trên cùng | Debug một URL cụ thể: Google thấy gì, có index không |
 
-Hai lưu ý bổ sung: (1) website là SPA trên GitHub Pages — Googlebot hiện render JavaScript tốt, nhưng crawl lần đầu có thể chậm hơn site tĩnh; báo cáo Pages sau vài tuần sẽ ổn định; (2) nếu sau này thấy URL blog hiển thị "Crawled - currently not indexed", nguyên nhân phổ biến nhất là nội dung chỉ tồn tại sau khi JS chạy — giải pháp hiện tại đã tốt (sitemap + schema + interlinking), chỉ cần chờ.
+Hai lưu ý bổ sung. Website là SPA trên GitHub Pages — Googlebot hiện render JavaScript tốt, và kể từ commit `717753e` file `404.html` không còn redirect thuần mà **bootstrap toàn bộ ứng dụng React tại URL gốc** (kèm canonical, meta description và robots index,follow), giúp Googlebot JS-render trực tiếp nội dung bài tại `/blog/<slug>` thay vì mất path; báo cáo Pages sau vài tuần sẽ ổn định. Nếu sau này vẫn thấy URL blog hiển thị "Crawled - currently not indexed", nguyên nhân phổ biến là nội dung chỉ tồn tại sau khi JS chạy — giải pháp hiện tại đã tốt (sitemap + schema + interlinking + 404 bootstrap), chỉ cần chờ.
 
 ---
 
@@ -139,6 +139,6 @@ Hai lưu ý bổ sung: (1) website là SPA trên GitHub Pages — Googlebot hi�
 | File | Nội dung |
 |---|---|
 | `SETUP_FIREBASE_PLAUSIBLE.md` | Cấu hình Firebase (newsletter) + Plausible (analytics) |
-| `client/public/sitemap.xml` | Sitemap hiện tại — 27 URL, tự cập nhật khi có bài mới |
+| `client/public/sitemap.xml` | Sitemap hiện tại — 36 URL, tự cập nhật khi có bài mới |
 | `client/public/robots.txt` | Khai báo sitemap + allow all |
 | `client/index.html` | JSON-LD Organization + WebSite schema |
