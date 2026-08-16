@@ -7,8 +7,7 @@ import { useState } from "react";
 import { useLang } from "@/i18n/LanguageContext";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
-import { lazy, Suspense } from "react";
-const Pipeline3D = lazy(() => import("@/components/Pipeline3D").then((m) => ({ default: m.Pipeline3D })));
+import Image from "next/image";
 
 const navItems = [
   ["01", "Platform", "platform"],
@@ -245,9 +244,16 @@ export default function AiSdlc() {
             </h2>
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#526b83]">{t.aiSdlc.s01Copy}</p>
           </div>
-          <Suspense fallback={<div className="flex h-80 items-center justify-center text-sm text-[#4a6470]">Loading 3D diagram…</div>}>
-            <Pipeline3D />
-          </Suspense>
+          <figure className="overflow-hidden rounded-lg border border-[#b5c6c9] bg-white">
+            <Image
+              src="/images/pipeline-diagram.png"
+              alt="AI-SDLC five-stage pipeline: Intent → Spec → Policy Gate → Evidence → Release — every step leaves a verifiable trace"
+              width={1400}
+              height={560}
+              className="h-auto w-full"
+              priority
+            />
+          </figure>
           <div className="mt-12 grid gap-4 border-y border-[#9fb6bd] sm:grid-cols-2 lg:grid-cols-5">
             {["lc1", "lc2", "lc3", "lc4", "lc5"].map((key, index) => { const lc = t.aiSdlc[key as keyof typeof t.aiSdlc] as unknown as string[]; return { number: String(index + 1).padStart(2, "0"), name: lc[0], copy: lc[1], gate: index === 2, last: index === 4 }; }).map(({ number, name, copy, gate }) => (
               <article key={name} className={`border-b border-[#b5c6c9] py-5 sm:border-b-0 ${gate ? "border-l-2 border-l-amber-400 bg-amber-400/10 sm:border-b sm:border-[#b5c6c9]" : ""}`}>
