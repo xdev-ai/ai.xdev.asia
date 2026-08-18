@@ -14,6 +14,7 @@ export type PortalRoute =
   | "platform"
   | "docs"
   | "quickstart"
+  | "guide"
   | "policies"
   | "releases"
   | "blog"
@@ -23,9 +24,10 @@ const navigation: Array<{ route: PortalRoute; href: string; number: string; en: 
   { route: "platform", href: "/", number: "01", en: "Platform", vi: "Nền tảng" },
   { route: "docs", href: "/docs", number: "02", en: "Docs", vi: "Tài liệu" },
   { route: "quickstart", href: "/quickstart", number: "03", en: "Quickstarts", vi: "Quickstart" },
-  { route: "blog", href: "/blog", number: "04", en: "Blog", vi: "Blog" },
-  { route: "policies", href: "/policies", number: "05", en: "Policy Registry", vi: "Kho chính sách" },
-  { route: "releases", href: "/releases", number: "06", en: "Releases", vi: "Release" },
+  { route: "guide", href: "/guide", number: "04", en: "Usage Guide", vi: "Cách dùng" },
+  { route: "blog", href: "/blog", number: "05", en: "Blog", vi: "Blog" },
+  { route: "policies", href: "/policies", number: "06", en: "Policy Registry", vi: "Kho chính sách" },
+  { route: "releases", href: "/releases", number: "07", en: "Releases", vi: "Release" },
 ];
 
 type PortalShellProps = {
