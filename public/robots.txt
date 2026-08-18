@@ -59,6 +59,7 @@ Disallow: /
 
 # END Cloudflare Managed Content
 
+# Standard rules for all remaining crawlers
 User-agent: *
 Allow: /
 

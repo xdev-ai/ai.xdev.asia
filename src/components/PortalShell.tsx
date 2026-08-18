@@ -76,7 +76,7 @@ export function PortalShell({ route, children }: PortalShellProps) {
           <div className="knowledge-crumb"><span>{t ? "xDev AI / AI-SDLC" : "xDev AI / AI-SDLC"}</span><i /> <strong>{navigation.find((item) => item.route === route)?.[t ? "en" : "vi"]}</strong></div>
           <div className="knowledge-actions">
             <a href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={13} /></a>
-            <div className="language-switch" aria-label={t ? "Language" : "Ngôn ngữ"}><Languages size={14} /><button className={locale === "en" ? "is-active" : ""} onClick={() => setLocale("en")}>EN</button><span>/</span><button className={locale === "vi" ? "is-active" : ""} onClick={() => setLocale("vi")}>VI</button></div>
+            <div className="language-switch" aria-label={t ? "Language" : "Ngôn ngữ"}><Languages size={14} /><button className={locale === "en" ? "is-active" : ""} onClick={() => setLocale("en")} aria-label={t ? "Switch to English" : "Đổi sang tiếng Việt (EN)"}>EN</button><span aria-hidden="true">/</span><button className={locale === "vi" ? "is-active" : ""} onClick={() => setLocale("vi")} aria-label={t ? "Switch to Vietnamese" : "Đổi sang tiếng Việt (VI)"}>VI</button></div>
           </div>
         </header>
         {children(locale)}
