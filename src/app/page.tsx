@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
+import { VideoBlock } from "@/components/ResponsiveVideo";
 import { useLang } from "@/i18n/LanguageContext";
 
 /* NOTE (product-fit test):
@@ -250,12 +251,41 @@ export default function Umbrella() {
           </div>
         </section>
 
+        {/* ===== Watch (video) ===== */}
+        <section id="watch" className="border-t border-[#1d3a5c] px-4 py-14 md:px-8 md:py-20">
+          <div className="mx-auto max-w-5xl">
+            <div className="mb-10">
+              <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/80">
+                <span className="font-mono text-xs">03</span> {t.umbrella.sectionWatch}
+              </p>
+              <h2 className="text-balance text-[clamp(1.8rem,5.5vw,3rem)] font-semibold leading-[1.12] tracking-tight">
+                {t.umbrella.watchTitle}
+              </h2>
+              <p className="mt-3 max-w-2xl text-[14px] leading-relaxed text-[#9db3c1] md:text-[15px]">
+                {locale === "vi" ? t.umbrella.watchCopyVi : "Short screen recordings of AI-SDLC and Trace Ledger in action — policy validation, evidence ledger and approval flows."}
+              </p>
+            </div>
+            <div className="grid gap-8 md:grid-cols-2">
+              <VideoBlock
+                src="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                title={locale === "vi" ? t.umbrella.watchVideo1TitleVi : "AI-SDLC — Policy validation walk-through"}
+                description={locale === "vi" ? t.umbrella.watchVideo1DescVi : "How a Spec Kit pins policy, the Rust engine validates a run, and evidence is retained."}
+              />
+              <VideoBlock
+                src="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                title={locale === "vi" ? t.umbrella.watchVideo2TitleVi : "Trace Ledger — Evidence you can audit"}
+                description={locale === "vi" ? t.umbrella.watchVideo2DescVi : "Every AI change becomes a hashed ledger entry that cannot be quietly edited."}
+              />
+            </div>
+          </div>
+        </section>
+
         {/* ===== Open record ===== */}
         <section className="border-t border-[#1d3a5c] bg-[#eef4f2] px-4 py-14 text-[#0f243f] md:px-8 md:py-20">
           <div className="mx-auto max-w-5xl">
             <div className="mb-10">
               <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]">
-                <span className="font-mono text-xs">03</span> {t.umbrella.sectionRecord}
+                <span className="font-mono text-xs">04</span> {t.umbrella.sectionRecord}
               </p>
               <h2 className="text-balance text-[clamp(1.8rem,5.5vw,3rem)] font-semibold leading-[1.12] tracking-tight">
                 {t.umbrella.recordTitle1}<br />

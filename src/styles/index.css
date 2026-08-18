@@ -24,7 +24,8 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; overflow-x: clip; } body { overflow-x: clip; }
-body { margin: 0; min-width: 320px; color: #152540; background-color: #f7f4eb; background-image: linear-gradient(rgba(23,60,87,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(23,60,87,.045) 1px, transparent 1px); background-size: 42px 42px; font-family: "Space Grotesk", "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, "Noto Sans Vietnamese", sans-serif; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { font-size: 16px; text-size-adjust: 100%; }
+body { margin: 0; min-width: 320px; color: #152540; font-size: 1rem; line-height: 1.6; background-color: #f7f4eb; background-image: linear-gradient(rgba(23,60,87,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(23,60,87,.045) 1px, transparent 1px); background-size: 42px 42px; font-family: "Space Grotesk", "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, "Noto Sans Vietnamese", sans-serif; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, a:focus-visible { outline: 2px solid #29d3e8; outline-offset: 3px; }
 
