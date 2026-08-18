@@ -267,12 +267,12 @@ export default function Umbrella() {
             </div>
             <div className="grid gap-8 md:grid-cols-2">
               <VideoBlock
-                src="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                src="/videos/video1_aisdlc.mp4"
                 title={locale === "vi" ? t.umbrella.watchVideo1TitleVi : "AI-SDLC — Policy validation walk-through"}
                 description={locale === "vi" ? t.umbrella.watchVideo1DescVi : "How a Spec Kit pins policy, the Rust engine validates a run, and evidence is retained."}
               />
               <VideoBlock
-                src="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                src="/videos/video2_traceledger.mp4"
                 title={locale === "vi" ? t.umbrella.watchVideo2TitleVi : "Trace Ledger — Evidence you can audit"}
                 description={locale === "vi" ? t.umbrella.watchVideo2DescVi : "Every AI change becomes a hashed ledger entry that cannot be quietly edited."}
               />
