@@ -2,7 +2,7 @@
 
 /* AI-SDLC product sheet — governed delivery platform under the xDev AI umbrella.
    Mobile-first Tailwind layout: sticky topbar + hamburger drawer on < md; fixed rail on md+. */
-import { ArrowUpRight, BookOpen, Box, ChevronRight, Code2, Copy, ExternalLink, FolderTree, Layers3, Menu, Network, ShieldCheck, X } from "lucide-react";
+import { ArrowUpRight, BookOpen, Box, ChevronRight, Code2, Copy, Database, ExternalLink, FolderTree, Globe, KeyRound, Layers3, Menu, Network, Plug, Server, ShieldCheck, Terminal, X } from "lucide-react";
 import { useState } from "react";
 import { useLang } from "@/i18n/LanguageContext";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
@@ -12,10 +12,11 @@ import Image from "next/image";
 const navItems = [
   ["01", "Platform", "platform"],
   ["02", "Spec Kit", "tree"],
-  ["03", "Contract", "contract"],
-  ["04", "Rule packs", "rules"],
-  ["05", "Evidence", "resolution"],
-  ["06", "Open record", "record"],
+  ["03", "Components", "components"],
+  ["04", "Contract", "contract"],
+  ["05", "Rule packs", "rules"],
+  ["06", "Evidence", "resolution"],
+  ["07", "Open record", "record"],
 ] as const;
 
 const checkKinds = [
@@ -342,9 +343,40 @@ export default function AiSdlc() {
           </div>
         </section>
 
+        <section id="components" className="bg-[#102340] px-4 py-14 text-[#eaf3f4] md:px-8 md:py-20">
+          <div className="mb-10">
+            <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/90"><span className="font-mono text-xs">03</span><span>{t.aiSdlc.s03cLabel}</span></div>
+            <h2 className="text-balance text-[clamp(1.8rem,5.5vw,3rem)] font-semibold leading-[1.12] tracking-tight">{t.aiSdlc.s03cTitle1} <i className="text-cyan-300">{t.aiSdlc.s03cTitle2}</i></h2>
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#c7d6de]">{t.aiSdlc.s03cCopy}</p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {t.aiSdlc.components.map(({ name, copy, stack, icon }, i) => {
+              const Icon = (icon === "code" ? Code2 : icon === "key" ? KeyRound : icon === "db" ? Database : icon === "terminal" ? Terminal : icon === "globe" ? Globe : icon === "plug" ? Plug : Server) as typeof Code2;
+              return (
+                <article key={name} className="border border-[rgba(129,192,205,.24)] bg-[#143553] p-5">
+                  <div className="flex items-center justify-between font-mono text-[10px]">
+                    <span className="text-[#6f8ba6]">0{i + 1}</span>
+                    <Icon size={17} className="text-cyan-300/80" />
+                  </div>
+                  <h3 className="mt-3 text-[16px] tracking-tight">{name}</h3>
+                  <code className="mt-1 block text-[10px] text-cyan-300/70">{stack}</code>
+                  <p className="mt-2.5 text-[12px] leading-relaxed text-[#c7d6de]">{copy}</p>
+                </article>
+              );
+            })}
+          </div>
+          <div className="mt-6 flex items-start gap-4 border border-amber-400/25 bg-amber-400/8 p-5">
+            <span className="mt-0.5 inline-block size-2.5 shrink-0 rounded-full bg-amber-400" />
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-amber-300/80">{t.aiSdlc.s03cInvariant}</span>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-[#dfe9d9]">{t.aiSdlc.s03cInvariantCopy}<code className="font-mono text-[12px] text-cyan-200">{t.aiSdlc.s03cBare}</code>{t.aiSdlc.s03cInvariantTail}</p>
+            </div>
+          </div>
+        </section>
+
         <section id="contract" className="px-4 py-14 md:px-8 md:py-20">
           <div className="mb-10">
-            <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]"><span className="font-mono text-xs">04</span><span>THE CENTRAL CONTRACT</span></div>
+            <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]"><span className="font-mono text-xs">05</span><span>THE CENTRAL CONTRACT</span></div>
             <h2 className="text-balance text-[clamp(1.6rem,5vw,2.8rem)] font-semibold leading-[1.12] tracking-tight text-[#142641]">
               <code className="text-[#1d5f7c]">check-kinds.md</code><br /><i className="text-[#1d5f7c]">nơi engine và luật gặp nhau.</i>
             </h2>
@@ -370,7 +402,7 @@ export default function AiSdlc() {
 
         <section id="rules" className="bg-[#102340] px-4 py-14 text-[#eaf3f4] md:px-8 md:py-20">
           <div className="mb-10">
-            <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/90"><span className="font-mono text-xs">05</span><span>RUNTIME LAW</span></div>
+            <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/90"><span className="font-mono text-xs">06</span><span>RUNTIME LAW</span></div>
             <h2 className="text-balance text-[clamp(1.8rem,5.5vw,3rem)] font-semibold leading-[1.12] tracking-tight">13 rules. <i className="text-cyan-300">Không cần rebuild.</i></h2>
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#c7d6de]">Ba YAML rule packs chuyển policy thành deterministic gate — chạy như nhau ở local workspace, CI và bề mặt review.</p>
           </div>
@@ -438,7 +470,7 @@ export default function AiSdlc() {
 
         <section id="record" className="bg-[#e8eeea] px-4 py-14 md:px-8 md:py-20">
           <div className="mb-10">
-            <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]"><span className="font-mono text-xs">07</span><span>OPEN RECORD</span></div>
+            <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]"><span className="font-mono text-xs">08</span><span>OPEN RECORD</span></div>
             <h2 className="text-balance text-[clamp(1.8rem,5.5vw,3rem)] font-semibold leading-[1.12] tracking-tight text-[#142641]">Mọi claim cần có<br /><i className="text-[#1d5f7c]">đường dẫn đến record.</i></h2>
           </div>
           <div className="grid gap-5 lg:grid-cols-5">
