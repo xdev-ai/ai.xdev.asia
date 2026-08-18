@@ -209,7 +209,7 @@ export default function AiSdlc() {
       </aside>
 
       {/* ============ MAIN CONTENT ============ */}
-      <main className="min-w-0 max-w-4xl px-4 pb-10 pt-0 md:ml-[260px] md:px-8 md:w-full">
+      <main className="min-w-0 max-w-4xl px-4 pb-10 pt-0 md:ml-[260px] md:px-8 md:max-w-[calc(100vw-324px)]">
         <section id="platform" className="relative overflow-hidden bg-[#102340] px-4 py-16 text-[#f8f7f0] md:px-8 md:py-24">
           <div className="pointer-events-none absolute inset-0 opacity-28" style={{ backgroundImage: "linear-gradient(rgba(100,191,214,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(100,191,214,.13) 1px, transparent 1px)", backgroundSize: "44px 44px", maskImage: "linear-gradient(90deg, black, transparent 80%)" }} />
           <div className="relative z-10">
@@ -418,7 +418,7 @@ export default function AiSdlc() {
                 <p className="mt-4 text-[13px] leading-relaxed text-[#c7d6de]">{t.aiSdlc.rulePacks[i]?.copy}</p>
                 <div className="mt-5 space-y-2.5 border-t border-[rgba(129,192,205,.24)] pt-4">
                   {pack.rules.map(([rule, severity, desc]) => (
-                    <div key={rule as string} className="grid grid-cols-[84px_1fr] gap-2 text-[12px]">
+                    <div key={rule as string} className="grid gap-2 text-[12px]" style={{ gridTemplateColumns: "84px minmax(0,1fr)" }}>
                       <span className={`font-mono text-[10px] ${severity === "error" ? "text-[#e08a8a]" : "text-[#e5b272]"}`}>{severity}</span>
                       <div>
                         <span className="font-mono text-[11px] text-[#eaf3f4]">{rule}</span>

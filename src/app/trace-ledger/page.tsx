@@ -148,7 +148,7 @@ export default function TraceLedger() {
       </aside>
 
       {/* ============ MAIN CONTENT ============ */}
-      <main className="min-w-0 max-w-4xl px-4 pb-10 pt-0 md:ml-[260px] md:px-8 md:w-full">
+      <main className="min-w-0 max-w-4xl px-4 pb-10 pt-0 md:ml-[260px] md:px-8 md:max-w-[calc(100vw-324px)]">
         <section id="concept" className="relative overflow-hidden bg-[#122441] px-4 py-16 text-[#f8f7f0] md:px-8 md:py-24">
           <div className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: "linear-gradient(rgba(229,180,76,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(229,180,76,.1) 1px, transparent 1px)", backgroundSize: "44px 44px", maskImage: "linear-gradient(90deg, black, transparent 80%)" }} />
           <div className="relative z-10">
@@ -202,11 +202,11 @@ export default function TraceLedger() {
                 <code>ledger / entries</code><span className="text-[#188da4]">5 ENTRIES</span>
               </div>
               <div className="divide-y divide-[#d8e1e2] overflow-x-auto p-4 font-mono text-[11px] leading-6 text-[#3d5a70]">
-                <div className="mb-1 grid grid-cols-[52px_92px_80px_minmax(0,1fr)] gap-2 pb-2 text-[8px] uppercase tracking-[0.14em] text-[#5e7a8c]">
+                <div className="mb-1 grid grid-cols-[40px_72px_64px_minmax(0,1fr)] md:grid-cols-[52px_92px_80px_minmax(0,1fr)] gap-2 pb-2 text-[8px] uppercase tracking-[0.14em] text-[#5e7a8c]">
                   <span>ID</span><span>TS</span><span>EVENT</span><span>PAYLOAD</span>
                 </div>
                 {ledgerEntries.map(([id, ts, event, payload]) => (
-                  <div key={id} className="grid grid-cols-[52px_92px_80px_minmax(0,1fr)] gap-2 py-2">
+                  <div key={id} className="grid grid-cols-[40px_72px_64px_minmax(0,1fr)] md:grid-cols-[52px_92px_80px_minmax(0,1fr)] gap-2 py-2">
                     <code className="min-w-0 text-[#95661c]">{id}</code><span className="min-w-0 whitespace-nowrap">{ts}</span>
                     <span className="min-w-0 rounded px-1.5 py-0.5 text-center text-[9px] text-[#95661c]" style={{ border: "1px solid rgba(211,159,65,.5)", background: "rgba(229,180,76,.16)" }}>{event}</span>
                     <span className="min-w-0 break-words">{payload}</span>
