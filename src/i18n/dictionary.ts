@@ -13,6 +13,11 @@ export const dictionary = {
       docs: "Docs",
       policies: "Policies",
       maturity: "Maturity Tool",
+      quickstart: "Quickstarts",
+      guide: "Usage Guide",
+      blog: "Blog",
+      releases: "Releases",
+      navCommon: "Portal",
     },
     umbrella: {
       brandSub: "OPEN ENGINEERING ORGANIZATION",
@@ -343,6 +348,11 @@ export const dictionary = {
       docs: "Tài liệu",
       policies: "Chính sách",
       maturity: "Công cụ đánh giá",
+      quickstart: "Quickstart",
+      guide: "Cách dùng",
+      blog: "Blog",
+      releases: "Release",
+      navCommon: "Portal",
     },
     umbrella: {
       brandSub: "TỔ CHỨC ENGINEERING MỞ",

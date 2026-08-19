@@ -9,6 +9,7 @@ import { ArrowUpRight, ArrowRight, FileJson2, Fingerprint, GitBranch, Hash, Menu
 import { useState } from "react";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
+import { CommonHeaderNav, CommonDrawerNav } from "@/components/CommonHeaderNav";
 import { useLang } from "@/i18n/LanguageContext";
 
 const navItems = [
@@ -36,7 +37,7 @@ const model = [
 ];
 
 export default function TraceLedger() {
-  const { t } = useLang();
+  const { t, locale } = useLang();
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("concept");
 
@@ -97,6 +98,10 @@ export default function TraceLedger() {
             </button>
           </div>
         </div>
+        {/* ============ COMMON PORTAL NAV (shared with PortalShell pages) ============ */}
+        <div className="hidden lg:flex">
+          <CommonHeaderNav />
+        </div>
 
         {/* ============ MOBILE DRAWER ============ */}
         {open && (
@@ -110,11 +115,8 @@ export default function TraceLedger() {
               <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-[#8ea3bf]">{t.traceLedger.railScopeLabel}</p>
               <p className="mt-1 text-[13px] leading-relaxed text-[#c7d6de]">{t.traceLedger.railScope}</p>
               {railNav}
-              <div className="mt-2 grid gap-1 border-t border-[rgba(229,180,76,.3)] pt-3">
-                <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#1a2d44]" href="/"><span className="font-mono text-[11px] text-[#6f8ba6]">00</span>{t.product.siblingHome} <ArrowUpRight size={13} /></a>
-                <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#1a2d44]" href="/ai-sdlc"><span className="font-mono text-[11px] text-[#6f8ba6]">01</span>{t.nav.aiSdlc} <ArrowUpRight size={13} /></a>
-                <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#1a2d44]" href="/blog"><span className="font-mono text-[11px] text-[#6f8ba6]">02</span>{t.blog.navBlog} <ArrowUpRight size={13} /></a>
-              </div>
+              <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-[#8ea3bf]">{locale === "en" ? "PORTAL NAVIGATION" : "ĐIỀU HƯỚNG PORTAL"}</p>
+              <CommonDrawerNav />
               <div className="mt-3 flex items-center gap-2 rounded border border-amber-400/30 bg-amber-400/10 px-3 py-3 text-[12px] text-amber-200">
                 <span className="inline-block size-2 shrink-0 rounded-full bg-amber-400" />
                 <span>{t.traceLedger.railDraft} — <strong className="font-mono text-[11px]">AI.XDEV.ASIA / TRACE-LEDGER</strong></span>

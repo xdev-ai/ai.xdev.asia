@@ -6,6 +6,7 @@ import { ArrowUpRight, BookOpen, Box, ChevronRight, Code2, Copy, Database, Exter
 import { useState } from "react";
 import { useLang } from "@/i18n/LanguageContext";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
+import { CommonHeaderNav, CommonDrawerNav } from "@/components/CommonHeaderNav";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import Image from "next/image";
 
@@ -88,8 +89,7 @@ const platformSurfaces = [
 ];
 
 export default function AiSdlc() {
-  const { t } = useLang();
-  const navLabels = [t.aiSdlc.navPlatform, t.aiSdlc.navSpec, t.aiSdlc.navContract, t.aiSdlc.navRules, t.aiSdlc.navEvidence, t.aiSdlc.navRecord];
+  const { t, locale } = useLang();
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState("platform");
@@ -116,14 +116,14 @@ export default function AiSdlc() {
   /* ---- shared rail/drawer content (rendered in both desktop rail and mobile drawer) ---- */
   const railNav = (
     <nav className="grid gap-1 py-2">
-      {navItems.map(([number, , id], index) => (
+      {navItems.map(([number, label, id]) => (
         <button
           key={id}
           className={`flex items-center gap-3 rounded px-3 py-3 text-[15px] text-left transition-colors ${activeSection === id ? "bg-cyan-400/15 text-cyan-100" : "text-[#b9c9d7] hover:bg-[#143553]"}`}
           onClick={() => { setActiveSection(id); goTo(id); }}
         >
           <span className="font-mono text-[11px] text-[#6e89a7]">{number}</span>
-          <span>{navLabels[index]}</span>
+          <span>{label}</span>
           <ChevronRight size={14} className="ml-auto opacity-60" />
         </button>
       ))}
@@ -158,6 +158,10 @@ export default function AiSdlc() {
             </button>
           </div>
         </div>
+        {/* ============ COMMON PORTAL NAV (shared with PortalShell pages) ============ */}
+        <div className="hidden lg:flex">
+          <CommonHeaderNav />
+        </div>
 
         {/* ============ MOBILE DRAWER ============ */}
         {open && (
@@ -171,11 +175,8 @@ export default function AiSdlc() {
               <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-[#8ea3bf]">{t.product.scopeLabel}</p>
               <p className="mt-1 text-[13px] leading-relaxed text-[#c7d6de]">{t.aiSdlc.railScope}</p>
               {railNav}
-              <div className="mt-2 grid gap-1 border-t border-[rgba(129,192,205,.24)] pt-3">
-                <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#143553]" href="/"><span className="font-mono text-[11px] text-[#6f8ba6]">00</span>{t.product.siblingHome} <ArrowUpRight size={13} /></a>
-                <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#143553]" href="/trace-ledger"><span className="font-mono text-[11px] text-[#6f8ba6]">02</span>{t.nav.traceLedger} <ArrowUpRight size={13} /></a>
-                <a className="flex items-center gap-2 rounded px-3 py-3 text-[14px] text-[#b9cad8] hover:bg-[#143553]" href="/blog"><span className="font-mono text-[11px] text-[#6f8ba6]">03</span>{t.blog.navBlog} <ArrowUpRight size={13} /></a>
-              </div>
+              <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-[#8ea3bf]">{locale === "en" ? "PORTAL NAVIGATION" : "ĐIỀU HƯỚNG PORTAL"}</p>
+              <CommonDrawerNav />
               <div className="mt-3 flex items-center gap-2 rounded border border-amber-400/30 bg-amber-400/10 px-3 py-3 text-[12px] text-amber-200">
                 <span className="inline-block size-2 shrink-0 rounded-full bg-amber-400" />
                 <span>{t.product.verified} — <strong className="font-mono text-[11px]">AI.XDEV.ASIA / AI-SDLC</strong></span>
@@ -418,8 +419,8 @@ export default function AiSdlc() {
                 <p className="mt-4 text-[13px] leading-relaxed text-[#c7d6de]">{t.aiSdlc.rulePacks[i]?.copy}</p>
                 <div className="mt-5 space-y-2.5 border-t border-[rgba(129,192,205,.24)] pt-4">
                   {pack.rules.map(([rule, severity, desc]) => (
-                    <div key={rule as string} className="grid gap-2 text-[12px]" style={{ gridTemplateColumns: "84px minmax(0,1fr)" }}>
-                      <span className={`font-mono text-[10px] ${severity === "error" ? "text-[#e08a8a]" : "text-[#e5b272]"}`}>{severity}</span>
+                    <div key={rule as string} className="grid gap-2 text-[12px]" style={{ gridTemplateColumns: "minmax(0,max-content) minmax(0,1fr)" }}>
+                      <span className={`whitespace-nowrap font-mono text-[10px] ${severity === "error" ? "text-[#e08a8a]" : "text-[#e5b272]"}`}>{severity}</span>
                       <div>
                         <span className="font-mono text-[11px] text-[#eaf3f4]">{rule}</span>
                         <em className="mt-0.5 block text-[11px] not-italic text-[#8ea3bf]">{desc}</em>
