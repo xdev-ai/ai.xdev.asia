@@ -192,7 +192,7 @@ export default function Umbrella() {
         </section>
 
         {/* ===== Product catalog ===== */}
-        <section className="border-t border-[#1d3a5c] bg-[#eef4f2] px-4 py-14 text-[#0f243f] md:px-8 md:py-20">
+        <section className="reveal border-t border-[#1d3a5c] bg-[#eef4f2] px-4 py-14 text-[#0f243f] md:px-8 md:py-20" reveal-d120>
           <div className="mx-auto max-w-5xl">
             <div className="mb-10">
               <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]">
@@ -228,7 +228,7 @@ export default function Umbrella() {
         </section>
 
         {/* ===== Shared principles ===== */}
-        <section className="border-t border-[#1d3a5c] px-4 py-14 md:px-8 md:py-20">
+        <section className="reveal border-t border-[#1d3a5c] px-4 py-14 md:px-8 md:py-20" reveal-d120>
           <div className="mx-auto max-w-5xl">
             <div className="mb-10">
               <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/80">
@@ -252,7 +252,7 @@ export default function Umbrella() {
         </section>
 
         {/* ===== Watch (video) ===== */}
-        <section id="watch" className="border-t border-[#1d3a5c] px-4 py-14 md:px-8 md:py-20">
+        <section id="watch" className="reveal border-t border-[#1d3a5c] px-4 py-14 md:px-8 md:py-20" reveal-d120>
           <div className="mx-auto max-w-5xl">
             <div className="mb-10">
               <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/80">
@@ -281,7 +281,7 @@ export default function Umbrella() {
         </section>
 
         {/* ===== Open record ===== */}
-        <section className="border-t border-[#1d3a5c] bg-[#eef4f2] px-4 py-14 text-[#0f243f] md:px-8 md:py-20">
+        <section className="reveal border-t border-[#1d3a5c] bg-[#eef4f2] px-4 py-14 text-[#0f243f] md:px-8 md:py-20" reveal-d120>
           <div className="mx-auto max-w-5xl">
             <div className="mb-10">
               <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]">

@@ -240,7 +240,7 @@ export default function AiSdlc() {
           </div>
         </section>
 
-        <section className="px-4 py-14 md:px-8 md:py-20">
+        <section className="reveal px-4 py-14 md:px-8 md:py-20" reveal-d100>
           <div className="mb-10">
             <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]"><span className="font-mono text-xs">01</span><span>{t.aiSdlc.s01Label}</span></div>
             <h2 className="text-balance text-[clamp(1.8rem,5.5vw,3rem)] font-semibold leading-[1.12] tracking-tight text-[#142641]">
@@ -505,7 +505,7 @@ export default function AiSdlc() {
           </div>
         </section>
 
-        <section className="px-4 py-14 md:px-8 md:py-20">
+        <section className="reveal px-4 py-14 md:px-8 md:py-20" reveal-d100>
           <div className="grid gap-8 border-y border-[#ccd6d6] py-10 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <span className="text-[10px] uppercase tracking-[0.18em] text-[#4b6d7d]">THE GOVERNANCE PRINCIPLE</span>

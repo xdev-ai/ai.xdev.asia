@@ -288,7 +288,7 @@ export default function TraceLedger() {
           </div>
         </section>
 
-        <section className="px-4 py-14 md:px-8 md:py-20">
+        <section className="reveal px-4 py-14 md:px-8 md:py-20" reveal-d100>
           <div className="grid gap-8 border-y border-[#ccd6d6] py-10 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <span className="text-[10px] uppercase tracking-[0.18em] text-[#4b6d7d]">THE UMBRELLA QUESTION</span>

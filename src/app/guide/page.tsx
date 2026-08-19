@@ -275,32 +275,32 @@ function GuideContent({ locale }: { locale: Locale }) {
 
       <div className="route-dossier-band"><span>04</span><i /><strong>{locale === "en" ? "USAGE / LOGIN → EVIDENCE" : "SỬ DỤNG / ĐĂNG NHẬP → EVIDENCE"}</strong><ShieldTraceMark decorative /><code><b className="verify-dot" /> OPERATING MANUAL</code></div>
 
-      <section className="guide-rules" aria-label={t.rules.label}>
+      <section className="reveal guide-rules" reveal-d100 aria-label={t.rules.label}>
         <span className="mono-label">{t.rules.label}</span>
         <div>{t.rules.items.map((item) => <article key={item.no}><span>{item.no}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
       </section>
 
-      <section className="guide-roles" aria-label={t.roles.label}>
+      <section className="reveal guide-roles" reveal-d100 aria-label={t.roles.label}>
         <span className="mono-label">{t.roles.label}</span>
         <div>{t.roles.items.map((item) => <article key={item.role}><code>ROLE / {item.role.toUpperCase()}</code><p>{item.desc}</p><strong>{item.perms}</strong></article>)}</div>
       </section>
 
-      <section className="role-dossier" aria-label={t.config.title}>
+      <section className="reveal role-dossier" reveal-d100 aria-label={t.config.title}>
         <header><code>{t.config.eyebrow}</code><h2>{t.config.title}</h2><p>{t.config.lead}</p><strong><CheckCircle2 size={16} /> {t.config.note}</strong></header>
         <div className="role-steps">{t.config.steps.map((item) => <article key={item.no}><span>{item.no}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></article>)}</div>
       </section>
 
-      <section className="role-dossier" aria-label={t.cli.title}>
+      <section className="reveal role-dossier" reveal-d100 aria-label={t.cli.title}>
         <header><code>{t.cli.eyebrow}</code><h2>{t.cli.title}</h2><p>{t.cli.lead}</p><strong><CheckCircle2 size={16} /> {t.cli.note}</strong></header>
         <div className="role-steps"><article><span>CLI</span><div><h3>{locale === "en" ? "Initialize the project in the Compose network" : "Khởi tạo dự án trong mạng Compose"}</h3><pre><code>{t.cli.command}</code></pre><p>{t.cli.after}</p></div></article></div>
       </section>
 
-      <section className="guide-evidence" aria-label={t.evidence.title}>
+      <section className="reveal guide-evidence" reveal-d100 aria-label={t.evidence.title}>
         <span className="mono-label">{t.evidence.eyebrow}</span><h2>{t.evidence.title}</h2><p className="guide-lead">{t.evidence.lead}</p>
         <div>{t.evidence.items.map((item) => <article key={item.icon}><span aria-hidden="true">{(() => { const Icon = iconOf[item.icon]; return Icon ? <Icon size={18} /> : null; })()}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
       </section>
 
-      <section className="role-dossier" aria-label={t.knowledge.title}>
+      <section className="reveal role-dossier" reveal-d100 aria-label={t.knowledge.title}>
         <header><code>{t.knowledge.eyebrow}</code><h2>{t.knowledge.title}</h2><p>{t.knowledge.lead}</p></header>
         <div className="role-steps">
           <article><span>01</span><div><h3>{locale === "en" ? "Export the workbook offline" : "Xuất workbook offline"}</h3><pre><code>{t.knowledge.exportCmd}</code></pre><p>{t.knowledge.exportNote}</p></div></article>
@@ -309,7 +309,7 @@ function GuideContent({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="role-dossier" aria-label={t.ai.title}>
+      <section className="reveal role-dossier" reveal-d100 aria-label={t.ai.title}>
         <header><code>{t.ai.eyebrow}</code><h2>{t.ai.title}</h2><p>{t.ai.lead}</p></header>
         <div className="role-steps">
           <article><span>01</span><div><h3>{locale === "en" ? "Log the binary into the realm" : "Đăng nhập binary vào realm"}</h3><pre><code>{t.ai.loginCmd}</code></pre></div></article>
@@ -320,12 +320,12 @@ function GuideContent({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="guide-pitfalls" aria-label={t.pitfalls.title}>
+      <section className="reveal guide-pitfalls" reveal-d100 aria-label={t.pitfalls.title}>
         <span className="mono-label">{t.pitfalls.eyebrow}</span><h2>{t.pitfalls.title}</h2><p className="guide-lead">{t.pitfalls.lead}</p>
         <div>{t.pitfalls.rows.map((row) => <article key={row.symptom}><CircleAlert size={16} /><div><h3>{row.symptom}</h3><p>{row.cause}</p></div></article>)}</div>
       </section>
 
-      <section className="role-dossier" aria-label={t.local.title}>
+      <section className="reveal role-dossier" reveal-d100 aria-label={t.local.title}>
         <header><code>{t.local.eyebrow}</code><h2>{t.local.title}</h2><p>{t.local.lead}</p></header>
         <div className="role-steps">
           <article><span>ENV</span><div>{t.local.steps.map((item) => <p key={item.no}><strong>{item.no}</strong> {item.text}</p>)}</div></article>
@@ -333,7 +333,7 @@ function GuideContent({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="control-boundary"><ShieldCheck size={20} /><div><span className="mono-label">{t.close}</span><p>{t.closeText}</p></div></section>
+      <section className="reveal control-boundary" reveal-d100><ShieldCheck size={20} /><div><span className="mono-label">{t.close}</span><p>{t.closeText}</p></div></section>
     </div>
   );
 }

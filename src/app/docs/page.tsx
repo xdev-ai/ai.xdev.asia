@@ -122,7 +122,7 @@ agent:
           <DossierBand index="06" locale={locale} en="RELEASE RECORD / OWNED CHANGE" vi="HỒ SƠ RELEASE / THAY ĐỔI CÓ OWNER" />
           <section id="operations" className="docs-section">{sectionMarker("operations", "06", t.operations.label)}<h2>{t.operations.title}</h2><p className="docs-lead">{t.operations.text}</p><div className="ops-ledger">{t.operations.rows.map(([label, text]) => <div key={label}><Settings2 size={15} /><code>{label}</code><span>{text}</span></div>)}</div><a href="/releases" className="underlined-button">{locale === "en" ? "Inspect change record and compatibility" : "Kiểm tra change record và compatibility"} <ArrowUpRight size={15} /></a></section>
           <section id="reference" className="docs-section">{sectionMarker("reference", "07", t.reference.label)}<h2>{t.reference.title}</h2><div className="reference-grid">{t.reference.cards.map(([title, text], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><BookOpen size={17} /><h3>{title}</h3><p>{text}</p></article>)}</div></section>
-          <section className="docs-record"><div><span className="mono-label">{t.record}</span><p>{t.recordText}</p></div><a href="https://github.com/xdev-ai/ai-sdlc-policies" target="_blank" rel="noreferrer" className="underlined-button">{t.repo} <ArrowUpRight size={15} /></a></section>
+          <section className="reveal docs-record" reveal-d100><div><span className="mono-label">{t.record}</span><p>{t.recordText}</p></div><a href="https://github.com/xdev-ai/ai-sdlc-policies" target="_blank" rel="noreferrer" className="underlined-button">{t.repo} <ArrowUpRight size={15} /></a></section>
         </div>
       </div>
     </div>
