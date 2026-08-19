@@ -20,8 +20,10 @@ let moved = 0;
 for (const html of walk(OUT)) {
   const dir = path.dirname(html);
   const base = path.basename(html, ".html");
-  // Skip __next.* data files
+  // Skip __next.* data files and the root index.html:
+  // GitHub Pages requires index.html at the artifact root for the "/" route.
   if (base.startsWith("__next")) continue;
+  if (dir === OUT && base === "index") continue;
   const targetDir = path.join(dir, base);
   fs.mkdirSync(targetDir, { recursive: true });
   fs.renameSync(html, path.join(targetDir, "index.html"));
