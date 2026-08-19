@@ -7,6 +7,7 @@
 import { ArrowRight, Menu, RotateCcw, Share2, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
+import { CommonHeaderNav, CommonDrawerNav } from "@/components/CommonHeaderNav";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { useLang } from "@/i18n/LanguageContext";
 import Link from "next/link";;
@@ -149,9 +150,9 @@ export default function MaturityTool() {
             </span>
           </Link>
           <div className="flex items-center gap-3">
-            <Link className="hidden text-sm underline-offset-4 hover:underline sm:inline" href="/blog">
-              {m.learnMore}
-            </Link>
+            <div className="hidden items-center lg:flex">
+              <CommonHeaderNav dark={false} />
+            </div>
             <button
               type="button"
               className="grid size-9 place-items-center rounded border border-[#0a6e7f]/30 text-[#0a6e7f] sm:hidden"
@@ -165,8 +166,8 @@ export default function MaturityTool() {
           </div>
         </div>
         {menuOpen && (
-          <nav className="border-t border-[#b5c6c9] bg-[#eef4f2] px-4 py-3 sm:hidden" aria-label="Mobile navigation">
-            <div className="grid gap-1">
+          <nav className="max-h-[calc(100vh-3.5rem)] overflow-y-auto border-t border-[#b5c6c9] bg-[#eef4f2] px-4 pb-4 pt-3 sm:hidden" aria-label="Mobile navigation">
+            <div className="grid gap-1 border-b border-[#b5c6c9] pb-2">
               {[
                 ["/", locale === "vi" ? "Trang chủ" : "Home"],
                 ["/ai-sdlc", "AI-SDLC"],
@@ -179,6 +180,8 @@ export default function MaturityTool() {
                 </Link>
               ))}
             </div>
+            <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-[#5b7386]">{locale === "vi" ? "ĐIỀU HƯỚNG PORTAL" : "PORTAL NAVIGATION"}</p>
+            <CommonDrawerNav />
           </nav>
         )}
       </header>

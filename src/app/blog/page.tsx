@@ -4,6 +4,7 @@
 import { ArrowRight, FileText, Menu, X } from "lucide-react";
 import Link from "next/link";;
 import { LanguageSwitch } from "@/components/LanguageSwitch";
+import { CommonHeaderNav, CommonDrawerNav } from "@/components/CommonHeaderNav";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { useLang } from "@/i18n/LanguageContext";
@@ -42,18 +43,9 @@ export default function Blog() {
             </span>
           </Link>
           <div className="flex items-center gap-2">
-            <Link
-              href="/ai-sdlc"
-              className="hidden items-center gap-1.5 rounded border border-cyan-400/30 px-3 py-1.5 text-[13px] text-cyan-100 hover:bg-[#143553] md:inline-flex"
-            >
-              {t.nav.aiSdlc}
-            </Link>
-            <Link
-              href="/"
-              className="hidden items-center gap-1.5 rounded border border-cyan-400/30 px-3 py-1.5 text-[13px] text-cyan-100 hover:bg-[#143553] md:inline-flex"
-            >
-              {t.nav.home}
-            </Link>
+            <div className="hidden items-center lg:flex">
+              <CommonHeaderNav />
+            </div>
             <button
               type="button"
               className="grid size-9 place-items-center rounded border border-cyan-400/30 text-cyan-100 md:hidden"
@@ -67,12 +59,12 @@ export default function Blog() {
           </div>
         </div>
         {menuOpen && (
-          <nav className="border-t border-cyan-400/20 bg-[#0d1e36] px-4 py-3 md:hidden" aria-label="Mobile navigation">
-            <div className="grid gap-1">
+          <nav className="max-h-[calc(100vh-3.5rem)] overflow-y-auto border-t border-cyan-400/20 bg-[#0d1e36] px-4 pb-4 pt-3 md:hidden" aria-label="Mobile navigation">
+            <div className="grid gap-1 border-b border-white/10 pb-2">
               {[
                 ["/", locale === "vi" ? "Trang chủ" : "Home"],
-                ["/ai-sdlc", locale === "vi" ? "AI-SDLC" : "AI-SDLC"],
-                ["/trace-ledger", locale === "vi" ? "Trace Ledger" : "Trace Ledger"],
+                ["/ai-sdlc", "AI-SDLC"],
+                ["/trace-ledger", "Trace Ledger"],
                 ["/tools/maturity-assessment", locale === "vi" ? "Đánh giá Maturity" : "Maturity Assessment"],
                 ["/blog", locale === "vi" ? "Blog" : "Blog"],
               ].map(([href, label]) => (
@@ -81,6 +73,8 @@ export default function Blog() {
                 </Link>
               ))}
             </div>
+            <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-[#8ea3bf]">{locale === "vi" ? "ĐIỀU HƯỚNG PORTAL" : "PORTAL NAVIGATION"}</p>
+            <CommonDrawerNav />
           </nav>
         )}
       </header>
