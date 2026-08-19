@@ -93,14 +93,14 @@ export default function Blog() {
 
       {/* ============ POST LIST ============ */}
       <main className="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-16">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#5a8090]">{t.blog.postsLabel}</p>
+        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#4d6d7b]">{t.blog.postsLabel}</p>
         <div className="mt-8 grid gap-6">
-          {visible.map((post) => (
+          {visible.map((post, idx) => (
             <article
               key={post.slug}
               className="group flex flex-col border border-[#b5c6c9] bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-[8px_8px_0_rgba(29,84,114,.11)] md:p-8"
             >
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[10px] uppercase tracking-[0.16em] text-[#6f8ba6]">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[10px] uppercase tracking-[0.16em] text-[#5f778e]">
                 <span>{formatDate(post.dateISO, locale)}</span>
                 <span>·</span>
                 <span>
@@ -112,6 +112,8 @@ export default function Blog() {
               <ResponsiveImage
                 src={post.cover}
                 alt={locale === "vi" ? post.coverAlt.vi : post.coverAlt.en}
+                eager={idx === 0}
+                sizes="(max-width: 768px) 100vw, 720px"
                 className="mt-4 w-full rounded border border-[#b5c6c9] object-cover shadow-[5px_5px_0_rgba(29,84,114,.08)]"
               />
               <h2 className="mt-5 text-[clamp(1.3rem,3.2vw,1.6rem)] font-semibold leading-[1.2] tracking-tight text-[#142641]">
@@ -125,11 +127,12 @@ export default function Blog() {
                 className="mt-5 inline-flex w-fit items-center gap-2 text-sm font-medium text-[#0a6e7f] hover:underline"
               >
                 {t.blog.readMore} <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+                <span className="sr-only">{locale === "vi" ? post.vi.title : post.en.title}</span>
               </Link>
             </article>
           ))}
           {visible.length === 0 && (
-            <p className="border border-dashed border-[#8ca5b2] p-10 text-center text-[14px] text-[#597286]">{t.blog.empty}</p>
+            <p className="border border-dashed border-[#5d7a87] p-10 text-center text-[14px] text-[#4d6372]">{t.blog.empty}</p>
           )}
         </div>
 
@@ -138,7 +141,7 @@ export default function Blog() {
           <FileText size={22} className="mt-0.5 shrink-0 text-[#8a6417]" />
           <div>
             <h2 className="text-[15px] font-semibold tracking-tight text-[#142641]">{t.blog.openRecord}</h2>
-            <p className="mt-1.5 text-[13px] leading-relaxed text-[#5a7180]">{t.blog.openRecordCopy}</p>
+            <p className="mt-1.5 text-[13px] leading-relaxed text-[#4e6474]">{t.blog.openRecordCopy}</p>
           </div>
         </div>
       </main>

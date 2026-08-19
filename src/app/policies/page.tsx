@@ -4,6 +4,7 @@
 import { ArrowUpRight, CalendarClock, ChevronRight, CircleCheck, ExternalLink, Filter, ShieldCheck, UserRound } from "lucide-react";
 import { useMemo, useState } from "react";
 import { PortalShell, type Locale } from "@/components/PortalShell";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { policyPacks, type Scope } from "@/data/policyPacks";
 
 const copy = {
@@ -22,6 +23,7 @@ function RegistryContent({ locale }: { locale: Locale }) {
   const governance = [[t.owner, selected.owner[locale as "en" | "vi"], <UserRound size={15} key="owner" />], [t.cadence, selected.cadence[locale as "en" | "vi"], <CalendarClock size={15} key="cadence" />], [t.evidence, selected.evidence[locale as "en" | "vi"], <ShieldCheck size={15} key="evidence" />], [t.exceptions, selected.exceptions[locale as "en" | "vi"], <CircleCheck size={15} key="exceptions" />]] as const;
 
   return <div className="registry-page">
+        <Breadcrumb page="policies" />
     <section className="registry-hero"><div className="registry-grid" aria-hidden="true" /><div><div className="eyebrow"><span className="pulse-line" /> {t.eyebrow}</div><h1>{t.title}</h1><p>{t.lead}</p></div><div className="registry-status"><span className="verify-dot" /><span>{t.status}</span><strong>{policyPacks.length} PACKS / v1.0.0</strong></div></section>
     <section className="registry-workbench"><div className="registry-toolbar"><div><span className="mono-label"><Filter size={13} /> {locale === "en" ? "FILTER BY SCOPE" : "LỌC THEO SCOPE"}</span><div className="filter-tabs">{(["all", "command", "spec", "graph"] as const).map((value) => <button key={value} className={scope === value ? "is-active" : ""} onClick={() => { setScope(value); if (value !== "all" && selected.scope !== value) setSelectedId(policyPacks.find((pack) => pack.scope === value)?.id ?? selectedId); }}>{t.filters[value]}</button>)}</div></div><a href="/docs" className="text-button">{t.docs} <ArrowUpRight size={15} /></a></div>
       <div className="registry-layout"><div className="registry-list">{filtered.map((pack, index) => <button key={pack.id} className={selected.id === pack.id ? "is-selected" : ""} onClick={() => setSelectedId(pack.id)}><span>0{index + 1}</span><div><code>{pack.id}</code><strong>{pack.title[locale as "en" | "vi"]}</strong><em>{pack.file}</em></div><ChevronRight size={17} /></button>)}</div>

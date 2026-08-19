@@ -48,7 +48,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-[#eef4f2] px-4 text-center">
         <h1 className="text-2xl font-semibold tracking-tight text-[#142641]">Post not found</h1>
-        <p className="mt-2 text-[14px] text-[#597286]">The requested article does not exist or has been removed.</p>
+        <p className="mt-2 text-[14px] text-[#52697c]">The requested article does not exist or has been removed.</p>
         <Link href="/blog" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[#0a6e7f] hover:underline">
           <ArrowLeft size={15} /> {t.blog.backToBlog}
         </Link>
@@ -193,7 +193,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
           <h1 className="mt-4 text-balance text-[clamp(1.7rem,5vw,2.6rem)] font-semibold leading-[1.15] tracking-tight text-[#142641]">
             {meta.title}
           </h1>
-          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.16em] text-[#5a8090]">
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.16em] text-[#4d6d7b]">
             <span className="inline-flex items-center gap-1.5"><Calendar size={13} /> {formatDate(post.dateISO, locale)}</span>
             <span className="inline-flex items-center gap-1.5">
               <Clock size={13} /> {meta.readingMinutes} {t.blog.minutes}
@@ -202,7 +202,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
               <Tag size={13} /> {post.tags.join(" / ")}
             </span>
           </div>
-          <p className="mt-5 text-[15px] leading-relaxed text-[#4a6470]">{meta.summary}</p>
+          <p className="mt-5 text-[15px] leading-relaxed text-[#52697c]">{meta.summary}</p>
           <ResponsiveImage
             src={post.cover}
             alt={locale === "vi" ? post.coverAlt.vi : post.coverAlt.en}
@@ -244,7 +244,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
 
         {faqs.length > 0 && (
           <section className="mb-10">
-            <h2 className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#5a8090]">{t.blog.faqLabel}</h2>
+            <h2 className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#4d6d7b]">{t.blog.faqLabel}</h2>
             <div className="mt-4 space-y-4">
               {faqs.map((f) => (
                 <details key={typeof f.q === "string" ? f.q.slice(0, 60) : f.q.en.slice(0, 60)} className="group border border-[#b5c6c9] bg-white p-5 open:shadow-[6px_6px_0_rgba(29,84,114,.08)]">
@@ -264,7 +264,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
         <nav className="grid gap-4 sm:grid-cols-2">
           {prev ? (
             <Link href={`/blog/${prev.slug}`} className="group border border-[#b5c6c9] bg-white p-5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_rgba(29,84,114,.1)]">
-              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#6f8ba6]">← {t.blog.published}</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#4d6d7b]">← {t.blog.published}</span>
               <span className="mt-1.5 block text-[14px] font-medium leading-snug text-[#142641] group-hover:underline">
                 {locale === "vi" ? prev.vi.title : prev.en.title}
               </span>
@@ -274,7 +274,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
           )}
           {next ? (
             <Link href={`/blog/${next.slug}`} className="group border border-[#b5c6c9] bg-white p-5 text-right hover:-translate-y-0.5 hover:shadow-[6px_6px_0_rgba(29,84,114,.1)]">
-              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#6f8ba6]">→ </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#4d6d7b]">→ </span>
               <span className="mt-1.5 block text-[14px] font-medium leading-snug text-[#142641] group-hover:underline">
                 {locale === "vi" ? next.vi.title : next.en.title}
               </span>
@@ -289,7 +289,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
 
       {/* ============ FOOTER ============ */}
       <footer className="border-t border-[#c9d8d2] bg-[#e6efec]">
-        <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-3 px-4 py-8 text-center text-[12px] text-[#4a6470] md:flex-row md:text-left">
+        <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-3 px-4 py-8 text-center text-[12px] text-[#52697c] md:flex-row md:text-left">
           <span className="font-mono tracking-[0.18em]">AI.XDEV.ASIA / ENGINEERING NOTES</span>
           <span>OPEN ENGINEERING ORGANIZATION — 2026</span>
         </div>

@@ -36,7 +36,6 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary", title: "xDev AI — Governed AI Delivery" },
   robots: { index: true, follow: true },
-  alternates: { canonical: "https://ai.xdev.asia" },
 };
 
 const orgJsonLd = [

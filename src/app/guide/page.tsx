@@ -4,6 +4,7 @@ import { ArrowRight, Bot, CheckCircle2, CircleAlert, Database, KeyRound, Layers,
 import { useState } from "react";
 import { PortalShell, type Locale } from "@/components/PortalShell";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 type Dict = {
   eyebrow: string; title: string; lead: string;
@@ -269,6 +270,7 @@ function GuideContent({ locale }: { locale: Locale }) {
   const t = copy[locale as "en" | "vi"];
   return (
     <div className="handbook-page">
+            <Breadcrumb page="guide" />
       <section className="handbook-hero"><span className="handbook-grid" aria-hidden="true" /><div><div className="eyebrow"><i className="pulse-line" /> {t.eyebrow}</div><h1>{t.title}</h1><p>{t.lead}</p></div><aside className="quickstart-proof"><ShieldTraceMark decorative /><code>{locale === "en" ? "PLATFORM OPERATING MANUAL" : "CẨM NANG VẬN HÀNH"}</code><p>{locale === "en" ? "Every step below checked against the real repository code." : "Mọi bước dưới đây đối chiếu với code repository thật."}</p><div aria-label={locale === "en" ? "Login to evidence chain" : "Từ đăng nhập đến chuỗi evidence"}><span>LOGIN</span><i /><span>SCOPE</span><i /><span>VALIDATE</span><i /><span>RECORD</span></div><Settings2 size={19} /></aside></section>
 
       <div className="route-dossier-band"><span>04</span><i /><strong>{locale === "en" ? "USAGE / LOGIN → EVIDENCE" : "SỬ DỤNG / ĐĂNG NHẬP → EVIDENCE"}</strong><ShieldTraceMark decorative /><code><b className="verify-dot" /> OPERATING MANUAL</code></div>

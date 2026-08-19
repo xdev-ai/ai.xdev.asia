@@ -66,7 +66,7 @@ export function CommonDrawerNav() {
             href={item.href}
             aria-current={active ? "page" : undefined}
           >
-            <span className="font-mono text-[10px] text-[#6f8ba6]">{String(i + 1).padStart(2, "0")}</span>
+            <span className="font-mono text-[10px] text-[#83a4c4]">{String(i + 1).padStart(2, "0")}</span>
             {locale === "en" ? item.en : item.vi}
             <ArrowUpRight size={12} className="ml-auto opacity-60" />
           </a>
@@ -78,7 +78,7 @@ export function CommonDrawerNav() {
         target="_blank"
         rel="noreferrer"
       >
-        <span className="font-mono text-[10px] text-[#6f8ba6]">GH</span>
+        <span className="font-mono text-[10px] text-[#83a4c4]">GH</span>
         GitHub
         <ArrowUpRight size={12} className="ml-auto opacity-60" />
       </a>

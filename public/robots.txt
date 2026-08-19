@@ -1,3 +1,5 @@
+Sitemap: https://ai.xdev.asia/sitemap.xml
+
 # As a condition of accessing this website, you agree to abide by the following
 # content signals:
 
@@ -59,8 +61,4 @@ Disallow: /
 
 # END Cloudflare Managed Content
 
-# Standard rules for all remaining crawlers
-User-agent: *
-Allow: /
-
-Sitemap: https://ai.xdev.asia/sitemap.xml
+# NOTE: Cloudflare may append managed content-signal rules above.

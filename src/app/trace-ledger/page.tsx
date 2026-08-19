@@ -10,6 +10,7 @@ import { useState } from "react";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { CommonHeaderNav, CommonDrawerNav } from "@/components/CommonHeaderNav";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useLang } from "@/i18n/LanguageContext";
 
 const navItems = [
@@ -151,6 +152,7 @@ export default function TraceLedger() {
 
       {/* ============ MAIN CONTENT ============ */}
       <main className="min-w-0 max-w-4xl px-4 pb-10 pt-0 md:ml-[260px] md:px-8 md:max-w-[calc(100vw-324px)]">
+                <Breadcrumb page="trace-ledger" />
         <section id="concept" className="relative overflow-hidden bg-[#122441] px-4 py-16 text-[#f8f7f0] md:px-8 md:py-24">
           <div className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: "linear-gradient(rgba(229,180,76,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(229,180,76,.1) 1px, transparent 1px)", backgroundSize: "44px 44px", maskImage: "linear-gradient(90deg, black, transparent 80%)" }} />
           <div className="relative z-10">
