@@ -80,7 +80,7 @@ export default function Blog() {
       </header>
 
       {/* ============ HERO ============ */}
-      <section className="bg-[#102440] text-[#eaf3f4]">
+      <section className="navy-bg text-[#eaf3f4]">
         <div className="mx-auto max-w-3xl px-4 py-14 text-center md:px-6 md:py-20">
           <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-cyan-300/80">{t.blog.heroEyebrow}</p>
           <h1 className="mt-5 text-balance text-[clamp(2rem,6vw,3.2rem)] font-semibold leading-[1.12] tracking-tight">

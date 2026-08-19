@@ -25,7 +25,7 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; overflow-x: clip; } body { overflow-x: clip; }
 html { font-size: 16px; text-size-adjust: 100%; }
-body { margin: 0; min-width: 320px; color: #152540; font-size: 1rem; line-height: 1.6; background-color: #f7f4eb; background-image: linear-gradient(rgba(23,60,87,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(23,60,87,.045) 1px, transparent 1px); background-size: 42px 42px; font-family: "Space Grotesk", "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, "Noto Sans Vietnamese", sans-serif; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { margin: 0; min-width: 320px; color: #152540; font-size: 1rem; line-height: 1.6; background-color: #f7f4eb; background-image: radial-gradient(rgba(23, 60, 87, .06) 1px, transparent 1.4px), linear-gradient(rgba(23, 60, 87, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(23, 60, 87, .035) 1px, transparent 1px); background-size: 21px 21px, 42px 42px, 42px 42px; font-family: "Space Grotesk", "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, "Noto Sans Vietnamese", sans-serif; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, a:focus-visible { outline: 2px solid #29d3e8; outline-offset: 3px; }
 
@@ -355,4 +355,56 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding: 19px
 @media (max-width: 860px) {
   .pipeline3d { height: 280px !important; }
   .lang-switch { display: block; width: 100%; margin-top: .5rem; text-align: center; }
+}
+
+/* ===== Ambient backgrounds (professional depth) ===== */
+/* Home hero: navy with cyan dot field + glow */
+.home-bg {
+  background:
+    radial-gradient(ellipse 58% 44% at 86% 18%, rgba(56, 188, 205, .13), transparent 62%),
+    radial-gradient(ellipse 42% 38% at 8% 88%, rgba(56, 188, 205, .06), transparent 60%),
+    radial-gradient(circle at 50% -10%, rgba(107, 218, 224, .10), transparent 52%),
+    #0b1e34;
+  background-attachment: local;
+  position: relative;
+}
+.home-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(107, 218, 224, .11) 1.2px, transparent 1.4px),
+    radial-gradient(rgba(107, 218, 224, .055) 1px, transparent 1.2px);
+  background-size: 26px 26px, 13px 13px;
+  background-position: 0 0, 7px 7px;
+  -webkit-mask-image: radial-gradient(ellipse 72% 66% at 55% 38%, black 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 72% 66% at 55% 38%, black 30%, transparent 78%);
+}
+.home-bg > * { position: relative; }
+
+/* Navy section bg used by product sheets */
+.navy-bg {
+  background:
+    radial-gradient(ellipse 52% 46% at 92% 14%, rgba(56, 188, 205, .10), transparent 60%),
+    radial-gradient(ellipse 38% 34% at 4% 92%, rgba(56, 188, 205, .05), transparent 58%),
+    #102440;
+  position: relative;
+}
+.navy-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(107, 218, 224, .09) 1.1px, transparent 1.3px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 60% 42%, black 25%, transparent 80%);
+  mask-image: radial-gradient(ellipse 80% 70% at 60% 42%, black 25%, transparent 80%);
+}
+.navy-bg > * { position: relative; }
+
+/* Cream body: subtle dot field over the faint grid */
+/* cream body bg merged into line-28 body rule */
+
+@media (prefers-reduced-motion: reduce), (max-width: 760px) {
+  .home-bg::before, .navy-bg::before { opacity: .5; }
 }

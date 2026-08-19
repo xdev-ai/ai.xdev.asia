@@ -153,7 +153,7 @@ export default function Umbrella() {
 
       <main>
         {/* ===== Hero ===== */}
-        <section className="relative overflow-hidden px-4 py-14 md:px-8 md:py-24">
+        <section className="home-bg relative overflow-hidden px-4 py-14 md:px-8 md:py-24">
           <div className="mx-auto max-w-4xl">
             <div className="mb-6 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/80">
               <span className="inline-block size-2 rounded-full bg-cyan-400/70" />

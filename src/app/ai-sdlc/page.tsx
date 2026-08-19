@@ -213,7 +213,7 @@ export default function AiSdlc() {
       {/* ============ MAIN CONTENT ============ */}
       <main className="min-w-0 max-w-4xl px-4 pb-10 pt-0 md:ml-[260px] md:px-8 md:max-w-[calc(100vw-324px)]">
                 <Breadcrumb page="ai-sdlc" />
-        <section id="platform" className="relative overflow-hidden bg-[#102340] px-4 py-16 text-[#f8f7f0] md:px-8 md:py-24">
+        <section id="platform" className="navy-bg relative overflow-hidden px-4 py-16 text-[#f8f7f0] md:px-8 md:py-24">
           <div className="pointer-events-none absolute inset-0 opacity-28" style={{ backgroundImage: "linear-gradient(rgba(100,191,214,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(100,191,214,.13) 1px, transparent 1px)", backgroundSize: "44px 44px", maskImage: "linear-gradient(90deg, black, transparent 80%)" }} />
           <div className="relative z-10">
             <div className="mb-6 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/90">
