@@ -24,7 +24,9 @@ function formatDate(iso: string, locale: "en" | "vi"): string {
 export default function Blog() {
   const { t, locale } = useLang();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const visible = posts.filter((p) => !p.draft);
+  const shown = showAll ? visible : visible.slice(0, 8);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -95,7 +97,7 @@ export default function Blog() {
       <main className="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-16">
         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#507180]">{t.blog.postsLabel}</p>
         <div className="mt-8 grid gap-6">
-          {visible.map((post, idx) => (
+          {shown.map((post, idx) => (
             <article
               key={post.slug}
               className="group flex flex-col border border-[#b5c6c9] bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-[8px_8px_0_rgba(29,84,114,.11)] md:p-8"
@@ -133,6 +135,17 @@ export default function Blog() {
           ))}
           {visible.length === 0 && (
             <p className="border border-dashed border-[#5d7a87] p-10 text-center text-[14px] text-[#4d6372]">{t.blog.empty}</p>
+          )}
+          {!showAll && visible.length > 8 && (
+            <div className="mt-8 flex justify-center">
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded border border-cyan-400/40 bg-cyan-400/10 px-6 py-3 text-sm font-medium text-[#0a6e7f] hover:bg-cyan-400/20"
+                onClick={() => setShowAll(true)}
+              >
+                {locale === "vi" ? `Xem tất cả ${visible.length} bài viết` : `View all ${visible.length} posts`} <ArrowRight size={15} />
+              </button>
+            </div>
           )}
         </div>
 
