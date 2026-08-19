@@ -449,12 +449,13 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding: 19px
   overflow-y: auto;
   overflow-x: hidden;
   scroll-snap-type: y proximity;
+  scroll-padding-top: 0;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
 }
 .snap-section {
   scroll-snap-align: start;
-  scroll-snap-stop: normal;
+  scroll-snap-stop: always;
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
@@ -493,6 +494,15 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding: 19px
   pointer-events: none; white-space: nowrap;
 }
 .snap-dots button:hover .dot-num { opacity: 1; transform: translateY(-50%) translateX(0); }
+/* Desktop (có chuột): snap CHẶT — mỗi nhịp cuộn dừng đúng tại section */
+@media (min-width: 1024px) and (hover: hover) {
+  .snap-wrap { scroll-snap-type: y mandatory; }
+  .snap-section { scroll-snap-stop: always; }
+  /* Section nào dài hơn viewport vẫn cuộn được nội bộ */
+  .snap-section:has(> *:first-child:last-child) { overflow-y: auto; }
+}
+/* Snap padding: tránh header đè lên nội dung section khi nhảy bằng dot-nav */
+.snap-section { scroll-margin-top: 64px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .snap-wrap { scroll-snap-type: none; }
