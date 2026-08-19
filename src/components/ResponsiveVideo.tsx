@@ -78,7 +78,7 @@ export function ResponsiveVideo({
             poster={poster}
             controls
             playsInline
-            preload="metadata"
+            preload="none"
             aria-label={title}
           />
         )}
