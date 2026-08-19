@@ -270,7 +270,7 @@ export default function AiSdlc() {
           <div className="mt-12 grid gap-4 sm:grid-cols-2">
             {["sf0", "sf1", "sf2", "sf3"].map((key, index) => { const sf = t.aiSdlc[key as keyof typeof t.aiSdlc] as unknown as string[]; return { number: String(index).padStart(2, "0"), label: sf[0], title: sf[1], copy: sf[2], idx: index }; }).map(({ label, title, copy, idx }) => (
               <article key={label} className="flex gap-5 border border-[#b5c6c9] bg-white p-6 transition-transform hover:-translate-y-1">
-                <span className="font-mono text-[28px] text-[#0a6e7f]/35">0{idx + 1}</span>
+                <span className="font-mono text-[28px] text-[#3a7d86]">0{idx + 1}</span>
                 <div>
                   <span className="text-[10px] uppercase tracking-[0.18em] text-[#4b6d7d]">{label}</span>
                   <h3 className="mt-2 text-[17px] tracking-tight text-[#142641]">{title}</h3>
@@ -358,7 +358,7 @@ export default function AiSdlc() {
               return (
                 <article key={name} className="border border-[rgba(129,192,205,.24)] bg-[#143553] p-5">
                   <div className="flex items-center justify-between font-mono text-[10px]">
-                    <span className="text-[#97b5c4]">0{i + 1}</span>
+                    <span className="text-[#a2c0d4]">0{i + 1}</span>
                     <Icon size={17} className="text-cyan-300/80" />
                   </div>
                   <h3 className="mt-3 text-[16px] tracking-tight">{name}</h3>
@@ -413,7 +413,7 @@ export default function AiSdlc() {
             {policyPacks.map((pack, i) => (
               <article key={pack.id} className={`border p-6 ${pack.tint === "cyan" ? "border-cyan-400/30 bg-cyan-400/5" : pack.tint === "blue" ? "border-[#5b8ec7]/40 bg-[#5b8ec7]/5" : "border-amber-400/30 bg-amber-400/5"}`}>
                 <div className="flex items-center justify-between font-mono text-[11px]">
-                  <span className="text-[#97b5c4]">0{i + 1}</span>
+                  <span className="text-[#a2c0d4]">0{i + 1}</span>
                   <span className="text-cyan-300/70">v1.0.0</span>
                 </div>
                 <h3 className="mt-3 text-xl tracking-tight">{pack.id}</h3>
@@ -487,17 +487,17 @@ export default function AiSdlc() {
             </article>
             <div className="flex flex-col gap-3 lg:col-span-2">
               <a className="flex items-center gap-3 border border-[#b5c6c9] bg-white p-4 hover:border-[#0a6e7f]" href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">
-                <span className="font-mono text-[10px] text-[#97b5c4]">01</span>
+                <span className="font-mono text-[10px] text-[#5c7a89]">01</span>
                 <div className="flex-1"><strong className="block text-[14px] text-[#142641]">xDev AI</strong><em className="block text-[12px] not-italic text-[#47697a]">Open engineering organization</em></div>
                 <ExternalLink size={16} className="text-[#0a6e7f]" />
               </a>
               <button className="flex items-center gap-3 border border-[#b5c6c9] bg-white p-4 text-left hover:border-[#0a6e7f]" onClick={() => copyText("https://ai.xdev.asia/ai-sdlc", "product")}>
-                <span className="font-mono text-[10px] text-[#97b5c4]">02</span>
+                <span className="font-mono text-[10px] text-[#5c7a89]">02</span>
                 <div className="flex-1"><strong className="block text-[14px] text-[#142641]">{copied === "product" ? t.aiSdlc.copiedUrl : "ai.xdev.asia/ai-sdlc"}</strong><em className="block text-[12px] not-italic text-[#47697a]">Product path on the umbrella</em></div>
                 <Copy size={16} className="text-[#0a6e7f]" />
               </button>
               <button className="flex items-center gap-3 border border-[#b5c6c9] bg-white p-4 text-left hover:border-[#0a6e7f]" onClick={() => goTo("tree")}>
-                <span className="font-mono text-[10px] text-[#97b5c4]">03</span>
+                <span className="font-mono text-[10px] text-[#5c7a89]">03</span>
                 <div className="flex-1"><strong className="block text-[14px] text-[#142641]">Spec Kit baseline</strong><em className="block text-[12px] not-italic text-[#47697a]">Components, contract, and rule packs</em></div>
                 <ChevronRight size={16} className="text-[#0a6e7f]" />
               </button>
