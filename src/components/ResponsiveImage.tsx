@@ -16,11 +16,13 @@ export function ResponsiveImage({
   eager?: boolean;
 }) {
   const webpSrc = src.replace(/\.jpg$/i, ".webp");
+  const srcSet = `${webpSrc.replace(/\.webp$/, "@380w.webp")} 380w, ${webpSrc.replace(/\.webp$/, "@760w.webp")} 760w, ${webpSrc} 1200w`;
   return (
     <picture>
-      <source srcSet={webpSrc} type="image/webp" />
+      <source srcSet={srcSet} type="image/webp" />
       <img
         src={src}
+        srcSet={srcSet}
         alt={alt}
         loading={eager ? "eager" : loading}
         decoding="async"
