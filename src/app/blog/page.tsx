@@ -93,7 +93,7 @@ export default function Blog() {
 
       {/* ============ POST LIST ============ */}
       <main className="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-16">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#6791a4]">{t.blog.postsLabel}</p>
+        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#507180]">{t.blog.postsLabel}</p>
         <div className="mt-8 grid gap-6">
           {visible.map((post, idx) => (
             <article
@@ -119,7 +119,7 @@ export default function Blog() {
               <h2 className="mt-5 text-[clamp(1.3rem,3.2vw,1.6rem)] font-semibold leading-[1.2] tracking-tight text-[#142641]">
                 {locale === "vi" ? post.vi.title : post.en.title}
               </h2>
-              <p className="mt-3 flex-1 text-[14px] leading-relaxed text-[#688d9e]">
+              <p className="mt-3 flex-1 text-[14px] leading-relaxed text-[#597988]">
                 {locale === "vi" ? post.vi.summary : post.en.summary}
               </p>
               <Link
@@ -148,13 +148,13 @@ export default function Blog() {
 
       {/* ============ FOOTER ============ */}
       <footer className="border-t border-[#c9d8d2] bg-[#e6efec]">
-        <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-3 px-4 py-8 text-center text-[12px] text-[#688d9e] md:flex-row md:text-left">
+        <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-3 px-4 py-8 text-center text-[12px] text-[#597988] md:flex-row md:text-left">
           <span className="font-mono tracking-[0.18em]">AI.XDEV.ASIA / ENGINEERING NOTES</span>
           <div className="flex items-center gap-4">
             <a
               href="/blog/feed.xml"
               type="application/rss+xml"
-              className="inline-flex items-center gap-1.5 font-mono tracking-[0.12em] text-[#688d9e] hover:text-[#152540]"
+              className="inline-flex items-center gap-1.5 font-mono tracking-[0.12em] text-[#597988] hover:text-[#152540]"
             >
               <FileText size={12} /> RSS
             </a>

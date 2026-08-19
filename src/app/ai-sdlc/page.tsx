@@ -290,13 +290,13 @@ export default function AiSdlc() {
             </div>
             <div className="grid grid-cols-3 gap-2">
               <div className="flex flex-col items-center gap-2 border border-[#b5c6c9] bg-white p-4 text-center">
-                <Code2 size={18} className="text-[#0a6e7f]" /><span className="text-[13px] font-medium text-[#142641]">CLI / validator</span><em className="text-[11px] not-italic text-[#688d9e]">parse · graph · validate</em>
+                <Code2 size={18} className="text-[#0a6e7f]" /><span className="text-[13px] font-medium text-[#142641]">CLI / validator</span><em className="text-[11px] not-italic text-[#597988]">parse · graph · validate</em>
               </div>
               <div className="flex flex-col items-center gap-2 border border-[#0a6e7f] bg-[#0a6e7f]/10 p-4 text-center">
-                <ShieldCheck size={18} className="text-[#0a6e7f]" /><span className="text-[13px] font-medium text-[#142641]">Spec Kit</span><em className="text-[11px] not-italic text-[#688d9e]">rules · standards · policies</em>
+                <ShieldCheck size={18} className="text-[#0a6e7f]" /><span className="text-[13px] font-medium text-[#142641]">Spec Kit</span><em className="text-[11px] not-italic text-[#597988]">rules · standards · policies</em>
               </div>
               <div className="flex flex-col items-center gap-2 border border-[#b5c6c9] bg-white p-4 text-center">
-                <Network size={18} className="text-[#0a6e7f]" /><span className="text-[13px] font-medium text-[#142641]">Control plane</span><em className="text-[11px] not-italic text-[#688d9e]">evidence · registry · audit</em>
+                <Network size={18} className="text-[#0a6e7f]" /><span className="text-[13px] font-medium text-[#142641]">Control plane</span><em className="text-[11px] not-italic text-[#597988]">evidence · registry · audit</em>
               </div>
             </div>
           </div>
@@ -397,7 +397,7 @@ export default function AiSdlc() {
                 <span className="font-mono text-[10px] text-[#617581]">{n}</span>
                 <code className="truncate text-[#102340]">{kind}</code>
                 <span className="hidden rounded px-2 py-0.5 text-[10px] text-[#0a6e7f] md:inline-block" style={{ border: "1px solid rgba(10,110,127,.3)", background: "rgba(10,110,127,.08)" }}>{cat}</span>
-                <span className="col-span-2 text-[#688d9e] md:col-span-1">{behavior || t.aiSdlc.checks.find((c) => c.id === kind)?.desc}</span>
+                <span className="col-span-2 text-[#597988] md:col-span-1">{behavior || t.aiSdlc.checks.find((c) => c.id === kind)?.desc}</span>
               </div>
             ))}
           </div>
@@ -488,17 +488,17 @@ export default function AiSdlc() {
             <div className="flex flex-col gap-3 lg:col-span-2">
               <a className="flex items-center gap-3 border border-[#b5c6c9] bg-white p-4 hover:border-[#0a6e7f]" href="https://github.com/xdev-ai" target="_blank" rel="noreferrer">
                 <span className="font-mono text-[10px] text-[#84a5c5]">01</span>
-                <div className="flex-1"><strong className="block text-[14px] text-[#142641]">xDev AI</strong><em className="block text-[12px] not-italic text-[#688d9e]">Open engineering organization</em></div>
+                <div className="flex-1"><strong className="block text-[14px] text-[#142641]">xDev AI</strong><em className="block text-[12px] not-italic text-[#597988]">Open engineering organization</em></div>
                 <ExternalLink size={16} className="text-[#0a6e7f]" />
               </a>
               <button className="flex items-center gap-3 border border-[#b5c6c9] bg-white p-4 text-left hover:border-[#0a6e7f]" onClick={() => copyText("https://ai.xdev.asia/ai-sdlc", "product")}>
                 <span className="font-mono text-[10px] text-[#84a5c5]">02</span>
-                <div className="flex-1"><strong className="block text-[14px] text-[#142641]">{copied === "product" ? t.aiSdlc.copiedUrl : "ai.xdev.asia/ai-sdlc"}</strong><em className="block text-[12px] not-italic text-[#688d9e]">Product path on the umbrella</em></div>
+                <div className="flex-1"><strong className="block text-[14px] text-[#142641]">{copied === "product" ? t.aiSdlc.copiedUrl : "ai.xdev.asia/ai-sdlc"}</strong><em className="block text-[12px] not-italic text-[#597988]">Product path on the umbrella</em></div>
                 <Copy size={16} className="text-[#0a6e7f]" />
               </button>
               <button className="flex items-center gap-3 border border-[#b5c6c9] bg-white p-4 text-left hover:border-[#0a6e7f]" onClick={() => goTo("tree")}>
                 <span className="font-mono text-[10px] text-[#84a5c5]">03</span>
-                <div className="flex-1"><strong className="block text-[14px] text-[#142641]">Spec Kit baseline</strong><em className="block text-[12px] not-italic text-[#688d9e]">Components, contract, and rule packs</em></div>
+                <div className="flex-1"><strong className="block text-[14px] text-[#142641]">Spec Kit baseline</strong><em className="block text-[12px] not-italic text-[#597988]">Components, contract, and rule packs</em></div>
                 <ChevronRight size={16} className="text-[#0a6e7f]" />
               </button>
             </div>
@@ -520,7 +520,7 @@ export default function AiSdlc() {
           </div>
         </section>
 
-        <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#ccd6d6] px-4 py-6 text-[10px] uppercase tracking-[0.18em] text-[#688d9e] md:px-8">
+        <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#ccd6d6] px-4 py-6 text-[10px] uppercase tracking-[0.18em] text-[#597988] md:px-8">
           <span className="flex items-center gap-2"><ShieldTraceMark decorative className="size-4" /> AI-SDLC / XDEV AI</span>
           <span>GOVERNED DELIVERY PLATFORM — 2026</span>
           <span><code className="font-mono">AI.XDEV.ASIA / AI-SDLC</code></span>

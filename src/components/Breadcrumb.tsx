@@ -30,7 +30,7 @@ export function Breadcrumb({ page }: { page: "ai-sdlc" | "trace-ledger" | "docs"
         }[page];
   return (
     <nav aria-label="Breadcrumb" className="mx-auto max-w-4xl px-4 pt-5 md:px-6 lg:max-w-none">
-      <ol className="flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7098b2]">
+      <ol className="flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[#537184]">
         <li>
           <Link href="/" className="inline-flex items-center gap-1 transition-colors hover:text-[#6bdae0]">
             <Home size={11} />
@@ -40,7 +40,7 @@ export function Breadcrumb({ page }: { page: "ai-sdlc" | "trace-ledger" | "docs"
         <li className="flex items-center gap-1" aria-hidden="true">
           <ChevronRight size={10} className="opacity-60" />
         </li>
-        <li className="text-[#f2b35f]">{label}</li>
+        <li className="text-[#8d6837]">{label}</li>
       </ol>
     </nav>
   );
