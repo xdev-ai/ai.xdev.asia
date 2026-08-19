@@ -148,13 +148,13 @@ export default function Blog() {
 
       {/* ============ FOOTER ============ */}
       <footer className="border-t border-[#c9d8d2] bg-[#e6efec]">
-        <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-3 px-4 py-8 text-center text-[12px] text-[#597988] md:flex-row md:text-left">
+        <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-3 px-4 py-8 text-center text-[12px] text-[#97b5c4] md:flex-row md:text-left">
           <span className="font-mono tracking-[0.18em]">AI.XDEV.ASIA / ENGINEERING NOTES</span>
           <div className="flex items-center gap-4">
             <a
               href="/blog/feed.xml"
               type="application/rss+xml"
-              className="inline-flex items-center gap-1.5 font-mono tracking-[0.12em] text-[#597988] hover:text-[#152540]"
+              className="inline-flex items-center gap-1.5 font-mono tracking-[0.12em] text-[#97b5c4] hover:text-[#152540]"
             >
               <FileText size={12} /> RSS
             </a>
