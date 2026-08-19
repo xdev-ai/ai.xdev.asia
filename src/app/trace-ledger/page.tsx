@@ -66,7 +66,7 @@ export default function TraceLedger() {
           className={`flex items-center gap-3 rounded px-3 py-3 text-[15px] text-left transition-colors ${activeSection === id ? "bg-amber-400/15 text-amber-100" : "text-[#b9c9d7] hover:bg-[#1a2d44]"}`}
           onClick={() => { setActiveSection(id); goTo(id); }}
         >
-          <span className="font-mono text-[11px] text-[#6f8ba6]">{number}</span>
+          <span className="font-mono text-[11px] text-[#84a5c5]">{number}</span>
           <span>{navLabels[index]}</span>
           <ArrowRight size={14} className="ml-auto opacity-60" />
         </button>
@@ -110,8 +110,8 @@ export default function TraceLedger() {
             <div className="px-4 pb-4">
               <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-[#8ea3bf]">AI.XDEV.ASIA / TRACE-LEDGER</p>
               <div className="mt-3 grid grid-cols-2 gap-2 border-y border-[rgba(229,180,76,.3)] py-3 font-mono text-[11px]">
-                <span className="text-[#6f8ba6]">PATH</span><code className="text-right text-amber-200">/TRACE-LEDGER</code>
-                <span className="text-[#6f8ba6]">STATUS</span><strong className="text-right">CONCEPT / v0.1</strong>
+                <span className="text-[#84a5c5]">PATH</span><code className="text-right text-amber-200">/TRACE-LEDGER</code>
+                <span className="text-[#84a5c5]">STATUS</span><strong className="text-right">CONCEPT / v0.1</strong>
               </div>
               <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-[#8ea3bf]">{t.traceLedger.railScopeLabel}</p>
               <p className="mt-1 text-[13px] leading-relaxed text-[#c7d6de]">{t.traceLedger.railScope}</p>
@@ -131,8 +131,8 @@ export default function TraceLedger() {
       <aside className="fixed inset-y-14 left-0 z-30 hidden w-[260px] flex-col overflow-y-auto border-r border-[rgba(229,180,76,.3)] bg-[#122441] px-5 pb-8 pt-6 text-[#eaf3f4] md:flex" aria-label="Trace Ledger điều hướng">
         <div className="flex items-center gap-2 text-[9px] text-[#8ea3bf]"><span className="inline-block w-[26px] bg-amber-400/70" style={{ height: 1 }} /> AI.XDEV.ASIA / TRACE-LEDGER</div>
         <div className="mt-5 grid grid-cols-2 gap-2 border-y border-[rgba(229,180,76,.3)] py-3 font-mono text-[11px]">
-          <span className="text-[#6f8ba6]">PATH</span><code className="text-right text-amber-200">/TRACE-LEDGER</code>
-          <span className="text-[#6f8ba6]">STATUS</span><strong className="text-right">CONCEPT / v0.1</strong>
+          <span className="text-[#84a5c5]">PATH</span><code className="text-right text-amber-200">/TRACE-LEDGER</code>
+          <span className="text-[#84a5c5]">STATUS</span><strong className="text-right">CONCEPT / v0.1</strong>
         </div>
         <div className="mt-5">
           <span className="text-[10px] uppercase tracking-[0.18em] text-[#8ea3bf]">{t.traceLedger.railScopeLabel}</span>
@@ -140,9 +140,9 @@ export default function TraceLedger() {
         </div>
         {railNav}
         <div className="mt-6 grid gap-1 border-t border-[rgba(229,180,76,.3)] pt-4">
-          <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/"><span className="font-mono text-[8px] text-[#6f8ba6]">00</span>{t.product.siblingHome} <ArrowUpRight size={13} /></a>
-          <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/ai-sdlc"><span className="font-mono text-[8px] text-[#6f8ba6]">01</span>{t.nav.aiSdlc} <ArrowUpRight size={13} /></a>
-          <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/blog"><span className="font-mono text-[8px] text-[#6f8ba6]">02</span>{t.blog.navBlog} <ArrowUpRight size={13} /></a>
+          <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/"><span className="font-mono text-[8px] text-[#84a5c5]">00</span>{t.product.siblingHome} <ArrowUpRight size={13} /></a>
+          <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/ai-sdlc"><span className="font-mono text-[8px] text-[#84a5c5]">01</span>{t.nav.aiSdlc} <ArrowUpRight size={13} /></a>
+          <a className="flex items-center gap-2 px-2 py-2 text-[11px] text-[#b9cad8] hover:text-[#f4f5ee]" href="/blog"><span className="font-mono text-[8px] text-[#84a5c5]">02</span>{t.blog.navBlog} <ArrowUpRight size={13} /></a>
         </div>
         <div className="mt-auto flex items-center gap-2 pt-6 text-[12px] text-[#8ea3bf]">
           <span className="inline-block size-2 shrink-0 rounded-full bg-amber-400" />
@@ -187,9 +187,9 @@ export default function TraceLedger() {
           <div className="grid grid-cols-1 gap-3 border-y border-[#9fb6bd] py-2 sm:grid-cols-2 lg:grid-cols-5">
             {model.map(([step, desc], i) => (
               <div key={step} className="border-b border-[#b5c6c9] px-2 py-4 transition-transform hover:-translate-y-1 hover:bg-[#f6f6ee] sm:border-b-0 sm:border-r sm:px-3">
-                <span className="text-[10px] uppercase tracking-[0.18em] text-[#5a8090]">STEP / {String(i + 1).padStart(2, "0")}</span>
+                <span className="text-[10px] uppercase tracking-[0.18em] text-[#4b6d7d]">STEP / {String(i + 1).padStart(2, "0")}</span>
                 <strong className="mt-2 block text-[15px] tracking-tight text-[#173b59]">{step}</strong>
-                <p className="mt-1.5 text-[11.5px] leading-relaxed text-[#597286]">{desc}</p>
+                <p className="mt-1.5 text-[11.5px] leading-relaxed text-[#536b7e]">{desc}</p>
               </div>
             ))}
           </div>
@@ -203,16 +203,16 @@ export default function TraceLedger() {
             <div className="overflow-hidden border border-[#8ca5b2] bg-[#f7f5ed] shadow-[8px_8px_0_rgba(29,84,114,.11)] lg:col-span-3">
               <div className="flex items-center justify-between border-b border-[#8ca5b2] bg-[#e8eeea] px-4 py-2.5 font-mono text-[11px]">
                 <span className="flex gap-1.5"><i className="inline-block size-2.5 rounded-full bg-[#d75b5b]" /><i className="inline-block size-2.5 rounded-full bg-[#e5a73d]" /><i className="inline-block size-2.5 rounded-full bg-[#57b376]" /></span>
-                <code>ledger / entries</code><span className="text-[#188da4]">5 ENTRIES</span>
+                <code>ledger / entries</code><span className="text-[#136f81]">5 ENTRIES</span>
               </div>
               <div className="divide-y divide-[#d8e1e2] overflow-x-auto p-4 font-mono text-[11px] leading-6 text-[#3d5a70]">
-                <div className="mb-1 grid grid-cols-[40px_72px_64px_minmax(0,1fr)] md:grid-cols-[52px_92px_80px_minmax(0,1fr)] gap-2 pb-2 text-[8px] uppercase tracking-[0.14em] text-[#5e7a8c]">
+                <div className="mb-1 grid grid-cols-[40px_72px_64px_minmax(0,1fr)] md:grid-cols-[52px_92px_80px_minmax(0,1fr)] gap-2 pb-2 text-[8px] uppercase tracking-[0.14em] text-[#587384]">
                   <span>ID</span><span>TS</span><span>EVENT</span><span>PAYLOAD</span>
                 </div>
                 {ledgerEntries.map(([id, ts, event, payload]) => (
                   <div key={id} className="grid grid-cols-[40px_72px_64px_minmax(0,1fr)] md:grid-cols-[52px_92px_80px_minmax(0,1fr)] gap-2 py-2">
-                    <code className="min-w-0 text-[#95661c]">{id}</code><span className="min-w-0 whitespace-nowrap">{ts}</span>
-                    <span className="min-w-0 rounded px-1.5 py-0.5 text-center text-[9px] text-[#95661c]" style={{ border: "1px solid rgba(211,159,65,.5)", background: "rgba(229,180,76,.16)" }}>{event}</span>
+                    <code className="min-w-0 text-[#8c601a]">{id}</code><span className="min-w-0 whitespace-nowrap">{ts}</span>
+                    <span className="min-w-0 rounded px-1.5 py-0.5 text-center text-[9px] text-[#8c601a]" style={{ border: "1px solid rgba(211,159,65,.5)", background: "rgba(229,180,76,.16)" }}>{event}</span>
                     <span className="min-w-0 break-words">{payload}</span>
                   </div>
                 ))}
@@ -227,7 +227,7 @@ export default function TraceLedger() {
                 <article key={title as string} className="relative border-b border-[#a4bac3] pb-4 pl-8">
                   <span className="absolute left-0 top-1 font-mono text-[12px] text-[#b57416]">{idx}</span>
                   <h3 className="text-[15px] text-[#142641]">{title}</h3>
-                  <p className="mt-1 text-[13px] leading-relaxed text-[#61778b]">{copy}</p>
+                  <p className="mt-1 text-[13px] leading-relaxed text-[#56697b]">{copy}</p>
                 </article>
               ))}
             </div>
@@ -241,7 +241,7 @@ export default function TraceLedger() {
           </div>
           <div className="grid gap-5 md:grid-cols-2">
             <div className="border border-[#c5cfcf] bg-[#faf8ef] p-6">
-              <span className="text-[10px] uppercase tracking-[0.18em] text-[#607d91]">MEMORY</span>
+              <span className="text-[10px] uppercase tracking-[0.18em] text-[#5a7588]">MEMORY</span>
               <ul className="mt-4 grid gap-2.5 text-[13px] leading-relaxed text-[#5b7082]">
                 <li className="pl-4 [--marker:#9aacb6] relative before:absolute before:left-0 before:top-[10px] before:h-px before:w-[7px] before:bg-[var(--marker)] before:content-['']">Context trôi, session mất</li>
                 <li className="pl-4 [--marker:#9aacb6] relative before:absolute before:left-0 before:top-[10px] before:h-px before:w-[7px] before:bg-[var(--marker)] before:content-['']">Chat có thể bị sửa hoặc xóa</li>
@@ -250,7 +250,7 @@ export default function TraceLedger() {
               </ul>
             </div>
             <div className="border border-amber-400/55 bg-[#f3e7d3] p-6 shadow-[inset_0_3px_0_#e5a73d]">
-              <span className="text-[10px] uppercase tracking-[0.18em] text-[#95661c]">LEDGER</span>
+              <span className="text-[10px] uppercase tracking-[0.18em] text-[#8c601a]">LEDGER</span>
               <ul className="mt-4 grid gap-2.5 text-[13px] leading-relaxed text-[#4a4028]">
                 <li className="pl-4 [--marker:#b57416] relative before:absolute before:left-0 before:top-[9px] before:h-[3px] before:w-[7px] before:bg-[var(--marker)] before:content-['']">Entry hash, chuỗi nguyên vẹn</li>
                 <li className="pl-4 [--marker:#b57416] relative before:absolute before:left-0 before:top-[9px] before:h-[3px] before:w-[7px] before:bg-[var(--marker)] before:content-['']">Append-only, void minh bạch</li>
@@ -291,7 +291,7 @@ export default function TraceLedger() {
         <section className="px-4 py-14 md:px-8 md:py-20">
           <div className="grid gap-8 border-y border-[#ccd6d6] py-10 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.18em] text-[#5a8090]">THE UMBRELLA QUESTION</span>
+              <span className="text-[10px] uppercase tracking-[0.18em] text-[#4b6d7d]">THE UMBRELLA QUESTION</span>
               <h2 className="mt-3 text-balance text-[clamp(1.6rem,4.5vw,2.6rem)] font-semibold leading-[1.15] tracking-tight text-[#142641]">Sản phẩm mới —<br /><i className="text-[#1d5f7c]">cùng luật chơi.</i></h2>
             </div>
             <div className="max-w-md">
@@ -303,7 +303,7 @@ export default function TraceLedger() {
           </div>
         </section>
 
-        <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#ccd6d6] px-4 py-6 text-[10px] uppercase tracking-[0.18em] text-[#4a6470] md:px-8">
+        <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#ccd6d6] px-4 py-6 text-[10px] uppercase tracking-[0.18em] text-[#688d9e] md:px-8">
           <span className="flex items-center gap-2"><ShieldTraceMark decorative className="size-4" /> TRACE LEDGER / XDEV AI</span>
           <span>CONCEPT PAGE — 2026</span>
           <span><code className="font-mono">AI.XDEV.ASIA / TRACE-LEDGER</code></span>

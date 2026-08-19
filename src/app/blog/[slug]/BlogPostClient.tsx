@@ -193,7 +193,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
           <h1 className="mt-4 text-balance text-[clamp(1.7rem,5vw,2.6rem)] font-semibold leading-[1.15] tracking-tight text-[#142641]">
             {meta.title}
           </h1>
-          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.16em] text-[#4d6d7b]">
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.16em] text-[#6791a4]">
             <span className="inline-flex items-center gap-1.5"><Calendar size={13} /> {formatDate(post.dateISO, locale)}</span>
             <span className="inline-flex items-center gap-1.5">
               <Clock size={13} /> {meta.readingMinutes} {t.blog.minutes}
@@ -244,7 +244,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
 
         {faqs.length > 0 && (
           <section className="mb-10">
-            <h2 className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#4d6d7b]">{t.blog.faqLabel}</h2>
+            <h2 className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#6791a4]">{t.blog.faqLabel}</h2>
             <div className="mt-4 space-y-4">
               {faqs.map((f) => (
                 <details key={typeof f.q === "string" ? f.q.slice(0, 60) : f.q.en.slice(0, 60)} className="group border border-[#b5c6c9] bg-white p-5 open:shadow-[6px_6px_0_rgba(29,84,114,.08)]">
@@ -264,7 +264,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
         <nav className="grid gap-4 sm:grid-cols-2">
           {prev ? (
             <Link href={`/blog/${prev.slug}`} className="group border border-[#b5c6c9] bg-white p-5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_rgba(29,84,114,.1)]">
-              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#4d6d7b]">← {t.blog.published}</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#6791a4]">← {t.blog.published}</span>
               <span className="mt-1.5 block text-[14px] font-medium leading-snug text-[#142641] group-hover:underline">
                 {locale === "vi" ? prev.vi.title : prev.en.title}
               </span>
@@ -274,7 +274,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
           )}
           {next ? (
             <Link href={`/blog/${next.slug}`} className="group border border-[#b5c6c9] bg-white p-5 text-right hover:-translate-y-0.5 hover:shadow-[6px_6px_0_rgba(29,84,114,.1)]">
-              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#4d6d7b]">→ </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#6791a4]">→ </span>
               <span className="mt-1.5 block text-[14px] font-medium leading-snug text-[#142641] group-hover:underline">
                 {locale === "vi" ? next.vi.title : next.en.title}
               </span>
