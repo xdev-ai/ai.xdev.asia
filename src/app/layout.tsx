@@ -6,6 +6,7 @@ import { LanguageProvider } from "@/i18n/LanguageContext";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { PlausibleInject } from "@/components/PlausibleInject";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { MobileSnapRefiner } from "@/components/MobileSnapRefiner";
 import "@/styles/index.css";
 
 export const metadata: Metadata = {
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <LanguageProvider>
               <PlausibleInject />
               <RevealOnScroll />
+              <MobileSnapRefiner />
               <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
