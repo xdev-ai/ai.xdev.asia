@@ -438,3 +438,62 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding: 19px
 .reveal-d100 { --reveal-delay: 100ms; }
 .reveal-d120 { --reveal-delay: 120ms; }
 .reveal-d200 { --reveal-delay: 200ms; }
+
+/* ============================================================
+   Fullpage snap — trang chủ (hero / catalog / principles / watch / record)
+   Scroll-snap CSS thuần; mỗi cuộn "dính" vào section.
+   ============================================================ */
+.snap-wrap {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y proximity;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* Dot navigation bên phải desktop */
+.snap-dots {
+  position: fixed;
+  right: clamp(10px, 1.6vw, 26px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 45;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+@media (min-width: 1024px) { .snap-dots { display: flex; } }
+.snap-dots button {
+  position: relative;
+  width: 11px; height: 11px; border-radius: 9999px;
+  border: 1.5px solid rgba(107, 218, 224, 0.55);
+  background: transparent;
+  transition: background 0.22s ease, transform 0.22s ease;
+}
+.snap-dots button[aria-current="true"] { background: #6bdae0; transform: scale(1.25); }
+.snap-dots button:hover { background: rgba(107, 218, 224, 0.35); }
+.snap-dots .dot-num {
+  position: absolute; right: 22px; top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px; letter-spacing: 0.12em;
+  color: rgba(107, 218, 224, 0.85);
+  opacity: 0; transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none; white-space: nowrap;
+}
+.snap-dots button:hover .dot-num { opacity: 1; transform: translateY(-50%) translateX(0); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .snap-wrap { scroll-snap-type: none; }
+}

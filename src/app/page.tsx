@@ -4,7 +4,7 @@
    Layout: Tailwind CSS, mobile-first. Desktop (md+) shows the fixed side rail; mobile shows a hamburger drawer. */
 import { ArrowUpRight, ArrowRight, ExternalLink, FileCode2, Menu, ShieldCheck, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ShieldTraceMark } from "@/components/ShieldTraceMark";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { VideoBlock } from "@/components/ResponsiveVideo";
@@ -75,14 +75,45 @@ const record = [
   { label: "duy@xdev.asia", title: { en: "Public contact", vi: "Liên hệ công khai" }, copy: { en: "Public contact of the organization", vi: "Liên hệ công khai của tổ chức" } },
 ];
 
+const SECTION_IDS = ["snap-hero", "snap-catalog", "snap-principles", "snap-watch", "snap-record"] as const;
+
 export default function Umbrella() {
   const [open, setOpen] = useState(false);
   const { t, locale } = useLang();
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const [active, setActive] = useState(0);
+
+  // Dot navigation: theo dõi section đang ở viewport qua IntersectionObserver
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let bestIdx = 0;
+        entries.forEach((e) => {
+          const i = SECTION_IDS.indexOf(e.target.id as (typeof SECTION_IDS)[number]);
+          if (e.isIntersecting && e.intersectionRatio > 0.35 && i > bestIdx) bestIdx = i;
+        });
+        setActive(bestIdx);
+      },
+      { root: wrap, threshold: 0.4 },
+    );
+    SECTION_IDS.forEach((id) => {
+      const el = wrap.querySelector(`#${id}`);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const jumpTo = (i: number) => {
+    const el = wrapRef.current?.querySelector(`#${SECTION_IDS[i]}`);
+    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <div className="min-h-screen bg-[#0f243f] text-[#eaf3f4]">
-      {/* ===== Top bar: visible on ALL breakpoints, sticky, no side rail on mobile ===== */}
-      <header className="sticky top-0 z-40 border-b border-[#1d3a5c] bg-[#0f243f]/95 backdrop-blur">
+      {/* ===== Top bar: absolute overlay trên snap-wrap ===== */}
+      <header className="absolute inset-x-0 top-0 z-40 border-b border-[#1d3a5c] bg-[#0f243f]/95 backdrop-blur">
         <div className="mx-auto flex h-14 items-center justify-between gap-3 px-4 md:h-16 md:px-8">
           <a className="flex items-center gap-2.5" href="/">
             <ShieldTraceMark className="size-8 text-cyan-300" decorative />
@@ -151,9 +182,25 @@ export default function Umbrella() {
         )}
       </header>
 
-      <main>
+      {/* ===== Dot navigation (desktop) ===== */}
+      <nav className="snap-dots" aria-label={locale === "vi" ? "Các phần trang" : "Page sections"}>
+        {SECTION_IDS.map((id, i) => (
+          <button
+            key={id}
+            type="button"
+            aria-label={`${id.replace("snap-", "")} (${i + 1}/5)`}
+            aria-current={active === i ? "true" : "false"}
+            onClick={() => jumpTo(i)}
+          >
+            <span className="dot-num">{String(i + 1).padStart(2, "0")}</span>
+          </button>
+        ))}
+      </nav>
+
+      <div ref={wrapRef} className="snap-wrap">
+      <main className="flex-1">
         {/* ===== Hero ===== */}
-        <section className="home-bg relative overflow-hidden px-4 py-14 md:px-8 md:py-24">
+        <section id="snap-hero" className="snap-section home-bg relative overflow-hidden px-4 py-14 md:px-8 md:py-24">
           <div className="mx-auto max-w-4xl">
             <div className="mb-6 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/80">
               <span className="inline-block size-2 rounded-full bg-cyan-400/70" />
@@ -192,7 +239,7 @@ export default function Umbrella() {
         </section>
 
         {/* ===== Product catalog ===== */}
-        <section className="reveal border-t border-[#1d3a5c] bg-[#eef4f2] px-4 py-14 text-[#0f243f] md:px-8 md:py-20" reveal-d120>
+        <section id="snap-catalog" className="snap-section reveal border-t border-[#1d3a5c] bg-[#eef4f2] px-4 py-14 text-[#0f243f] md:px-8 md:py-20" reveal-d120>
           <div className="mx-auto max-w-5xl">
             <div className="mb-10">
               <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]">
@@ -228,7 +275,7 @@ export default function Umbrella() {
         </section>
 
         {/* ===== Shared principles ===== */}
-        <section className="reveal border-t border-[#1d3a5c] px-4 py-14 md:px-8 md:py-20" reveal-d120>
+        <section id="snap-principles" className="snap-section reveal border-t border-[#1d3a5c] px-4 py-14 md:px-8 md:py-20" reveal-d120>
           <div className="mx-auto max-w-5xl">
             <div className="mb-10">
               <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/80">
@@ -252,7 +299,7 @@ export default function Umbrella() {
         </section>
 
         {/* ===== Watch (video) ===== */}
-        <section id="watch" className="reveal border-t border-[#1d3a5c] px-4 py-14 md:px-8 md:py-20" reveal-d120>
+        <section id="snap-watch" className="snap-section reveal border-t border-[#1d3a5c] px-4 py-14 md:px-8 md:py-20" reveal-d120>
           <div className="mx-auto max-w-5xl">
             <div className="mb-10">
               <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-cyan-300/80">
@@ -281,7 +328,7 @@ export default function Umbrella() {
         </section>
 
         {/* ===== Open record ===== */}
-        <section className="reveal border-t border-[#1d3a5c] bg-[#eef4f2] px-4 py-14 text-[#0f243f] md:px-8 md:py-20" reveal-d120>
+        <section id="snap-record" className="snap-section reveal border-t border-[#1d3a5c] bg-[#eef4f2] px-4 py-14 text-[#0f243f] md:px-8 md:py-20" reveal-d120>
           <div className="mx-auto max-w-5xl">
             <div className="mb-10">
               <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#0a6e7f]">
@@ -308,14 +355,15 @@ export default function Umbrella() {
         </section>
       </main>
 
-      {/* ===== Footer ===== */}
-      <footer className="border-t border-[#1d3a5c] px-4 py-6 md:px-8">
+      {/* ===== Footer (nằm trong snap-wrap để cuộn qua hết trang) ===== */}
+      <footer className="border-t border-[#1d3a5c] bg-[#0f243f] px-4 py-6 md:px-8">
         <div className="mx-auto flex flex-wrap items-center justify-between gap-3 text-[11px] uppercase tracking-[0.18em] text-cyan-300/60">
           <span className="flex items-center gap-2"><ShieldTraceMark decorative size={16} /> xDev AI / UMBRELLA</span>
           <span>{t.umbrella.footerOrg}</span>
           <span><code className="font-mono">AI.XDEV.ASIA</code> / PRODUCT ROUTING</span>
         </div>
       </footer>
+      </div>
     </div>
   );
 }
